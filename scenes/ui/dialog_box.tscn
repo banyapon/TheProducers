@@ -57,12 +57,11 @@ theme_override_colors/font_color = Color(1, 0.866667, 0.529412, 1)
 theme_override_font_sizes/font_size = 44
 text = ""
 
-[node name="Line" type="RichTextLabel" parent="BottomDialog/Row/Center"]
+[node name="Line" type="Label" parent="BottomDialog/Row/Center"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
-fit_content = true
-scroll_active = false
-theme_override_font_sizes/normal_font_size = 44
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 44
 
 [node name="Choices" type="GridContainer" parent="BottomDialog/Row/Center"]
 layout_mode = 2

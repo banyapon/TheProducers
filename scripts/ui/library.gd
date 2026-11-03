@@ -112,6 +112,7 @@ func _song_card(song: Dictionary) -> Control:
 		credit.clip_text = true
 		text_box.add_child(credit)
 	text_box.add_child(UIKit.label(str(song["rating"]) + "/40" + StudioStage.card_mark(song)))
+	if CreativeJourney.available(song): text_box.add_child(UIKit.label(Locale.text("rights_badge"),24))
 	_ignore_mouse(row)
 	return card
 
@@ -154,6 +155,13 @@ func _show_song(song: Dictionary) -> void:
 	panel.add_child(body)
 	body.add_child(UIKit.button(Locale.text("close"), _close_detail))
 	body.add_child(_song_row(song))
+	var story = UIKit.button(Locale.text("rights_title"), func():
+		var page = SongStoryPanel.new()
+		page.song = song
+		add_child(page)
+		page.closed.connect(page.queue_free)
+		page.open())
+	body.add_child(story)
 	var download_button = UIKit.button(Locale.text("library_download"), _choose_download.bind(song))
 	download_button.disabled = not FileAccess.file_exists(str(song.get("local_audio", ""))) and str(song.get("audio_url", "")).is_empty()
 	body.add_child(download_button)

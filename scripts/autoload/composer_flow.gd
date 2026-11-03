@@ -2,7 +2,7 @@ class_name ComposerFlow
 extends RefCounted
 
 static func snapshot(m: Dictionary) -> Dictionary:
-	return {"deck":m["deck"].duplicate(true), "placed":m["placed"].duplicate(true), "bpm":m["bpm"]}
+	return {"deck":m["deck"].duplicate(true), "placed":m["placed"].duplicate(true), "bpm":m["bpm"], "signature":m.get("signature", {}).duplicate(true)}
 
 static func prepare(m: Dictionary, job: Dictionary) -> void:
 	if m.has("listening_reference"): return
@@ -31,7 +31,7 @@ static func preview_state(m: Dictionary, before: bool, solo: int, muted: Array) 
 	return result
 
 static func tempo_name(bpm: int) -> String:
-	return Locale.text("flow_slow" if bpm <= 105 else ("flow_mid" if bpm <= 135 else "flow_fast"))
+	return Locale.english("flow_slow" if bpm <= 105 else ("flow_mid" if bpm <= 135 else "flow_fast"))
 
 static func arrangement_mix(job: Dictionary) -> Dictionary:
 	var m: Dictionary = job.get("arrangement", {})

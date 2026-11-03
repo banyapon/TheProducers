@@ -64,6 +64,12 @@ var _assistant_rendered: Dictionary = {}
 func _assistant_key(value: String) -> String:
 	return Game.producer_name + "\n" + value
 
+func english(key: String, args: Array = []) -> String:
+	var value = str(_catalogues.get("en", {}).get(key, key))
+	if is_instance_valid(Game) and Game.player_character == "alice":
+		value = value.replace("Alice", "Producer").replace("ALICE", "PRODUCER")
+	return value % args if not args.is_empty() else value
+
 func text(key: String, args: Array = []) -> String:
 	var value = str(_catalogues.get(language, {}).get(key, _catalogues.get("en", {}).get(key, key)))
 	if key.begins_with("play_as_hint_"):

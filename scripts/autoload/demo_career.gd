@@ -51,6 +51,7 @@ static func released(job: Dictionary, song: Dictionary) -> void:
 	if not job.has("demo_index") or not Game.life.has("demo"): return
 	var d: Dictionary = Game.life["demo"]
 	if d["finished"]: return
+	PlaytestLog.released(job)
 	d["completed"].append({"title": song["title"], "rating": song["rating"], "arrangement": job.get("idea_score",0), "shift": song.get("shift_result", {}).duplicate(true)})
 	if d["completed"].size() < 3: next_brief(d["completed"].size())
 	else:

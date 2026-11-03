@@ -11,7 +11,7 @@ const CHARS_PER_SECOND := 70.0
 @onready var right_portrait: PortraitView = $PartnerPortrait
 @onready var alice_portrait: PortraitView = $AliceAdviser
 @onready var speaker_label: Label = $BottomDialog/Row/Center/Speaker
-@onready var text_label: RichTextLabel = $BottomDialog/Row/Center/Line
+@onready var text_label: Label = $BottomDialog/Row/Center/Line
 @onready var choices_box: GridContainer = $BottomDialog/Row/Center/Choices
 @onready var next_hint: Button = $BottomDialog/Row/Center/NextHint
 @onready var box: PanelContainer = $BottomDialog
@@ -27,10 +27,9 @@ func _ready() -> void:
 	speaker_label.clip_text = true
 	speaker_label.add_theme_font_override("font", UIKit.readable_font())
 	speaker_label.add_theme_font_size_override("font_size", 44)
-	text_label.fit_content = true
-	text_label.add_theme_font_override("normal_font", UIKit.readable_font())
-	text_label.scroll_active = false
-	text_label.add_theme_font_size_override("normal_font_size", 44)
+	text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	text_label.add_theme_font_override("font", UIKit.readable_font())
+	text_label.add_theme_font_size_override("font_size", 44)
 	next_hint.custom_minimum_size.y = 52
 	next_hint.add_theme_font_size_override("font_size", 36)
 	next_hint.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND

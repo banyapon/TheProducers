@@ -96,6 +96,7 @@ var floors: Array = []             ## floors[f][c] = room type
 
 
 func _process(delta: float) -> void:
+	PlaytestLog.tick(delta)
 	if not running or is_paused() or tutorial_gate:
 		return
 	_day_timer += delta * speed
@@ -129,8 +130,9 @@ func start(slot: String) -> void:
 	save_slot = slot if slot != "" else "offline"
 	if not load_game():
 		new_game()
-		if slot == "demo_career": DemoCareer.setup()
+		if slot == "demo_career" or PlaytestLog.data()["runs"].has(slot): DemoCareer.setup()
 	running = true
+	PlaytestLog.start_session()
 	_emit_all()
 
 
@@ -191,6 +193,7 @@ func reset_game() -> void:
 func save_game() -> void:
 	if not running:
 		return
+	if not PlaytestLog.current().is_empty(): PlaytestLog.save()
 	var data = {"version": 3}
 	for key in SAVE_KEYS:
 		data[key] = get(key)
@@ -279,6 +282,7 @@ func add_money(amount: int) -> void:
 signal contest_announced(result: Dictionary)
 signal hot_news(event: Dictionary)
 signal fire_started
+signal creative_decision_requested(job_id: String)
 
 func _advance_day() -> void:
 	day += 1
@@ -583,6 +587,7 @@ func accept_offer(job: Dictionary, mode: String = "manual") -> int:
 	job["planned_day"] = day
 	offers.erase(job)
 	jobs.append(job)
+	PlaytestLog.accepted(job)
 	add_money(job["upfront"])
 	add_relationship(job["client"], 3)
 	offers_changed.emit()
@@ -858,6 +863,7 @@ func _tick_project() -> void:
 	if not project.is_empty() and not StudioCity.room_damage(int(project.get("room", 0))).is_empty(): return
 	if project.is_empty() or project["done"]:
 		return
+	if CreativeJourney.tick(project): return
 	var team = get_team()
 	if team.is_empty():
 		return
@@ -894,6 +900,9 @@ func _tick_project() -> void:
 		gain *= 1.4
 	project["progress"] = minf(100.0, float(project["progress"]) + gain)
 	project_progress.emit(project["progress"])
+	if CreativeJourney.tick(project):
+		project["progress"] = minf(99, float(project["progress"]))
+		return
 	if project["progress"] >= 100.0:
 		project["done"] = true
 		project["eval"] = evaluate_project()
@@ -944,6 +953,7 @@ func evaluate_project() -> Dictionary:
 	experience /= maxf(1.0, team.size())
 	var score = clampf(0.05 + closeness * 0.35 + mastery * 0.30 + craft * 0.20 + experience * 0.10 - missing.size() * 0.08, 0.05, 1.0)
 	var critics = []
+	score = clampf(score + float(job.get("creative_score", 0.0)), 0.05, 1.0)
 	var total = 0
 	for c in Data.CRITICS:
 		var s = clampi(int(round(score * 10.0 + randf_range(-0.65, 0.65))), 1, 10)
@@ -1021,6 +1031,7 @@ func release_project(marketing_index: int) -> Dictionary:
 	job["status"] = "done"
 	jobs.erase(job)
 	songs.append(song)
+	CreativeJourney.on_release(job, song)
 	MarketShift.release(job, song, team_ids)
 	DemoCareer.released(job, song)
 	StudioStage.on_release(song, team_ids)

@@ -59,6 +59,7 @@ func _ready() -> void:
 	Game.meeting_changed.connect(_on_meeting_changed)
 	Game.demo_completed.connect(func(): _enqueue(_flow_demo_end))
 	Game.recovery_requested.connect(func(event: Dictionary): _enqueue(_flow_recovery.bind(event)))
+	Game.creative_decision_requested.connect(func(id: String): _enqueue(_flow_creative_decision.bind(id)))
 	Game.manual_composition_requested.connect(func(id: String): _enqueue(_flow_manual_composition.bind(id)))
 	planner = PlanningPanel.new()
 	$UI.add_child(planner)
@@ -131,6 +132,8 @@ func _on_login_completed(uid: String) -> void:
 	_booting = false
 	for event in StudioStars.data()["news"]: _enqueue(_flow_hot_news.bind(event))
 	for event in StudioResilience.data()["recoveries"]: _enqueue(_flow_recovery.bind(event))
+	for session in Game.all_projects():
+		if session.get("creative_pending",false): _enqueue(_flow_creative_decision.bind(session["job_id"]))
 	for month in Game.life.get("feedback", []): _enqueue(_flow_monthly_feedback.bind(int(month)))
 	if not _queue_running and not _queue.is_empty(): _run_queue()
 	hud.toast(Locale.text("legacy_138") % FirebaseAuth.display_name())
@@ -635,6 +638,27 @@ func _flow_recovery(event: Dictionary) -> void:
 		await dialog.say("alice", result)
 	dialog.close()
 
+func _flow_creative_decision(id: String) -> void:
+	var p = CreativeJourney.session(id)
+	if p.is_empty() or not p.get("creative_pending", false): return
+	var job = Game.get_job(id)
+	var preview_player = AudioStreamPlayer.new()
+	preview_player.bus = "Composer"
+	add_child(preview_player)
+	dialog.open(PLAYER, _alice_portrait())
+	while p.get("creative_pending", false) and not CreativeJourney.session(id).is_empty():
+		var options = [Locale.text("journey_listen"),Locale.text("journey_listen_less"),Locale.text("journey_keep"),Locale.text("journey_retake")]
+		if CreativeJourney.can_simplify(job): options.append(Locale.text("journey_simplify"))
+		var choice = await dialog.ask("right", Locale.text("journey_prompt", [p["title"]]), options)
+		preview_player.stop()
+		if choice < 2:
+			preview_player.stream = IdeaMusic.stream(CreativeJourney.preview_notes(job,choice == 1), int(job.get("idea_bpm",120)))
+			preview_player.play()
+		else:
+			await dialog.say("right", CreativeJourney.resolve(id,choice-2))
+	preview_player.queue_free()
+	dialog.close()
+
 func _flow_alice_notice(message: String) -> void:
 	if not Game.running: return
 	dialog.open(PLAYER, _alice_portrait())
@@ -651,6 +675,12 @@ func _flow_demo_end() -> void:
 	dialog.move_child(backdrop, 0)
 	dialog.open(PLAYER, _alice_portrait())
 	var choice = await dialog.ask("alice", DemoCareer.summary(), [Locale.text("demo_continue"), Locale.text("demo_title")])
+	PlaytestLog.ending(choice)
+	if not PlaytestLog.current().is_empty():
+		for key in ["explore", "next", "return"]:
+			if PlaytestLog.current()["survey"].has(key): continue
+			var answer = await dialog.ask("alice", Locale.text("pt_question_" + key) + "\n" + Locale.text("pt_scale"), ["1", "2", "3", "4", "5", Locale.text("pt_skip")])
+			PlaytestLog.answer(key, answer + 1 if answer < 5 else 0)
 	dialog.close()
 	backdrop.queue_free()
 	if choice == 1: _return_to_title()

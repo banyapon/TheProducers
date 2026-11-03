@@ -62,7 +62,9 @@ static func make_album(id: String) -> String:
 	var p = profile(Game.get_artist(id))
 	if p.is_empty() or p["album_tracks"].size() < 3: return Locale.text("stars_album_need")
 	if Game.money < 2500: return Locale.text("life_no_money")
-	var tracks: Array = p["album_tracks"].slice(0, 3)
+	var usable: Array = p["album_tracks"].filter(func(song_id): return not CreativeJourney.locked(StudioStage.song_by_id(song_id)))
+	if usable.size() < 3: return Locale.text("rights_album_wait")
+	var tracks: Array = usable.slice(0, 3)
 	var score = 0
 	for song_id in tracks: score += int(StudioStage.song_by_id(song_id).get("rating", 0))
 	Game.add_money(-2500)
@@ -76,6 +78,7 @@ static func offer_for(artist: Dictionary, kind: String) -> Dictionary:
 	var p = profile(artist)
 	if p.is_empty() or p["releases"].is_empty() or not JOBS.has(kind): return {}
 	if Game.day < int(p.get("brand_pause_until", -1)): return {}
+	if kind == "license" and CreativeJourney.locked(StudioStage.song_by_id(p["releases"].back())): return {}
 	var fee = roundi((int(JOBS[kind]["base"]) + minf(10000, int(p["fame"]) * 1.4)) * (0.6 + int(p["trust"]) / 250.0))
 	var offer = {"id": Game._id("brand"), "artist_id": artist["id"], "name": artist["name"], "brand": BRANDS.pick_random(), "kind": kind, "fee": fee, "days": JOBS[kind]["days"], "expires": Game.day + 10, "song_id": p["releases"].back()}
 	data()["offers"].append(offer)
@@ -88,6 +91,7 @@ static func accept(id: String) -> String:
 		var artist = Game.get_artist(offer["artist_id"])
 		if artist.is_empty() or artist.get("role", "") != "Vocal" or Game.day >= int(offer["expires"]): return Locale.text("staff_missing")
 		if Game.day < int(profile(artist).get("brand_pause_until", -1)): return Locale.text("news_brand_pause")
+		if offer["kind"] == "license" and CreativeJourney.locked(StudioStage.song_by_id(offer["song_id"])): return Locale.text("rights_album_wait")
 		if offer["kind"] != "license":
 			if not StudioLife.available(artist): return Locale.text("artist_busy")
 			for booking in Game.production_queue:

@@ -96,6 +96,7 @@ func _render() -> void:
 		body.add_child(full)
 		AudioOptions.add_controls(body)
 		RelationshipOptions.add_controls(body)
+		body.add_child(UIKit.button(Locale.text("pt_title"), _open_playtest))
 		var credits = UIKit.button(Locale.text("credits_title"), func(): _page = "credits"; _render())
 		credits.name = "OpenCredits"
 		body.add_child(credits)
@@ -411,6 +412,17 @@ func _offline_pressed() -> void:
 	hide()
 	_password = ""
 	login_completed.emit("")
+
+func _open_playtest() -> void:
+	var panel = PlaytestPanel.new()
+	panel.can_launch = true
+	add_child(panel)
+	panel.launch.connect(func(slot: String):
+		FirebaseAuth.sign_out()
+		hide()
+		login_completed.emit(slot))
+	panel.closed.connect(panel.queue_free)
+	panel.open()
 
 func _account_tab(body: VBoxContainer, signup: bool) -> void:
 	if not signup:

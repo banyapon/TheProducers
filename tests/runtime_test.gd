@@ -53,7 +53,7 @@ func _ready() -> void:
 	FirebaseAuth.email = original_email
 	check(is_equal_approx(main.dialog.get_node("DialogDim65").color.a,0.65),"dialog scrim darkens the complete game by 65 percent")
 	check(main.dialog.box.anchor_left == 0.5 and main.dialog.box.anchor_bottom == 1.0,"dialog anchor is Middle / Bottom")
-	check(main.dialog.text_label.get_theme_font_size("normal_font_size") == 44,"dialog text stays larger than general UI while reducing box height")
+	check(main.dialog.text_label.get_theme_font_size("font_size") == 44,"dialog text stays larger than general UI while reducing box height")
 	for value in [1,2,4]: check(main.hud.speed_buttons[value].get_theme_font("font").resource_path == UIKit.readable_font().resource_path,"speed control uses the same iannnnnAMD font")
 	main.office.camera.zoom = Vector2.ONE
 	main.office._zoom(1.1)
