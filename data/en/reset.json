@@ -1,0 +1,10 @@
+{
+  "reset_title": "Start over",
+  "reset_prompt": "Reset this career and choose your character again? Money, staff, progress and relationships will reset. Delete ALL songs (including previous studios) from the server, or keep them in Music library with their original creator and studio credits? Deletion cannot be undone.",
+  "reset_keep": "Keep songs and start over",
+  "reset_delete": "Delete songs from server and start over",
+  "reset_working": "Working... Please wait.",
+  "reset_busy": "A song is being generated or uploaded. Please wait and try again.",
+  "reset_failed": "Failed! Career was not reset. Check your connection and try again. Some files may already have been deleted.",
+  "reset_credit": "Previous work by %s | Studio: %s"
+}

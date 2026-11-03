@@ -1,0 +1,3 @@
+Portrait: 160x160 per expression, 2x2 sheet, transparent indexed palette with 40 opaque colours.
+Order: Neutral / Talk; Blink / Blink talk. Fixed body and separate facial layer.
+Art generated with built-in imagegen, expression parts assembled and pixel palette reduced in Aseprite.

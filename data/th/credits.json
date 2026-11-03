@@ -1,0 +1,16 @@
+{
+  "credits_title": "เครดิตและคำขอบคุณพิเศษ",
+  "credits_audio": "ดนตรีและเสียง / Pixabay",
+  "credits_thanks": "ขอขอบคุณเป็นพิเศษ",
+  "back_options": "กลับไป Options",
+  "credits_audio_entries": [
+    {"title": "people talking at dinner", "creator": "AliceNightGirl1212"},
+    {"title": "Game - Game Music", "creator": "ARPMedia"},
+    {"title": "Retro Arcade Game Music", "creator": "ViacheslavStarostin"},
+    {"title": "Retro Arcade Game Music", "creator": "ARPMedia"}
+  ],
+  "credits_organizations": [
+    "Daydev Co., Ltd.",
+    "College of Creative Design and Entertainment Technology, Dhurakij Pundit University"
+  ]
+}

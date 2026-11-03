@@ -1,0 +1,6 @@
+{
+  "agency_help": "Buy a Consult package for $800. Keep it until you use Market Research with a client.\nResearch has an additional fee based on genre complexity, team size and urgency.",
+  "agency_stock": "Consult packages: %d",
+  "agency_research": "Market Research | %d packages | Service fee %s",
+  "agency_funds": "Research requires an additional %s. Your package has not been used."
+}

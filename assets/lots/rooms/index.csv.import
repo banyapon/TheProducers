@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://baho7pfyq0q6d"
+
+[deps]
+
+files=["res://assets/lots/rooms/index.ratio.translation", "res://assets/lots/rooms/index.width.translation", "res://assets/lots/rooms/index.height.translation", "res://assets/lots/rooms/index.png.translation", "res://assets/lots/rooms/index.aseprite.translation", "res://assets/lots/rooms/index.scale.translation"]
+
+source_file="res://assets/lots/rooms/index.csv"
+dest_files=["res://assets/lots/rooms/index.ratio.translation", "res://assets/lots/rooms/index.width.translation", "res://assets/lots/rooms/index.height.translation", "res://assets/lots/rooms/index.png.translation", "res://assets/lots/rooms/index.aseprite.translation", "res://assets/lots/rooms/index.scale.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

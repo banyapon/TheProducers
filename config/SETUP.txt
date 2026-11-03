@@ -1,0 +1,16 @@
+Local configuration (never commit real credentials)
+
+Desktop: copy secrets.example.cfg to secrets.cfg and fill in your own values.
+Godot first checks user://secrets.cfg, then res://config/secrets.cfg.
+user:// is Godot's per-user application data directory for The Producers.
+Firebase API key: [firebase] api_key.
+Cloudinary credentials: [cloudinary] url, in the format documented in the example.
+
+Web: run python tools/build_public_config.py to create config/public.cfg.
+This generated file is ignored by Git but included in Web exports.
+The Web config contains client settings, not the Cloudinary API secret.
+For server signing, configure server/functions and its CLOUDINARY_API_SECRET
+using Firebase Functions secrets; keep local .env files out of Git.
+
+Offline play works without these credentials.
+Keep title_layout.cfg: it controls the title screen and is safe to commit.

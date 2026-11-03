@@ -1,0 +1,126 @@
+{
+  "staff": "STAFF",
+  "on": "ON",
+  "off": "OFF",
+  "staff_intro": "Call one person at a time. Build trust, send staff to school, or let Alice handle renewals. Romance unlocks after more than 4 months together.",
+  "staff_call": "CALL / TALK",
+  "alice_staff_profile": "Secretary / production planner. Enjoys conversation; chooses to remain single and never dates anyone.",
+  "staff_stats": "Trust %d | Comfort %d | Attraction %d\nPartner: %s",
+  "staff_contract": "%d weeks | Auto renewal: %s",
+  "single": "Single",
+  "staff_missing": "This person is no longer on our team.",
+  "social_menu": "TALK / PARTY / FLIRT",
+  "social_prompt": "Trust %d / Comfort %d / Attraction %d. Choose an activity (one per person each day).",
+  "social_talk": "Have a conversation",
+  "social_party": "Invite to a party ($350)",
+  "social_flirt": "Flirt respectfully",
+  "social_talk_result": "%s enjoyed the conversation. Trust and comfort improved.",
+  "social_party_result": "%s had a great evening! Comfort and trust improved.",
+  "social_reject": "%s politely declined. Timing, trust, compatibility and existing partners matter.",
+  "social_flirt_result": "%s seems interested. Take time to build the relationship.",
+  "social_dating": "%s agreed to start dating you!",
+  "social_cooldown": "Give them some space. Try again tomorrow.",
+  "romance_locked": "Spend more than four months working together first (112 game days).",
+  "alice_no_romance": "Thank you, but I am not interested in romance. I choose to stay single, with everyone. I am happy to be your secretary and friend.",
+  "alice_friendly": "I am glad we can talk. I will always support our studio as your secretary and friend.",
+  "staff_couple": "%s and %s chose to start dating. Love is welcome here, regardless of gender.",
+  "life_no_money": "We do not have enough cash for this choice.",
+  "training_action": "SEND TO TRAINING",
+  "training_prompt": "Choose a genre course: %d days / %s. Gain +8 genre skill and +5 XP. The artist cannot record or join meetings until returning.",
+  "training_sent": "%s is studying %s for %d days.",
+  "training_done": "%s returned from %s training! Skill +8, experience +5.",
+  "training_eta": "Learning %s: %d days left",
+  "auto_renew_prompt": "Would you like me to renew this artist automatically? Each renewal buys 4 weeks for %s when their contract ends, if we have enough cash. You can change this under Staff.",
+  "auto_renew_yes": "YES, ALICE HANDLES RENEWALS",
+  "auto_renew_no": "I WILL DECIDE EACH TIME",
+  "auto_renew_toggle": "Alice auto renewal: %s (toggle)",
+  "auto_renew_set": "Automatic renewals are now %s. You can change this under Staff.",
+  "auto_renew_done": "I renewed %s for 4 weeks. Renewal fee: %s.",
+  "auto_renew_failed": "I could not auto-renew %s because we are short of cash. Please decide how to proceed.",
+  "accept_choose_mode": "ACCEPT — CHOOSE MANUAL / AUTO",
+  "mode_prompt": "How shall we compose? Manual lets you arrange genre blocks and tempo with Alice. Auto gives a smaller idea bonus. You still choose the team and recording schedule.",
+  "play_manual": "PLAY MANUAL",
+  "play_auto": "AUTO ARRANGEMENT",
+  "manual_entry_hint": "Alice > Timeline > PLAY MANUAL gathers the team in the Lounge and opens the music-maker puzzle.",
+  "trophy_cloud_play": "LISTEN FROM CLOUD",
+  "cloud_missing": "No cloud audio yet. Sign in and upload this song from Music Library first.",
+  "stop_music": "STOP",
+  "volume_master": "Volume / Master",
+  "volume_bgm": "BGM",
+  "volume_sfx": "SFX / Ambient",
+  "monthly_feedback_title": "MONTH %d: ALICE FEEDBACK",
+  "feedback_preview": "Fame %+d | Reputation %+d | Cost %s",
+  "feedback_result": "Decision recorded. Fame %+d; Reputation %+d.",
+  "feedback_resolved": "This monthly report was already resolved.",
+  "monthly_events": [
+    {
+      "text": "Fans say our new tracks sound too similar. What should we do?",
+      "choices": [
+        {
+          "text": "Invest in a creative workshop",
+          "fame": 140,
+          "reputation": 5,
+          "cost": 1200
+        },
+        {
+          "text": "Chase the current viral trend",
+          "fame": 250,
+          "reputation": -4,
+          "cost": 0
+        },
+        {
+          "text": "Ignore the comments",
+          "fame": -100,
+          "reputation": -5,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "text": "A client asks us to remove a musician from the credits. How do we respond?",
+      "choices": [
+        {
+          "text": "Protect the artist and explain publicly",
+          "fame": 100,
+          "reputation": 8,
+          "cost": 0
+        },
+        {
+          "text": "Accept the deal for publicity",
+          "fame": 280,
+          "reputation": -10,
+          "cost": 0
+        },
+        {
+          "text": "Negotiate proper shared credits",
+          "fame": 70,
+          "reputation": 4,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "text": "Our studio has been invited to a local charity concert. What is our plan?",
+      "choices": [
+        {
+          "text": "Sponsor the stage and perform",
+          "fame": 300,
+          "reputation": 6,
+          "cost": 2000
+        },
+        {
+          "text": "Send a free recorded performance",
+          "fame": 80,
+          "reputation": 3,
+          "cost": 0
+        },
+        {
+          "text": "Dismiss the invitation rudely",
+          "fame": -80,
+          "reputation": -6,
+          "cost": 0
+        }
+      ]
+    }
+  ]
+}

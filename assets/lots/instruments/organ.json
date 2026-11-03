@@ -1,0 +1,1 @@
+{"instrument":"organ","canvas":[64,64],"anchor":[32,60],"actor_frame":[32,48],"actor_offset":[16,15],"draw_order":["back","actor","front"],"overlay_frames":6,"frame_ms":180,"character_animation":"front_sway"}

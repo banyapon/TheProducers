@@ -1,0 +1,8 @@
+instrument,width,height,anchor_x,anchor_y,overlay_frames
+guitar,32,48,16,45,6
+drums,64,64,32,58,6
+electone,64,48,32,45,6
+saxophone,32,48,16,45,6
+organ,64,64,32,60,6
+mic,32,48,16,45,6
+bass,32,48,16,45,6

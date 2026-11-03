@@ -1,0 +1,1 @@
+{"name":"lounge","view":"side_cutaway","ratio":"4x3","width":192,"height":144,"floor_baseline":128,"pixel_scale":{"character_frame":[32,48],"character_visible_height":43,"door_height":54},"walkable_floor":[4,128,184,3],"actor_y":83,"exit_anchor":[173,128],"background_prop_bounds":[[10,95,64,33]]}

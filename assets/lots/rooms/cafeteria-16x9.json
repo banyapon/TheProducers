@@ -1,0 +1,1 @@
+{"name":"cafeteria","view":"side_cutaway","ratio":"16x9","width":256,"height":144,"floor_baseline":128,"pixel_scale":{"character_frame":[32,48],"character_visible_height":43,"door_height":54},"walkable_floor":[4,128,248,3],"actor_y":83,"exit_anchor":[237,128],"background_prop_bounds":[[10,95,79,33]]}

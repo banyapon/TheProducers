@@ -1,0 +1,14 @@
+{
+  "ranking_online": "Online ranking",
+  "ranking_loading": "Loading Server rankings...",
+  "ranking_source": "Server | Top 50 studios",
+  "ranking_empty": "No studio scores have been shared yet.",
+  "ranking_setup": "The ranking Server is not configured.",
+  "ranking_signin": "Sign in to view rankings. Use a registered account to share your studio.",
+  "ranking_denied": "Rankings are unavailable. Enable Cloud Firestore and deploy the ranking rules.",
+  "ranking_error": "Could not reach Server. Please retry.",
+  "ranking_refresh": "Refresh",
+  "ranking_publish": "Share studio score",
+  "ranking_published": "Studio score shared.",
+  "ranking_privacy": "Share only your studio name, Fame and Reputation. Scores are submitted by players; email and save files are never shared."
+}

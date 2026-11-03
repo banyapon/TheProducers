@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /studio_rankings/{uid} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && request.auth.token.firebase.sign_in_provider != 'anonymous'
+        && request.resource.data.keys().hasOnly(['studio', 'fame', 'reputation'])
+        && request.resource.data.studio is string
+        && request.resource.data.studio.size() >= 2 && request.resource.data.studio.size() <= 24
+        && request.resource.data.fame is int && request.resource.data.fame >= 0
+        && request.resource.data.fame <= 2147483647
+        && request.resource.data.reputation is int
+        && request.resource.data.reputation >= 0 && request.resource.data.reputation <= 100;
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}

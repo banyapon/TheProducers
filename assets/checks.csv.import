@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://duyo0ro6o7mgn"
+
+[deps]
+
+files=["res://assets/checks.frames.translation", "res://assets/checks.tags.translation", "res://assets/checks.opaque.translation", "res://assets/checks.talk.translation", "res://assets/checks.blink.translation"]
+
+source_file="res://assets/checks.csv"
+dest_files=["res://assets/checks.frames.translation", "res://assets/checks.tags.translation", "res://assets/checks.opaque.translation", "res://assets/checks.talk.translation", "res://assets/checks.blink.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

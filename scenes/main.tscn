@@ -1,0 +1,45 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://scenes/office/office.tscn" id="2_office"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/job_board.tscn" id="4_jobs"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hire_board.tscn" id="5_hire"]
+[ext_resource type="PackedScene" path="res://scenes/ui/production_panel.tscn" id="6_prod"]
+[ext_resource type="PackedScene" path="res://scenes/ui/release_panel.tscn" id="7_release"]
+[ext_resource type="PackedScene" path="res://scenes/ui/library.tscn" id="8_lib"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_box.tscn" id="9_dialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/login_screen.tscn" id="10_login"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_main")
+
+[node name="Office" parent="." instance=ExtResource("2_office")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("3_hud")]
+
+[node name="JobBoard" parent="UI" instance=ExtResource("4_jobs")]
+
+[node name="HireBoard" parent="UI" instance=ExtResource("5_hire")]
+
+[node name="ProductionPanel" parent="UI" instance=ExtResource("6_prod")]
+
+[node name="ReleasePanel" parent="UI" instance=ExtResource("7_release")]
+
+[node name="Library" parent="UI" instance=ExtResource("8_lib")]
+
+[node name="DialogBox" parent="UI" instance=ExtResource("9_dialog")]
+
+[node name="LoginScreen" parent="UI" instance=ExtResource("10_login")]
+
+[connection signal="room_clicked" from="Office" to="." method="_on_office_room_clicked"]
+[connection signal="worker_clicked" from="Office" to="." method="_on_office_worker_clicked"]
+[connection signal="panel_requested" from="UI/HUD" to="." method="_on_hud_panel_requested"]
+[connection signal="offer_selected" from="UI/JobBoard" to="." method="_on_job_board_offer_selected"]
+[connection signal="candidate_selected" from="UI/HireBoard" to="." method="_on_hire_board_candidate_selected"]
+[connection signal="staff_selected" from="UI/HireBoard" to="." method="_on_hire_board_staff_selected"]
+[connection signal="production_started" from="UI/ProductionPanel" to="." method="_on_production_started"]
+[connection signal="released" from="UI/ReleasePanel" to="." method="_on_release_panel_released"]
+[connection signal="login_completed" from="UI/LoginScreen" to="." method="_on_login_completed"]

@@ -1,0 +1,6 @@
+{
+  "library_download": "Download song",
+  "library_downloading": "Downloading song...",
+  "library_download_done": "Song saved successfully",
+  "library_download_failed": "Could not save this song. Please try again."
+}

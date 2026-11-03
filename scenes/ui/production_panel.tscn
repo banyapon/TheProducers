@@ -1,0 +1,245 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/production_panel.gd" id="1_prod"]
+
+[node name="ProductionPanel" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_prod")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Window" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -720.0
+offset_top = -470.0
+offset_right = 720.0
+offset_bottom = 470.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Window"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="Window/VBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Window/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "ห้องอัดเสียง — ผลิตเพลง"
+
+[node name="CloseBtn" type="Button" parent="Window/VBox/Header"]
+layout_mode = 2
+text = "ปิด"
+
+[node name="SetupScroll" type="ScrollContainer" parent="Window/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SetupBox" type="VBoxContainer" parent="Window/VBox/SetupScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="JobRow" type="HBoxContainer" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Window/VBox/SetupScroll/SetupBox/JobRow"]
+layout_mode = 2
+text = "งานที่รับไว้:"
+
+[node name="JobOption" type="OptionButton" parent="Window/VBox/SetupScroll/SetupBox/JobRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="JobInfo" type="Label" parent="Window/VBox/SetupScroll/SetupBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 3
+
+[node name="TitleRow" type="HBoxContainer" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Window/VBox/SetupScroll/SetupBox/TitleRow"]
+layout_mode = 2
+text = "ชื่อเพลง:"
+
+[node name="TitleEdit" type="LineEdit" parent="Window/VBox/SetupScroll/SetupBox/TitleRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RandomTitleBtn" type="Button" parent="Window/VBox/SetupScroll/SetupBox/TitleRow"]
+layout_mode = 2
+text = "สุ่มชื่อ"
+
+[node name="MixLabel" type="Label" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.4, 1)
+text = "ผสมแนวเพลง (ยิ่งใกล้สัดส่วนที่ลูกค้าต้องการ คะแนนยิ่งสูง)"
+
+[node name="MixRow1" type="HBoxContainer" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Tag1" type="OptionButton" parent="Window/VBox/SetupScroll/SetupBox/MixRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="Pct1" type="HSlider" parent="Window/VBox/SetupScroll/SetupBox/MixRow1"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+
+[node name="PctLabel1" type="Label" parent="Window/VBox/SetupScroll/SetupBox/MixRow1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "-"
+
+[node name="MixRow2" type="HBoxContainer" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Tag2" type="OptionButton" parent="Window/VBox/SetupScroll/SetupBox/MixRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="Pct2" type="HSlider" parent="Window/VBox/SetupScroll/SetupBox/MixRow2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+
+[node name="PctLabel2" type="Label" parent="Window/VBox/SetupScroll/SetupBox/MixRow2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "-"
+
+[node name="MixRow3" type="HBoxContainer" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Tag3" type="OptionButton" parent="Window/VBox/SetupScroll/SetupBox/MixRow3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="Pct3" type="HSlider" parent="Window/VBox/SetupScroll/SetupBox/MixRow3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+
+[node name="PctLabel3" type="Label" parent="Window/VBox/SetupScroll/SetupBox/MixRow3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "-"
+
+[node name="MixPreview" type="Label" parent="Window/VBox/SetupScroll/SetupBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="TeamLabel" type="Label" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.4, 1)
+text = "เลือกทีมนักดนตรี (ต้องครอบคลุมตำแหน่งที่ลูกค้าต้องการ และถนัดแนวเพลงนั้น)"
+
+[node name="TeamScroll" type="ScrollContainer" parent="Window/VBox/SetupScroll/SetupBox"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="TeamGrid" type="GridContainer" parent="Window/VBox/SetupScroll/SetupBox/TeamScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[node name="TeamInfo" type="Label" parent="Window/VBox/SetupScroll/SetupBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 3
+
+[node name="Footer" type="HBoxContainer" parent="Window/VBox/SetupScroll/SetupBox"]
+layout_mode = 2
+
+[node name="ErrorLabel" type="Label" parent="Window/VBox/SetupScroll/SetupBox/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+
+[node name="StartBtn" type="Button" parent="Window/VBox/SetupScroll/SetupBox/Footer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "เริ่มอัดเพลง!"
+
+[node name="StatusBox" type="VBoxContainer" parent="Window/VBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="StatusLabel" type="Label" parent="Window/VBox/StatusBox"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="StatusBar" type="ProgressBar" parent="Window/VBox/StatusBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="StatusHint" type="Label" parent="Window/VBox/StatusBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6)
+text = "ทีมกำลังทำงานในห้องอัด... ปิดหน้าต่างนี้เพื่อให้เวลาเดินต่อ"
+
+[connection signal="pressed" from="Window/VBox/Header/CloseBtn" to="." method="_on_close_pressed"]
+[connection signal="item_selected" from="Window/VBox/SetupScroll/SetupBox/JobRow/JobOption" to="." method="_on_job_selected"]
+[connection signal="pressed" from="Window/VBox/SetupScroll/SetupBox/TitleRow/RandomTitleBtn" to="." method="_on_random_title_pressed"]
+[connection signal="item_selected" from="Window/VBox/SetupScroll/SetupBox/MixRow1/Tag1" to="." method="_on_mix_changed"]
+[connection signal="value_changed" from="Window/VBox/SetupScroll/SetupBox/MixRow1/Pct1" to="." method="_on_mix_changed"]
+[connection signal="item_selected" from="Window/VBox/SetupScroll/SetupBox/MixRow2/Tag2" to="." method="_on_mix_changed"]
+[connection signal="value_changed" from="Window/VBox/SetupScroll/SetupBox/MixRow2/Pct2" to="." method="_on_mix_changed"]
+[connection signal="item_selected" from="Window/VBox/SetupScroll/SetupBox/MixRow3/Tag3" to="." method="_on_mix_changed"]
+[connection signal="value_changed" from="Window/VBox/SetupScroll/SetupBox/MixRow3/Pct3" to="." method="_on_mix_changed"]
+[connection signal="pressed" from="Window/VBox/SetupScroll/SetupBox/Footer/StartBtn" to="." method="_on_start_pressed"]

@@ -1,0 +1,24 @@
+{
+  "rivals": [
+    {
+      "name": "Neon Records",
+      "fame": 12000,
+      "reputation": 92
+    },
+    {
+      "name": "Moonwave Studio",
+      "fame": 6800,
+      "reputation": 84
+    },
+    {
+      "name": "Velvet Sound",
+      "fame": 3200,
+      "reputation": 72
+    },
+    {
+      "name": "Garage Tape",
+      "fame": 750,
+      "reputation": 48
+    }
+  ]
+}

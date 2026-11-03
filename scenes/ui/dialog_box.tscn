@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/dialog_box.gd" id="1_dialog"]
+[ext_resource type="Script" path="res://scripts/ui/portrait_view.gd" id="2_portrait"]
+
+[node name="DialogBox" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dialog")
+
+[node name="DialogDim65" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="BottomDialog" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -324.0
+offset_right = 640.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = "DialogPanel"
+
+[node name="Row" type="HBoxContainer" parent="BottomDialog"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="LeftSpace" type="Control" parent="BottomDialog/Row"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="Center" type="VBoxContainer" parent="BottomDialog/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Speaker" type="Label" parent="BottomDialog/Row/Center"]
+layout_mode = 2
+clip_text = true
+theme_override_colors/font_color = Color(1, 0.866667, 0.529412, 1)
+theme_override_font_sizes/font_size = 44
+text = ""
+
+[node name="Line" type="RichTextLabel" parent="BottomDialog/Row/Center"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+fit_content = true
+scroll_active = false
+theme_override_font_sizes/normal_font_size = 44
+
+[node name="Choices" type="GridContainer" parent="BottomDialog/Row/Center"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="ChoicePager" type="HBoxContainer" parent="BottomDialog/Row/Center"]
+layout_mode = 2
+
+[node name="NextHint" type="Button" parent="BottomDialog/Row/Center"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Next"
+
+[node name="RightSpace" type="Control" parent="BottomDialog/Row"]
+custom_minimum_size = Vector2(224, 0)
+layout_mode = 2
+
+[node name="ProducerPortrait" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(192, 192)
+offset_right = 192.0
+offset_bottom = 192.0
+mouse_filter = 2
+texture_filter = 1
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_portrait")
+
+[node name="AliceAdviser" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(192, 192)
+offset_right = 192.0
+offset_bottom = 192.0
+mouse_filter = 2
+texture_filter = 1
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_portrait")
+
+[node name="PartnerPortrait" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(192, 192)
+offset_right = 192.0
+offset_bottom = 192.0
+mouse_filter = 2
+texture_filter = 1
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_portrait")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dk0rpynjs73xk"
+
+[deps]
+
+files=["res://assets/lots/effects/index.type.translation", "res://assets/lots/effects/index.width.translation", "res://assets/lots/effects/index.height.translation", "res://assets/lots/effects/index.frames.translation", "res://assets/lots/effects/index.frame.translation"]
+
+source_file="res://assets/lots/effects/index.csv"
+dest_files=["res://assets/lots/effects/index.type.translation", "res://assets/lots/effects/index.width.translation", "res://assets/lots/effects/index.height.translation", "res://assets/lots/effects/index.frames.translation", "res://assets/lots/effects/index.frame.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

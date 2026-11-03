@@ -1,0 +1,10 @@
+{
+  "report": "{producer}, {studio} has {staff} musicians and {songs} releases.\nFunds: {money} | Fame: {fame} | Reputation: {reputation}/100\n{tip}",
+  "tip_idle": "Accept a commission, choose a team and begin recording.",
+  "tip_work": "The recording is underway. Watch contract renewals and deadlines.",
+  "weekly_report": "Alice: weekly report | {staff} musicians | {songs} releases | Fame {fame}",
+  "intro_1": "You were once a brilliant producer. After years of setbacks, your name no longer opens doors.",
+  "intro_2": "This modest building is your fresh start. {studio} will be where you earn their trust again.",
+  "intro_3": "Welcome back, {producer}. I am Alice, your secretary. I will handle reports and help you keep the studio on track.",
+  "intro_4": "Two musicians are ready. Let us find our first client and make a song worth remembering!"
+}

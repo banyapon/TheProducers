@@ -1,0 +1,52 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="The Producers"
+config/description="Music label management sim — talk to clients, sign artists, record & release songs."
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/stretch_mode=0
+boot_splash/use_filter=false
+boot_splash/image="res://gameoff.png"
+config/icon="uid://cgf8ml8yy7hfw"
+
+[autoload]
+
+Locale="*res://scripts/autoload/locale.gd"
+Art="*res://scripts/autoload/art.gd"
+PixelUI="*res://scripts/autoload/pixel_ui.gd"
+Data="*res://scripts/autoload/data.gd"
+Secrets="*res://scripts/autoload/secrets.gd"
+Game="*res://scripts/autoload/game.gd"
+FirebaseAuth="*res://scripts/autoload/firebase_auth.gd"
+Cloudinary="*res://scripts/autoload/cloudinary.gd"
+MusicGen="*res://scripts/autoload/music_gen.gd"
+Audio="*res://scripts/autoload/audio.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1600
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom="res://ui_theme.tres"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true
