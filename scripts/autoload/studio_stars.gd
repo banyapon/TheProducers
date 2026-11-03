@@ -167,7 +167,7 @@ static func tick_day() -> void:
 		if int(royalty["remaining"]) == 0: state["royalties"].erase(royalty)
 	state["offers"] = state["offers"].filter(func(o: Dictionary): return Game.day < int(o["expires"]) and not Game.get_artist(o["artist_id"]).is_empty())
 	var week = int(Game.day / 7)
-	if week > int(state["last_week"]):
+	if not DemoCareer.active() and week > int(state["last_week"]):
 		state["last_week"] = week
 		for artist in Game.staff:
 			var p = profile(artist)
@@ -175,7 +175,7 @@ static func tick_day() -> void:
 			if randf() < 0.65:
 				var offer = offer_for(artist, JOBS.keys().pick_random())
 				if not offer.is_empty(): Game.alice_notice.emit(Locale.text("stars_brand_offer", [artist["name"], offer["brand"]]))
-	if Game.day >= 28 and Game.day - int(state["last_news_day"]) >= 28 and state["news"].is_empty():
+	if not DemoCareer.active() and Game.day >= 28 and Game.day - int(state["last_news_day"]) >= 28 and state["news"].is_empty():
 		for artist in Game.staff:
 			var p = profile(artist)
 			if not p.is_empty() and int(p["fame"]) >= 600 and randf() < 0.008:

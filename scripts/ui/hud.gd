@@ -14,6 +14,9 @@ var speed_buttons: Dictionary = {}
 var action_buttons: Dictionary = {}
 var zoom_label: Label
 var zoom_level := 1.0
+var demo_card: PanelContainer
+var demo_title: Label
+var demo_next: Button
 
 func set_zoom(value: float) -> void:
 	zoom_level = value
@@ -32,6 +35,9 @@ func _ready() -> void:
 	Game.project_progress.connect(_update.unbind(1))
 	Game.project_started.connect(_update.unbind(1))
 	Game.project_ended.connect(_update)
+	Game.jobs_changed.connect(_update)
+	Game.meeting_changed.connect(_update)
+	Game.offers_changed.connect(_update)
 	Locale.language_changed.connect(func(_lang: String): UIKit.clear(self); _build(); _update())
 	_update()
 
@@ -164,6 +170,17 @@ func _build() -> void:
 	hint.add_theme_color_override("font_color", Color("fff2d6"))
 	hint.mouse_filter = MOUSE_FILTER_IGNORE
 	hint_panel.add_child(hint)
+	demo_card = PanelContainer.new()
+	demo_card.name = "DemoNextStep"
+	demo_card.position = Vector2(24, 136)
+	demo_card.custom_minimum_size = Vector2(550, 0)
+	add_child(demo_card)
+	var guide = VBoxContainer.new()
+	demo_card.add_child(guide)
+	demo_title = UIKit.label("", 28)
+	guide.add_child(demo_title)
+	demo_next = UIKit.button("", func(): panel_requested.emit("demo_next"), 300, "ConfirmButton")
+	guide.add_child(demo_next)
 
 func _update() -> void:
 	visible = Game.running
@@ -178,6 +195,13 @@ func _update() -> void:
 		project_label.text = Locale.text("parallel_count", [Game.all_projects().size()]) + " | " + project_label.text
 	project_bar.value = 0 if Game.project.is_empty() else Game.project["progress"]
 	project_label.tooltip_text = project_label.text
+	var step = DemoCareer.next_step()
+	demo_card.visible = not step.is_empty()
+	if not step.is_empty():
+		demo_title.text = Locale.text("flow_demo_card", [int(step["index"]) + 1, step["job"]["title"]])
+		demo_next.text = Locale.text("flow_step_" + step["action"])
+	for key in ["hire", "shop", "staff", "city", "floor", "column"]:
+		action_buttons[key].visible = not DemoCareer.active() or int(Game.life["demo"]["completed"].size()) >= 2
 
 func _compact_panel(panel: PanelContainer) -> void:
 	var skin = panel.get_theme_stylebox("panel").duplicate()

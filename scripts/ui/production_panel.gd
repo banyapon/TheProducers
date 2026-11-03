@@ -95,6 +95,9 @@ func _on_job_selected(_index: int) -> void:
 		job_info.text = ""
 		_on_mix_changed()
 		return
+	var arranged = not ComposerFlow.arrangement_mix(job).is_empty()
+	for node_name in ["MixLabel", "MixRow1", "MixRow2", "MixRow3"]:
+		find_child(node_name, true, false).visible = not arranged
 	var client = Game.get_client(job["client"])
 	job_info.text = Locale.text("legacy_272") % [
 		job["client"], client["type"], client["rel"], Game.describe_tags(job), Data.roles_text(job["roles"]),
@@ -114,11 +117,23 @@ func _on_job_selected(_index: int) -> void:
 	_on_mix_changed()
 	var start_button = find_child("StartBtn",true,false)
 	start_button.text = Locale.text("schedule_submit") if int(job.get("planned_day",Game.day)) > Game.day else Locale.text("record_now")
+	if job.has("demo_index"):
+		title_edit.text = job["title"]
+		job_info.text = Locale.text("flow_record_help") + "\n" + Locale.text("flow_brief_" + job["brief_kind"])
+		_selected.clear()
+		for role in job["roles"]:
+			for artist in Game.staff:
+				if artist["role"] == role and not Game.is_in_project(artist["id"]) and StudioLife.training(artist["id"]).is_empty() and not StudioStage.performing(artist["id"]):
+					_selected[artist["id"]] = true
+					break
 	_build_team()
+	_update_team_info()
 
 
 ## Normalized {tag: percent} from the three tag pickers and sliders.
 func current_mix() -> Dictionary:
+	var arranged = ComposerFlow.arrangement_mix(_current_job())
+	if not arranged.is_empty(): return arranged
 	var raw = {}
 	var total = 0.0
 	for i in 3:

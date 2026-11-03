@@ -299,11 +299,11 @@ func _advance_day() -> void:
 	_tick_invoices()
 	for job in jobs.duplicate():
 		if job_days_left(job) <= 0: _fail_job(job)
-	if day % 28 == 0: _run_contest()
-	if offers.size() < MAX_OFFERS and randf() < 0.3:
+	if day % 28 == 0 and not DemoCareer.active(): _run_contest()
+	if not DemoCareer.active() and offers.size() < MAX_OFFERS and randf() < 0.3:
 		offers.append(generate_job())
 		offers_changed.emit()
-	if randf() < 0.04:
+	if not DemoCareer.active() and randf() < 0.04:
 		var walk_in = generate_job()
 		walk_in["walk_in"] = true
 		offers.append(walk_in)
@@ -1336,6 +1336,7 @@ func begin_idea_meeting(job: Dictionary) -> String:
 		if not session["done"]: return Locale.text("jam_staff_busy")
 	if int(job.get("idea_rounds", 0)) >= 1: return Locale.text("jam_once")
 	idea_meeting = IdeaRules.create(job, true)
+	ComposerFlow.prepare(idea_meeting, job)
 	var participants: Array = ["producer", "alice"]
 	for artist in staff: participants.append(artist["id"])
 	idea_meeting["participants"] = participants

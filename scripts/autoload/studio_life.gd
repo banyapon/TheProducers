@@ -81,6 +81,7 @@ static func tick_day() -> void:
 	StudioStage.tick_day()
 
 static func queue_feedback(month: int) -> void:
+	if DemoCareer.active(): return
 	if month > int(Game.life["resolved_month"]) and not Game.life["feedback"].has(month):
 		Game.life["feedback"].append(month)
 		Game.monthly_feedback.emit(month)

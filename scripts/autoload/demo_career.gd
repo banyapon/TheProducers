@@ -1,6 +1,22 @@
 class_name DemoCareer
 extends RefCounted
 
+static func active() -> bool:
+	return Game.life.has("demo") and not Game.life["demo"].get("finished", false)
+
+static func next_step() -> Dictionary:
+	if not active(): return {}
+	var index = Game.life["demo"]["completed"].size()
+	for job in Game.jobs:
+		if int(job.get("demo_index", -1)) != index or job.get("status", "") != "active": continue
+		for session in Game.all_projects():
+			if session["job_id"] == job["id"]:
+				return {"index":index, "job":job, "action":"release" if session["done"] else "recording"}
+		return {"index":index, "job":job, "action":"compose" if Game.needs_manual_composition(job) else "record"}
+	for job in Game.offers:
+		if int(job.get("demo_index", -1)) == index: return {"index":index, "job":job, "action":"brief"}
+	return {}
+
 static func setup() -> void:
 	Game.life["demo"] = {"completed": [], "finished": false}
 	Game.tutorial_step = -1

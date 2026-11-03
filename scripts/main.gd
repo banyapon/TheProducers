@@ -148,6 +148,8 @@ func _on_hud_panel_requested(panel_name: String) -> void:
 	if StudioCity.fire_active() and panel_name != "menu": return
 	if panel_name in ["alice", "studio"] and _resume_composition(): return
 	match panel_name:
+		"demo_next":
+			if not _board_open() and not _queue_running: _enqueue(_flow_demo_next)
 		"alice":
 			planner.open()
 		"jobs":
@@ -173,6 +175,10 @@ func _on_hud_panel_requested(panel_name: String) -> void:
 
 
 func _on_job_board_offer_selected(job: Dictionary) -> void:
+	if job.has("demo_index"):
+		job_board.close()
+		_enqueue(_flow_demo_brief.bind(job))
+		return
 	job_board.close()
 	_enqueue(_flow_offer.bind(job, true, ""))
 
@@ -688,6 +694,39 @@ func _flow_manual_composition(job_id: String) -> void:
 		planner.tab = 0
 		planner.open()
 		hud.toast(error)
+
+func _flow_demo_next() -> void:
+	var step = DemoCareer.next_step()
+	if step.is_empty(): return
+	var job: Dictionary = step["job"]
+	match step["action"]:
+		"brief": await _flow_demo_brief(job)
+		"compose": await _flow_manual_composition(job["id"])
+		"record":
+			production._setup_mode = true
+			production.open()
+			production.select_job(job["id"])
+		"recording":
+			Game.focus_project(job["id"])
+			production._setup_mode = false
+			production.open()
+		"release": await _flow_release(job["id"])
+
+func _flow_demo_brief(job: Dictionary) -> void:
+	if not job in Game.offers: return
+	dialog.open(PLAYER, _alice_portrait())
+	var brief = Locale.text("flow_brief_" + job["brief_kind"]) + "\n" + Locale.text("flow_targets_" + job["brief_kind"])
+	brief += "\n" + Data.money(job["pay"]) + " | " + str(job["deadline"]) + " " + Locale.text("weeks")
+	var choice = await dialog.ask("alice", brief, [Locale.text("flow_manual"), Locale.text("flow_auto"), Locale.text("back")])
+	dialog.close()
+	if choice == 2: return
+	Game.accept_offer(job, "manual" if choice == 0 else "auto")
+	Game.save_game()
+	if choice == 0: await _flow_manual_composition(job["id"])
+	else:
+		production._setup_mode = true
+		production.open()
+		production.select_job(job["id"])
 
 
 func _offer_auto_renew(artist: Dictionary) -> void:

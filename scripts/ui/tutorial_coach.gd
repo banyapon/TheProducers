@@ -89,6 +89,7 @@ func _process(_delta: float) -> void:
 			key = "tutorial_gather" if Game.idea_meeting["phase"] == "gathering" else "tutorial_arrange"
 			target = main.jam.find_child("ComposerGenre",true,false)
 			if Game.idea_meeting["placed"].size() >= 4: target = main.jam.find_child("SubmitIdea",true,false)
+			if main.jam.review_open: target = main.jam.find_child("ConfirmArrangement",true,false)
 		elif not Game.all_projects().is_empty():
 			stage = 4
 			key = "tutorial_recording"

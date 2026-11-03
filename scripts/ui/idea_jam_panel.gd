@@ -23,6 +23,17 @@ var inspected := -1
 var loop_section := -1
 var _shown_job := ""
 var market_open := false
+var advanced := false
+var review_open := false
+var review_details := false
+var compare_before := false
+var solo_lane := -1
+var muted_lanes: Array = []
+var listening_label: Label
+var audition_lane := 0
+var _pending_audio := false
+var _audio_boundary := 0.0
+
 
 func _build_transport(body: VBoxContainer, meeting: Dictionary) -> void:
 	var transport = HBoxContainer.new()
@@ -61,9 +72,10 @@ func _build_transport(body: VBoxContainer, meeting: Dictionary) -> void:
 	pitch_button.custom_minimum_size = Vector2(220, 64)
 	pitch_button.size_flags_vertical = SIZE_SHRINK_CENTER
 	transport.add_child(pitch_button)
+	pitch_button.visible = advanced
 	var tempo_box = VBoxContainer.new()
 	transport.add_child(tempo_box)
-	var tempo = UIKit.label(str(int(meeting["bpm"])) + " BPM", 28)
+	var tempo = UIKit.label(ComposerFlow.tempo_name(int(meeting["bpm"])) if not advanced else str(int(meeting["bpm"])) + " BPM", 28)
 	tempo_box.add_child(tempo)
 	tempo_slider = HSlider.new()
 	tempo_slider.name = "ComposerTempo"
@@ -71,11 +83,12 @@ func _build_transport(body: VBoxContainer, meeting: Dictionary) -> void:
 	tempo_slider.max_value = 180
 	tempo_slider.step = 5
 	tempo_slider.value = int(meeting["bpm"])
-	tempo_slider.custom_minimum_size = Vector2(220, 30)
+	tempo_slider.custom_minimum_size = Vector2(170, 30)
 	tempo_box.add_child(tempo_slider)
-	tempo_slider.value_changed.connect(func(value: float): tempo.text = str(int(value)) + " BPM"; _set_tempo(value))
+	tempo_slider.value_changed.connect(func(value: float): tempo.text = ComposerFlow.tempo_name(int(value)) if not advanced else str(int(value)) + " BPM"; _set_tempo(value))
 	var volume_box = VBoxContainer.new()
 	transport.add_child(volume_box)
+	volume_box.visible = advanced
 	var volume_label = UIKit.label(Locale.text("composer_volume", [roundi(Audio.levels["Composer"] * 100)]), 28)
 	volume_box.add_child(volume_label)
 	var volume = HSlider.new()
@@ -89,7 +102,7 @@ func _build_transport(body: VBoxContainer, meeting: Dictionary) -> void:
 	volume.value_changed.connect(func(value: float):
 		Audio.set_level("Composer", value / 100.0)
 		volume_label.text = Locale.text("composer_volume", [roundi(value)]))
-	var submit_button = UIKit.button(Locale.text("composer_save"), submit, 180, "ConfirmButton")
+	var submit_button = UIKit.button(Locale.text("flow_check"), func(): stop_playback(); review_open = true; review_details = false; refresh(), 180, "ConfirmButton")
 	submit_button.name = "SubmitIdea"
 	submit_button.custom_minimum_size.y = 64
 	submit_button.size_flags_vertical = SIZE_SHRINK_CENTER
@@ -104,6 +117,7 @@ func toggle_playback() -> void:
 		preview(seek_slider.value if is_instance_valid(seek_slider) else 0.0)
 
 func stop_playback() -> void:
+	_pending_audio = false
 	player.stop()
 	audition.stop()
 	player.stream_paused = false
@@ -134,6 +148,7 @@ func _set_tempo(value: float) -> void:
 	var was_paused = player.stream_paused
 	var beat = player.get_playback_position() * _preview_bpm / 60.0 if was_playing else 0.0
 	Game.idea_meeting["bpm"] = int(value)
+	compare_before = false
 	Game.save_game()
 	if was_playing:
 		preview(beat)
@@ -165,11 +180,16 @@ func _process(_delta: float) -> void:
 	if Game.idea_meeting["phase"] == "gathering" and (office == null or office.meeting_ready()):
 		Game.idea_meeting["phase"] = "ready"
 		refresh()
+	if _pending_audio and player.playing and not player.stream_paused:
+		var audio_beat = player.get_playback_position() * _preview_bpm / 60.0
+		if audio_beat >= _audio_boundary or audio_beat < _audio_boundary - 1.1:
+			_pending_audio = false
+			preview(audio_beat)
 	if is_instance_valid(playhead):
 		var beat = player.get_playback_position() * _preview_bpm / 60.0 if player.playing else (seek_slider.value if is_instance_valid(seek_slider) else 0.0)
 		var current_bar = int(beat / 4.0) % 8
 		for cell in cells:
-			if is_instance_valid(cell): cell.modulate.a = 1.0 if cell.col == current_bar and player.playing else 0.8
+			if is_instance_valid(cell): cell.modulate.a = 1.0 if not player.playing or cell.col == current_bar else 0.85
 		if loop_section >= 0 and player.playing and beat >= [8.0,20.0,32.0][loop_section]: player.seek([0.0,8.0,20.0][loop_section] * 60.0 / _preview_bpm)
 		playhead.text = Locale.text("composer_bar", [1 + int(beat / 4.0) % 8])
 		if player.playing and is_instance_valid(seek_slider) and not _scrubbing: seek_slider.set_value_no_signal(beat)
@@ -183,16 +203,19 @@ func refresh() -> void:
 	var meeting: Dictionary = Game.idea_meeting
 	if _shown_job != str(meeting["job_id"]):
 		_shown_job = str(meeting["job_id"])
-		market_open = int(Game.get_job(meeting["job_id"]).get("demo_index", 0)) > 0
+		market_open = int(Game.get_job(meeting["job_id"]).get("demo_index", 0)) == 2
+		advanced = false; review_open = false; compare_before = false; solo_lane = -1; muted_lanes.clear()
+		audition_lane = 3 if int(Game.get_job(meeting["job_id"]).get("demo_index", -1)) == 0 else 0
 		genre_index = maxi(0, Data.GENRES.find(meeting["genre"]))
 		selected = -1; inspected = -1; pitch_step = 0; loop_section = -1
 	if not meeting.has("brief"): meeting["brief"] = CompositionDesign.brief(Game.get_job(meeting["job_id"]))
 	var job = Game.get_job(meeting["job_id"])
-	MarketShift.plan(job)
+	if int(job.get("demo_index", 2)) >= 2: MarketShift.plan(job)
 	meeting["brief"] = CompositionDesign.brief(job)
+	ComposerFlow.prepare(meeting, job)
 	cells.clear()
 	energy_bars.clear()
-	var body = UIKit.centered_window(body_root, 1740, 990)
+	var body = UIKit.centered_window(body_root, 1740, 650 if review_open else 990)
 	body.add_theme_constant_override("separation", 8)
 	var head = HBoxContainer.new()
 	body.add_child(head)
@@ -200,7 +223,11 @@ func refresh() -> void:
 	title.size_flags_horizontal = SIZE_EXPAND_FILL
 	head.add_child(title)
 	head.add_child(UIKit.button(Locale.text("arr_save_back"), close))
-	head.add_child(UIKit.button(Locale.text("shift_strategy"), func(): market_open = not market_open; refresh()))
+	if int(job.get("demo_index", 2)) >= 2:
+		head.add_child(UIKit.button(Locale.text("shift_strategy"), func(): market_open = not market_open; review_open = false; refresh()))
+	if review_open:
+		_build_review(body, meeting)
+		return
 	if market_open:
 		var outlook = UIKit.label(MarketShift.outlook(job), 36)
 		outlook.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -222,20 +249,20 @@ func refresh() -> void:
 	body.add_child(hero)
 	var art = TextureRect.new()
 	art.texture = Art.texture("res://assets/story/composer-studio.png")
-	art.custom_minimum_size = Vector2(320, 170)
+	art.custom_minimum_size = Vector2(230, 125)
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	hero.add_child(art)
 	var guide = VBoxContainer.new()
 	guide.size_flags_horizontal = SIZE_EXPAND_FILL
 	hero.add_child(guide)
-	var help = UIKit.label(Locale.text("arr_brief_" + meeting["brief"]["kind"]) + "\n" + Locale.text("arr_artist", [meeting["brief"]["artist_genre"]]), 30)
+	var help = UIKit.label(Locale.text("flow_brief_" + meeting["brief"]["kind"]) + "\n" + Locale.text("flow_targets_" + meeting["brief"]["kind"]) + " | " + ", ".join(Data.sorted_tags(job["mix"])), 30)
 	help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	guide.add_child(help)
-	var shift_hint = UIKit.label(Locale.text("composer_shift_help"), 26)
+	var shift_hint = UIKit.label(ComposerFlow.feedback(meeting), 28)
 	shift_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	guide.add_child(shift_hint)
-	guide.add_child(UIKit.button(Locale.text("arr_advice"), func(): shift_hint.text = CompositionDesign.advice(Game.idea_meeting)))
+	if job.has("demo_index"): guide.add_child(UIKit.label(Locale.text("flow_lesson_%d" % int(job["demo_index"])), 26))
 	if meeting["phase"] == "gathering":
 		guide.add_child(UIKit.label(Locale.text("jam_gather")))
 		body.add_child(UIKit.button(Locale.text("cancel"), Game.cancel_idea_meeting))
@@ -244,7 +271,7 @@ func refresh() -> void:
 	body.add_child(palette)
 	var genre = OptionButton.new()
 	genre.name = "ComposerGenre"
-	genre.disabled = int(meeting["brief"].get("lesson", 2)) == 0
+	genre.disabled = int(meeting["brief"].get("lesson", 2)) < 2
 	for name in Data.GENRES: genre.add_item(name)
 	genre.select(genre_index)
 	genre.item_selected.connect(func(index: int): genre_index = index; selected = -1; refresh())
@@ -263,18 +290,29 @@ func refresh() -> void:
 		tile.selected.connect(func(id: int): selected = id; inspected = -1; audition_clip(id); refresh())
 		if selected == tile.block_id: tile.modulate = Color("ffd166")
 		palette.add_child(tile)
-	palette.add_child(UIKit.button(Locale.text("composer_clear"), func(): remember(); Game.idea_meeting["placed"] = []; stop_playback(); Game.save_game(); refresh()))
+	palette.add_child(UIKit.button(Locale.text("flow_advanced" if not advanced else "flow_basic"), func(): advanced = not advanced; refresh()))
 	var editing = HBoxContainer.new()
 	body.add_child(editing)
 	editing.add_child(UIKit.button(Locale.text("arr_undo"), undo))
 	editing.add_child(UIKit.button(Locale.text("arr_redo"), redo))
 	editing.add_child(UIKit.button(Locale.text("arr_deselect"), func(): selected = -1; inspected = -1; refresh()))
-	if inspected >= 0 and inspected < meeting["deck"].size():
-		editing.add_child(UIKit.button(Locale.text("arr_copy"), func(): selected = inspected; Game.idea_meeting["copy_next"] = true))
-		editing.add_child(UIKit.button(Locale.text("arr_delete"), _remove_clip.bind(inspected)))
-		editing.add_child(UIKit.button(Locale.text("arr_style"), change_style))
+	editing.add_child(UIKit.button(Locale.text("flow_before"), func(): listen_comparison(true)))
+	editing.add_child(UIKit.button(Locale.text("flow_after"), func(): listen_comparison(false)))
+	editing.add_child(UIKit.button(Locale.text("flow_preview"), play_section.bind(-1)))
+	listening_label = UIKit.label(Locale.text("flow_now_before" if compare_before else "flow_now_after"), 26)
+	editing.add_child(listening_label)
+	var extra = HBoxContainer.new()
+	if advanced:
+		body.add_child(extra)
+		extra.add_child(UIKit.button(Locale.text("flow_reference"), save_reference))
+		extra.add_child(UIKit.button(Locale.text("flow_starter"), load_starter))
+		extra.add_child(UIKit.button(Locale.text("flow_blank"), clear_song))
+	if advanced and inspected >= 0 and inspected < meeting["deck"].size():
+		extra.add_child(UIKit.button(Locale.text("arr_copy"), func(): selected = inspected; Game.idea_meeting["copy_next"] = true))
+		extra.add_child(UIKit.button(Locale.text("arr_delete"), _remove_clip.bind(inspected)))
+		extra.add_child(UIKit.button(Locale.text("arr_style"), change_style))
 		if int(meeting["brief"].get("lesson", 2)) > 0:
-			editing.add_child(UIKit.button(Locale.text("arr_pitch"), func(): remember(); var clip = Game.idea_meeting["deck"][inspected]; clip["transpose"] = (int(clip.get("transpose", 0)) + 2 + 12) % 26 - 12; stop_playback(); Game.save_game(); refresh()))
+			extra.add_child(UIKit.button(Locale.text("arr_pitch"), func(): remember(); var clip = Game.idea_meeting["deck"][inspected]; clip["transpose"] = (int(clip.get("transpose", 0)) + 2 + 12) % 26 - 12; stop_playback(); Game.save_game(); refresh()))
 		var level = HSlider.new()
 		level.custom_minimum_size.x = 180
 		level.min_value = 0.2; level.max_value = 1.0; level.step = 0.1
@@ -282,27 +320,48 @@ func refresh() -> void:
 		level.tooltip_text = Locale.text("arr_clip_volume")
 		level.drag_started.connect(remember)
 		level.value_changed.connect(func(v: float): Game.idea_meeting["deck"][inspected]["volume"] = v; Game.save_game())
-		editing.add_child(level)
+		extra.add_child(level)
+	if not advanced: extra.free()
 	var sections = HBoxContainer.new()
 	body.add_child(sections)
-	var gutter = Control.new(); gutter.custom_minimum_size.x = 190; sections.add_child(gutter)
+	var gutter = Control.new(); gutter.custom_minimum_size.x = 280; sections.add_child(gutter)
 	for section in 3:
-		var section_button = UIKit.button(["INTRO", "VERSE", "HOOK"][section], func(): loop_section = section if loop_section != section else -1; preview([0.0,8.0,20.0][section]))
+		var section_button = UIKit.button(Locale.text("flow_section_%d" % section), play_section.bind(section))
 		section_button.size_flags_horizontal = SIZE_EXPAND_FILL
 		section_button.size_flags_stretch_ratio = [2.0,3.0,3.0][section]
 		section_button.tooltip_text = Locale.text("arr_loop")
+		section_button.toggle_mode = true
+		section_button.set_pressed_no_signal(loop_section == section)
 		sections.add_child(section_button)
 	for lane in 4:
 		var row = HBoxContainer.new()
 		body.add_child(row)
-		var label = UIKit.label(Locale.text("jam_lane_%d" % lane), 28)
-		label.custom_minimum_size.x = 190
-		row.add_child(label)
+		var label = UIKit.button(Locale.text("jam_lane_%d" % lane), func(): audition_lane = lane; refresh(), 200)
+		label.custom_minimum_size.y = 30
+		label.add_theme_font_size_override("font_size", 24)
+		label.tooltip_text = Locale.text("flow_audition_lane")
+		label.toggle_mode = true
+		label.set_pressed_no_signal(audition_lane == lane)
+		var lane_tools = VBoxContainer.new()
+		lane_tools.custom_minimum_size.x = 280
+		row.add_child(lane_tools)
+		lane_tools.add_child(label)
+		var controls = HBoxContainer.new()
+		lane_tools.add_child(controls)
+		for kind in ["solo", "mute"]:
+			var b = UIKit.button(Locale.text("flow_" + kind), toggle_lane.bind(lane, kind), 110)
+			b.name = "%sLane%d" % [kind, lane]
+			b.custom_minimum_size.y = 30
+			b.add_theme_font_size_override("font_size", 22)
+			b.toggle_mode = true
+			b.set_pressed_no_signal(solo_lane == lane if kind == "solo" else lane in muted_lanes)
+			controls.add_child(b)
 		for column in 8:
 			var cell = IdeaCell.new()
 			cell.name = "Lane%dStep%d" % [lane, column]
 			cell.row = lane; cell.col = column
-			cell.custom_minimum_size = Vector2(166, 72)
+			cell.custom_minimum_size = Vector2(0, 64)
+			cell.add_theme_font_size_override("font_size", 26)
 			cell.size_flags_horizontal = SIZE_EXPAND_FILL
 			cell.text = str(column + 1)
 			for p in meeting["placed"]:
@@ -312,6 +371,7 @@ func refresh() -> void:
 					cell.modulate = Data.GENRE_COLORS.get(cell.text, Color.WHITE).lerp(Color.WHITE, 0.55)
 					var pitch = int(meeting["deck"][p["block"]].get("transpose", 0))
 					if pitch != 0 and lane != 3: cell.text += " %+d" % pitch
+					cell.text += "\n" + Locale.text("flow_style_%d" % int(meeting["deck"][p["block"]].get("style", 0)))
 					cell.theme_type_variation = "ConfirmButton"
 			cell.block_dropped.connect(place)
 			cell.block_removed.connect(_remove_clip)
@@ -325,7 +385,7 @@ func refresh() -> void:
 	body.add_child(footer)
 	var result = IdeaRules.score(meeting)
 	var energy_label = UIKit.label(Locale.text("arr_energy"), 28)
-	energy_label.custom_minimum_size.x = 190
+	energy_label.custom_minimum_size.x = 280
 	footer.add_child(energy_label)
 	for value in result["energy"]:
 		var meter = ProgressBar.new()
@@ -334,7 +394,7 @@ func refresh() -> void:
 		meter.max_value = 1.0; meter.value = value; meter.show_percentage = false
 		footer.add_child(meter)
 		energy_bars.append(meter)
-	body.add_child(UIKit.label(Locale.text("arr_density", [roundi(result["density"] * 100)]), 28))
+	if advanced: body.add_child(UIKit.label(Locale.text("arr_density", [roundi(result["density"] * 100)]), 26))
 
 	var spacer = Control.new()
 	spacer.size_flags_vertical = SIZE_EXPAND_FILL
@@ -351,6 +411,7 @@ func _finish_walkthrough() -> void:
 
 func place(block: int, row: int, col: int) -> void:
 	if not IdeaRules.can_place(Game.idea_meeting, block, row, col): return
+	audition_lane = row
 	remember()
 	if Game.idea_meeting.get("copy_next", false):
 		var clone: Dictionary = Game.idea_meeting["deck"][block].duplicate(true)
@@ -361,9 +422,12 @@ func place(block: int, row: int, col: int) -> void:
 		Game.idea_meeting.erase("copy_next")
 	var transpose: Variant = PITCH_STEPS[pitch_step] if pitch_changed or Game.idea_meeting["deck"][block].get("palette", false) else null
 	if Game.place_idea(block, row, col, transpose):
-		selected = -1
+		selected = block if Game.idea_meeting["deck"][block].get("palette", false) else -1
 		pitch_changed = false
-		player.stop()
+		if player.playing:
+			queue_audio_update()
+		else:
+			compare_before = false
 		var placed: Dictionary = Game.idea_meeting["placed"].back().duplicate()
 		placed["col"] = 0
 		var notes = IdeaMusic.events(Game.idea_meeting["deck"], [placed])
@@ -372,7 +436,7 @@ func place(block: int, row: int, col: int) -> void:
 		wav.mix_rate = IdeaMusic.RATE
 		wav.data = IdeaMusic.pcm(notes, int(Game.idea_meeting["bpm"]), 0.45)
 		audition.stream = wav
-		audition.play()
+		if not player.playing: audition.play()
 		Game.save_game()
 		call_deferred("refresh")
 
@@ -380,17 +444,18 @@ func _remove_clip(id: int) -> void:
 	remember()
 	inspected = -1
 	Game.remove_idea(id)
-	player.stop()
-	audition.stop()
+	queue_audio_update()
 	Game.save_game()
 	refresh()
 
 func preview(from_beat: float = 0.0) -> void:
 	if Game.idea_meeting.is_empty(): return
 	audition.stop()
-	var notes = IdeaMusic.events(Game.idea_meeting["deck"], Game.idea_meeting["placed"])
-	if notes.is_empty(): return
-	_preview_bpm = int(Game.idea_meeting["bpm"])
+	var state = ComposerFlow.preview_state(Game.idea_meeting, compare_before, solo_lane, muted_lanes)
+	var notes = IdeaMusic.events(state["deck"], state["placed"])
+	if notes.is_empty(): notes.append({"step":0, "note":60, "volume":0.0, "loop_steps":64})
+	_preview_bpm = int(state["bpm"])
+	if is_instance_valid(listening_label): listening_label.text = Locale.text("flow_now_before" if compare_before else "flow_now_after")
 	var wav = IdeaMusic.stream(notes, _preview_bpm)
 	wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
 	wav.loop_begin = 0
@@ -437,7 +502,7 @@ func redo() -> void:
 	restore_history("redo", "undo")
 
 func audition_clip(id: int) -> void:
-	var notes = IdeaMusic.events(Game.idea_meeting["deck"], [{"block": id, "row": 0, "col": 0}])
+	var notes = IdeaMusic.events(Game.idea_meeting["deck"], [{"block": id, "row": audition_lane, "col": 0}])
 	var wav = AudioStreamWAV.new()
 	wav.format = AudioStreamWAV.FORMAT_16_BITS
 	wav.mix_rate = IdeaMusic.RATE
@@ -455,6 +520,81 @@ func change_style() -> void:
 			clip["style"] = style
 			clip["notes"] = candidate["notes"].duplicate(true)
 			break
+	queue_audio_update()
+	Game.save_game()
+	refresh()
+
+func queue_audio_update() -> void:
+	compare_before = false
+	if player.playing:
+		_pending_audio = true
+		_audio_boundary = floorf(player.get_playback_position() * _preview_bpm / 60.0) + 1.0
+
+func listen_comparison(before: bool) -> void:
+	compare_before = before
+	_pending_audio = false
+	preview([0.0, 8.0, 20.0][loop_section] if loop_section >= 0 else 0.0)
+
+func play_section(section: int) -> void:
+	loop_section = section
+	compare_before = false
+	preview([0.0, 8.0, 20.0][section] if section >= 0 else 0.0)
+	refresh()
+
+func toggle_lane(lane: int, kind: String) -> void:
+	if kind == "solo": solo_lane = -1 if solo_lane == lane else lane
+	elif lane in muted_lanes: muted_lanes.erase(lane)
+	else: muted_lanes.append(lane)
+	if player.playing: preview(player.get_playback_position() * _preview_bpm / 60.0)
+	refresh()
+
+func save_reference() -> void:
+	Game.idea_meeting["listening_reference"] = ComposerFlow.snapshot(Game.idea_meeting)
+	compare_before = false
+	Game.save_game()
+	refresh()
+
+func load_starter() -> void:
+	remember()
+	ComposerFlow.starter(Game.idea_meeting)
+	stop_playback()
+	compare_before = false
+	Game.save_game()
+	refresh()
+
+func clear_song() -> void:
+	remember()
+	Game.idea_meeting["placed"] = []
+	selected = -1; inspected = -1; compare_before = false
 	stop_playback()
 	Game.save_game()
 	refresh()
+
+func _build_review(body: VBoxContainer, meeting: Dictionary) -> void:
+	body.add_child(UIKit.label(Locale.text("flow_review"), 36))
+	for key in ["flow_brief_" + meeting["brief"]["kind"], "flow_targets_" + meeting["brief"]["kind"], "flow_review_help"]:
+		var text = UIKit.label(Locale.text(key), 30)
+		text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		body.add_child(text)
+	var feedback = UIKit.label(ComposerFlow.feedback(meeting), 32)
+	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	feedback.modulate = Color("ffd166")
+	body.add_child(feedback)
+	var listen = HBoxContainer.new()
+	body.add_child(listen)
+	listen.add_child(UIKit.button(Locale.text("flow_before"), func(): listen_comparison(true)))
+	listen.add_child(UIKit.button(Locale.text("flow_after"), func(): listen_comparison(false)))
+	listening_label = UIKit.label(Locale.text("flow_now_before" if compare_before else "flow_now_after"), 26)
+	listen.add_child(listening_label)
+	listen.add_child(UIKit.button(Locale.text("jam_stop"), stop_playback))
+	body.add_child(UIKit.button(Locale.text("flow_details"), func(): review_details = not review_details; refresh()))
+	if review_details:
+		var report = UIKit.label(CompositionDesign.report(IdeaRules.score(meeting)), 30)
+		report.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		body.add_child(report)
+	var actions = HBoxContainer.new()
+	body.add_child(actions)
+	actions.add_child(UIKit.button(Locale.text("flow_edit"), func(): review_open = false; refresh()))
+	var confirm = UIKit.button(Locale.text("flow_commit"), submit, 260, "ConfirmButton")
+	confirm.name = "ConfirmArrangement"
+	actions.add_child(confirm)

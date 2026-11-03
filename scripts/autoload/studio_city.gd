@@ -177,6 +177,7 @@ static func resume_calendar() -> void:
 		Game._run_contest()
 
 static func try_fire() -> void:
+	if DemoCareer.active(): return
 	var city: Dictionary = Game.life["city"]
 	# One occupied studio only, protected first month and 28-day event cooldown.
 	if Game.day >= 28 and Game.day - int(city["last_fire_day"]) >= 28 and city["damage"].is_empty() and randf() < StudioResilience.fire_chance():

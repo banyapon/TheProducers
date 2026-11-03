@@ -53,6 +53,9 @@ static func analyze(m: Dictionary) -> Dictionary:
 	var hook = (energy[5] + energy[6] + energy[7]) / 3.0
 	var tempo = band_fit(float(m["bpm"]), b["bpm"], 45.0)
 	var texture = band_fit(density, b["density"], 0.4)
+	if b["kind"] == "cafe":
+		var busy_drums = m["placed"].filter(func(p: Dictionary): return int(p["row"]) == 3 and int(m["deck"][p["block"]].get("style", 0)) != 2)
+		texture *= 1.0 - 0.35 * float(busy_drums.size()) / 8.0
 	var rise = clampf(1.0 - absf(hook - verse - float(b["rise"])) / 0.4, 0, 1)
 	var structure = (rise * 0.6 + float(occupied.size()) / 8.0 * 0.4)
 	if b["kind"] != "cafe": structure *= 0.6 + 0.4 * clampf((hook - intro + 0.1) / 0.3, 0, 1)
