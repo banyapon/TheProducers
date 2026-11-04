@@ -31,9 +31,13 @@ var staff_panel: StaffPanel
 var star_panel: StarPanel
 var news_panel: NewsPanel
 var coach: TutorialCoach
+var fullbody_debug: FullbodyDebugPanel
 
 
 func _ready() -> void:
+	if OS.is_debug_build():
+		fullbody_debug = FullbodyDebugPanel.new()
+		$UI.add_child(fullbody_debug)
 	star_panel = StarPanel.new()
 	$UI.add_child(star_panel)
 	news_panel = NewsPanel.new()
@@ -116,6 +120,7 @@ func _run_queue() -> void:
 	_queue_running = false
 
 func _board_open() -> bool:
+	if is_instance_valid(fullbody_debug) and fullbody_debug.visible: return true
 	return star_panel.visible or news_panel.visible or city_panel.visible or staff_panel.visible or job_board.visible or hire_board.visible or production.visible or release_panel.visible or library.visible or planner.visible or jam.visible or shell.visible
 
 
@@ -575,6 +580,17 @@ func _flow_expand(new_floor: bool) -> void:
 	dialog.close()
 
 func _input(event: InputEvent) -> void:
+	if OS.is_debug_build() and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_I and event.ctrl_pressed and event.shift_pressed and not event.alt_pressed and not event.meta_pressed:
+		get_viewport().set_input_as_handled()
+		if fullbody_debug.visible: fullbody_debug.close()
+		else:
+			$UI.move_child(fullbody_debug, -1)
+			fullbody_debug.open()
+		return
+	if is_instance_valid(fullbody_debug) and fullbody_debug.visible and event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
+		fullbody_debug.close()
+		return
 	if not event.is_action_pressed("ui_cancel"): return
 	get_viewport().set_input_as_handled()
 	if login.visible:

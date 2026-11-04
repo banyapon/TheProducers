@@ -9,6 +9,7 @@ var ceremony: Dictionary = {}
 var show_song := ""
 var show_team: Dictionary = {}
 var choosing_companion := true
+var social_action := ""
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(PRESET_FULL_RECT)
@@ -22,6 +23,7 @@ func visit(id: String = "", client: bool = false) -> void:
 	is_client = client
 	message = ""
 	ceremony = {}
+	social_action = ""
 	location = "city"
 	choosing_companion = true
 	open()
@@ -115,16 +117,7 @@ func refresh() -> void:
 	if location == "hall": _hall(info)
 	else:
 		_social(info)
-		var person = StudioCity.person_for(contact, is_client)
-		if not person.is_empty():
-			for i in 2:
-				var actor = AnimatedSprite2D.new()
-				actor.sprite_frames = Art.frames(Game.player_character if i == 0 else Art.model_id(person))
-				actor.position = Vector2(365 + i * 88, 355 if location == "restaurant" else 394)
-				actor.scale = Vector2(2.2, 2.2)
-				actor.flip_h = i == 1
-				scene.add_child(actor)
-				actor.play("talk")
+	if ceremony.is_empty(): _stage_people(scene)
 	var feedback = UIKit.label(message, 30)
 	feedback.name = "CityFeedback"
 	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -136,9 +129,13 @@ func _social(box: VBoxContainer) -> void:
 	box.add_child(UIKit.label(Game.client_contact(person) if is_client else str(person["name"]), 32))
 	var s: Dictionary = person["social"]
 	var portrait = PortraitView.new()
+	portrait.name = "CityCompanionPortrait"
 	portrait.custom_minimum_size = Vector2(110, 110)
 	box.add_child(portrait)
 	portrait.configure(Art.model_id(person))
+	portrait.custom_minimum_size = Vector2(150, 170)
+	portrait.use_fullbody(true, true)
+	portrait.talking = social_action != "" and social_action != "walk"
 	var status = UIKit.label(Locale.text("social_prompt", [s["trust"], s["comfort"], s["attraction"]]), 30)
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(status)
@@ -164,8 +161,29 @@ func _act(action: String) -> void:
 		return
 	var result = StudioCity.interact(contact, action, is_client)
 	message = result["text"]
-	if result["ok"]: location = result["scene"]
+	if result["ok"]:
+		location = result["scene"]
+		social_action = action
 	refresh()
+
+func _stage_people(scene: TextureRect) -> void:
+	var person = StudioCity.person_for(contact, is_client)
+	if person.is_empty(): return
+	for i in 2:
+		var view = PortraitView.new()
+		view.name = "CityProducer" if i == 0 else "CityCompanion"
+		view.size = Vector2(190, 230)
+		var destination = Vector2(230 + i * 230, 207)
+		view.position = destination + Vector2(-90 if i == 0 else 90, 0)
+		scene.add_child(view)
+		view.configure(Game.player_character if i == 0 else Art.model_id(person), i == 1)
+		view.body_pose = "walk"
+		view.use_fullbody(true)
+		var arrival = view.create_tween()
+		arrival.tween_property(view, "position", destination, 0.85)
+		arrival.tween_callback(func():
+			view.body_pose = "idle"
+			view.talking = social_action != "" and social_action != "walk")
 
 func companion_entries() -> Array:
 	var entries: Array = []

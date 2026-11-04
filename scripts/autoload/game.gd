@@ -44,6 +44,31 @@ const MAX_OFFERS := 6
 const SAVE_KEYS := ["archived_songs", "player_character", "producer_name", "studio_name", "identity_initialized", "intro_seen", "fame", "reputation", "money", "day", "fans", "_next_id", "staff", "listing", "online_candidates", "offers", "jobs", "clients", "items", "songs", "project", "floors", "parallel_projects", "research_tasks", "invoices", "trophies", "contest_edition", "idea_meeting", "production_queue", "tutorial_step", "tutorial_start_songs", "life"]
 
 var life: Dictionary = {}
+var character_appearance: Dictionary = {}
+
+## Seed missing recipes once per save; preserve existing outfits and colors.
+func initiate_character_parts(reset: bool = false) -> void:
+	if reset: character_appearance = {}
+	var defaults: Dictionary = ModularCharacter.catalogue()["characters"]
+	for id in defaults:
+		var recipe: Dictionary = character_appearance.get(id, {}) if character_appearance.get(id, {}) is Dictionary else {}
+		if int(recipe.get("art_version", 1)) < 2:
+			if recipe.get("body", defaults[id]["body"]) == defaults[id].get("previous_body", ""):
+				recipe["body"] = defaults[id]["body"]
+			recipe["art_version"] = 2
+		for key in ["body", "cloth_tint", "inner_tint", "pants_tint", "shoes_tint", "skin_tint"]:
+			if not recipe.has(key): recipe[key] = defaults[id].get(key, "#ffffff")
+		if not recipe["body"] in ModularCharacter.catalogue()["outfits"]: recipe["body"] = defaults[id]["body"]
+		for key in ["cloth_tint", "inner_tint", "pants_tint", "shoes_tint", "skin_tint"]:
+			if not recipe[key] is String or not Color.html_is_valid(recipe[key]): recipe[key] = defaults[id].get(key, "#ffffff")
+		character_appearance[id] = recipe
+
+func character_parts_path() -> String:
+	return "user://save_%s.fullbody.json" % save_slot.validate_filename()
+
+func _save_character_parts() -> void:
+	var file = FileAccess.open(character_parts_path(), FileAccess.WRITE)
+	if file: file.store_string(JSON.stringify({"version":2, "characters":character_appearance}, "\t"))
 
 var player_character: String = "producer"
 
@@ -133,10 +158,12 @@ func start(slot: String) -> void:
 		if slot == "demo_career" or PlaytestLog.data()["runs"].has(slot): DemoCareer.setup()
 	running = true
 	PlaytestLog.start_session()
+	_save_character_parts()
 	_emit_all()
 
 
 func new_game() -> void:
+	initiate_character_parts(true)
 	archived_songs = []
 	life = {}
 	_reset_identity()
@@ -195,14 +222,17 @@ func save_game() -> void:
 		return
 	if not PlaytestLog.current().is_empty(): PlaytestLog.save()
 	var data = {"version": 3}
+	data["character_appearance"] = character_appearance
 	for key in SAVE_KEYS:
 		data[key] = get(key)
 	var file = FileAccess.open(_save_path(), FileAccess.WRITE)
 	if file:
 		file.store_var(data)
+		_save_character_parts()
 
 
 func load_game() -> bool:
+	character_appearance = {}
 	archived_songs = []
 	life = {}
 	_reset_identity()
@@ -225,6 +255,13 @@ func load_game() -> bool:
 	if not data is Dictionary:
 		return false
 	Data.migrate_legacy_genres(data)
+	if data.get("character_appearance") is Dictionary:
+		character_appearance = data["character_appearance"]
+	if FileAccess.file_exists(character_parts_path()):
+		var saved_parts = JSON.parse_string(FileAccess.get_file_as_string(character_parts_path()))
+		if saved_parts is Dictionary and saved_parts.get("characters") is Dictionary:
+			character_appearance = saved_parts["characters"]
+	initiate_character_parts()
 	for key in SAVE_KEYS:
 		if data.has(key):
 			set(key, data[key])

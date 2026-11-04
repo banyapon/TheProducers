@@ -1,839 +1,450 @@
-[gd_resource type="Theme" format=3]
-
-[ext_resource type="FontFile" path="res://fonts/2005_iannnnnAMD.ttf" id="font"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/arrow-down-2x.png" id="arrow-down"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/bar-health-2x.png" id="bar-health"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/bar-progress-2x.png" id="bar-progress"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/bar-status-2x.png" id="bar-status"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/bar-track-2x.png" id="bar-track"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-2x.png" id="button"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-cancel-2x.png" id="button-cancel"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-cancel-disabled-2x.png" id="button-cancel-disabled"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-cancel-hover-2x.png" id="button-cancel-hover"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-cancel-pressed-2x.png" id="button-cancel-pressed"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-confirm-2x.png" id="button-confirm"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-confirm-disabled-2x.png" id="button-confirm-disabled"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-confirm-hover-2x.png" id="button-confirm-hover"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-confirm-pressed-2x.png" id="button-confirm-pressed"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-disabled-2x.png" id="button-disabled"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-focus-2x.png" id="button-focus"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-google-2x.png" id="button-google"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-google-disabled-2x.png" id="button-google-disabled"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-google-hover-2x.png" id="button-google-hover"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-google-pressed-2x.png" id="button-google-pressed"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-hover-2x.png" id="button-hover"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/button-pressed-2x.png" id="button-pressed"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/check-off-2x.png" id="check-off"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/check-on-2x.png" id="check-on"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/dialog-box-2x.png" id="dialog-box"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/panel-2x.png" id="panel"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/panel-inset-2x.png" id="panel-inset"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/slider-grabber-2x.png" id="slider-grabber"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/slider-grabber-hover-2x.png" id="slider-grabber-hover"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/text-field-2x.png" id="text-field"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/text-field-disabled-2x.png" id="text-field-disabled"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/text-field-focus-2x.png" id="text-field-focus"]
-
-[ext_resource type="Texture2D" path="res://assets/ui/pixel/tooltip-2x.png" id="tooltip"]
-
-[sub_resource type="StyleBoxTexture" id="panel"]
-
-texture = ExtResource("panel")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 18.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 18.0
-
-[sub_resource type="StyleBoxTexture" id="dialog"]
-
-texture = ExtResource("dialog-box")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 18.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 18.0
-
-[sub_resource type="StyleBoxTexture" id="inset"]
-
-texture = ExtResource("panel-inset")
-
-texture_margin_left = 16.0
-
-content_margin_left = 12.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 12.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="tooltip"]
-
-texture = ExtResource("tooltip")
-
-texture_margin_left = 16.0
-
-content_margin_left = 16.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 12.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 16.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxTexture" id="normal"]
-
-texture = ExtResource("button")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="hover"]
-
-texture = ExtResource("button-hover")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="pressed"]
-
-texture = ExtResource("button-pressed")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
+[gd_resource type="Theme" format=3 uid="uid://dfwdonav87l3s"]
+
+[ext_resource type="Texture2D" uid="uid://dwgjfwac1ihnc" path="res://assets/ui/pixel/arrow-down-2x.png" id="arrow-down"]
+[ext_resource type="Texture2D" uid="uid://xays6fhhi1q2" path="res://assets/ui/pixel/bar-health-2x.png" id="bar-health"]
+[ext_resource type="Texture2D" uid="uid://d0lv6xy86qmmc" path="res://assets/ui/pixel/bar-progress-2x.png" id="bar-progress"]
+[ext_resource type="Texture2D" uid="uid://db4k0my1duixe" path="res://assets/ui/pixel/bar-status-2x.png" id="bar-status"]
+[ext_resource type="Texture2D" uid="uid://c21a36dou6u8k" path="res://assets/ui/pixel/bar-track-2x.png" id="bar-track"]
+[ext_resource type="Texture2D" uid="uid://lx7uso17k5ac" path="res://assets/ui/pixel/button-2x.png" id="button"]
+[ext_resource type="Texture2D" uid="uid://dapcf15rdjsne" path="res://assets/ui/pixel/button-cancel-2x.png" id="button-cancel"]
+[ext_resource type="Texture2D" uid="uid://be0nmk16uek1g" path="res://assets/ui/pixel/button-cancel-disabled-2x.png" id="button-cancel-disabled"]
+[ext_resource type="Texture2D" uid="uid://difg3gtgtxeo8" path="res://assets/ui/pixel/button-cancel-hover-2x.png" id="button-cancel-hover"]
+[ext_resource type="Texture2D" uid="uid://du1603p0cf4j1" path="res://assets/ui/pixel/button-cancel-pressed-2x.png" id="button-cancel-pressed"]
+[ext_resource type="Texture2D" uid="uid://bxtnkevstt5vj" path="res://assets/ui/pixel/button-confirm-2x.png" id="button-confirm"]
+[ext_resource type="Texture2D" uid="uid://ke8qndmqnmdv" path="res://assets/ui/pixel/button-confirm-disabled-2x.png" id="button-confirm-disabled"]
+[ext_resource type="Texture2D" uid="uid://dxtwxt5bmo41a" path="res://assets/ui/pixel/button-confirm-hover-2x.png" id="button-confirm-hover"]
+[ext_resource type="Texture2D" uid="uid://bbkht4q1hfs4p" path="res://assets/ui/pixel/button-confirm-pressed-2x.png" id="button-confirm-pressed"]
+[ext_resource type="Texture2D" uid="uid://diojr6e40gwlw" path="res://assets/ui/pixel/button-disabled-2x.png" id="button-disabled"]
+[ext_resource type="Texture2D" uid="uid://dxdl8o513vvy0" path="res://assets/ui/pixel/button-focus-2x.png" id="button-focus"]
+[ext_resource type="Texture2D" uid="uid://dgsk7fhgsho3p" path="res://assets/ui/pixel/button-google-2x.png" id="button-google"]
+[ext_resource type="Texture2D" uid="uid://bxm8lwn7mkauu" path="res://assets/ui/pixel/button-google-disabled-2x.png" id="button-google-disabled"]
+[ext_resource type="Texture2D" uid="uid://c5vdd63nntame" path="res://assets/ui/pixel/button-google-hover-2x.png" id="button-google-hover"]
+[ext_resource type="Texture2D" uid="uid://bich84g6bvsqb" path="res://assets/ui/pixel/button-google-pressed-2x.png" id="button-google-pressed"]
+[ext_resource type="Texture2D" uid="uid://dmkoq20qssk8u" path="res://assets/ui/pixel/button-hover-2x.png" id="button-hover"]
+[ext_resource type="Texture2D" uid="uid://jgg7tbnqwefk" path="res://assets/ui/pixel/button-pressed-2x.png" id="button-pressed"]
+[ext_resource type="Texture2D" uid="uid://8pg6oofj0a5l" path="res://assets/ui/pixel/check-off-2x.png" id="check-off"]
+[ext_resource type="Texture2D" uid="uid://cfx0qcv7in1nl" path="res://assets/ui/pixel/check-on-2x.png" id="check-on"]
+[ext_resource type="Texture2D" uid="uid://b3ptqa85y3thy" path="res://assets/ui/pixel/dialog-box-2x.png" id="dialog-box"]
+[ext_resource type="FontFile" uid="uid://1wb6k4hpvs3r" path="res://fonts/2005_iannnnnAMD.ttf" id="font"]
+[ext_resource type="Texture2D" uid="uid://utt10wt6n5d4" path="res://assets/ui/pixel/panel-2x.png" id="panel"]
+[ext_resource type="Texture2D" uid="uid://djxff7vchub4k" path="res://assets/ui/pixel/panel-inset-2x.png" id="panel-inset"]
+[ext_resource type="Texture2D" uid="uid://c15hwruend7gr" path="res://assets/ui/pixel/slider-grabber-2x.png" id="slider-grabber"]
+[ext_resource type="Texture2D" uid="uid://dojjb0hjfohbo" path="res://assets/ui/pixel/slider-grabber-hover-2x.png" id="slider-grabber-hover"]
+[ext_resource type="Texture2D" uid="uid://dgcinlrht3fip" path="res://assets/ui/pixel/text-field-2x.png" id="text-field"]
+[ext_resource type="Texture2D" uid="uid://dytlb13yjmn8x" path="res://assets/ui/pixel/text-field-disabled-2x.png" id="text-field-disabled"]
+[ext_resource type="Texture2D" uid="uid://eqm87yt6kw8" path="res://assets/ui/pixel/text-field-focus-2x.png" id="text-field-focus"]
+[ext_resource type="Texture2D" uid="uid://babu838fecgoh" path="res://assets/ui/pixel/tooltip-2x.png" id="tooltip"]
 
 [sub_resource type="StyleBoxTexture" id="disabled"]
-
-texture = ExtResource("button-disabled")
-
-texture_margin_left = 16.0
-
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
 content_margin_bottom = 10.0
+texture = ExtResource("button-disabled")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxTexture" id="focus"]
-
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
 texture = ExtResource("button-focus")
-
 texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
 texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
 texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
 texture_margin_bottom = 16.0
 
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="field"]
-
-texture = ExtResource("text-field")
-
-texture_margin_left = 16.0
-
+[sub_resource type="StyleBoxTexture" id="hover"]
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
+content_margin_bottom = 10.0
+texture = ExtResource("button-hover")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="field_focus"]
-
-texture = ExtResource("text-field-focus")
-
-texture_margin_left = 16.0
-
+[sub_resource type="StyleBoxTexture" id="normal"]
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
+content_margin_bottom = 10.0
+texture = ExtResource("button")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="field_disabled"]
-
-texture = ExtResource("text-field-disabled")
-
-texture_margin_left = 16.0
-
+[sub_resource type="StyleBoxTexture" id="pressed"]
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
 content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="track"]
-
-texture = ExtResource("bar-track")
-
-texture_margin_left = 6.0
-
-content_margin_left = 4.0
-
-texture_margin_top = 6.0
-
-content_margin_top = 4.0
-
-texture_margin_right = 6.0
-
-content_margin_right = 4.0
-
-texture_margin_bottom = 6.0
-
-content_margin_bottom = 4.0
-
-[sub_resource type="StyleBoxTexture" id="progress"]
-
-texture = ExtResource("bar-progress")
-
-texture_margin_left = 2.0
-
-content_margin_left = 0.0
-
-texture_margin_top = 2.0
-
-content_margin_top = 0.0
-
-texture_margin_right = 2.0
-
-content_margin_right = 0.0
-
-texture_margin_bottom = 2.0
-
-content_margin_bottom = 0.0
-
-[sub_resource type="StyleBoxTexture" id="health"]
-
-texture = ExtResource("bar-health")
-
-texture_margin_left = 2.0
-
-content_margin_left = 0.0
-
-texture_margin_top = 2.0
-
-content_margin_top = 0.0
-
-texture_margin_right = 2.0
-
-content_margin_right = 0.0
-
-texture_margin_bottom = 2.0
-
-content_margin_bottom = 0.0
-
-[sub_resource type="StyleBoxTexture" id="status"]
-
-texture = ExtResource("bar-status")
-
-texture_margin_left = 2.0
-
-content_margin_left = 0.0
-
-texture_margin_top = 2.0
-
-content_margin_top = 0.0
-
-texture_margin_right = 2.0
-
-content_margin_right = 0.0
-
-texture_margin_bottom = 2.0
-
-content_margin_bottom = 0.0
-
-[sub_resource type="StyleBoxTexture" id="confirm_normal"]
-
-texture = ExtResource("button-confirm")
-
+texture = ExtResource("button-pressed")
 texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
 texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
 texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
 texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="confirm_hover"]
-
-texture = ExtResource("button-confirm-hover")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="confirm_pressed"]
-
-texture = ExtResource("button-confirm-pressed")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="confirm_disabled"]
-
-texture = ExtResource("button-confirm-disabled")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="cancel_normal"]
-
-texture = ExtResource("button-cancel")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="cancel_hover"]
-
-texture = ExtResource("button-cancel-hover")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="cancel_pressed"]
-
-texture = ExtResource("button-cancel-pressed")
-
-texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
-texture_margin_bottom = 16.0
-
-content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxTexture" id="cancel_disabled"]
-
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
 texture = ExtResource("button-cancel-disabled")
-
 texture_margin_left = 16.0
-
-content_margin_left = 20.0
-
 texture_margin_top = 16.0
-
-content_margin_top = 10.0
-
 texture_margin_right = 16.0
-
-content_margin_right = 20.0
-
 texture_margin_bottom = 16.0
 
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="google_normal"]
-
-texture = ExtResource("button-google")
-
-texture_margin_left = 16.0
-
+[sub_resource type="StyleBoxTexture" id="cancel_hover"]
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
+content_margin_bottom = 10.0
+texture = ExtResource("button-cancel-hover")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="google_hover"]
-
-texture = ExtResource("button-google-hover")
-
-texture_margin_left = 16.0
-
+[sub_resource type="StyleBoxTexture" id="cancel_normal"]
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
+content_margin_bottom = 10.0
+texture = ExtResource("button-cancel")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
-content_margin_bottom = 10.0
-
-[sub_resource type="StyleBoxTexture" id="google_pressed"]
-
-texture = ExtResource("button-google-pressed")
-
-texture_margin_left = 16.0
-
+[sub_resource type="StyleBoxTexture" id="cancel_pressed"]
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
+content_margin_bottom = 10.0
+texture = ExtResource("button-cancel-pressed")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
+[sub_resource type="StyleBoxTexture" id="confirm_disabled"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
 content_margin_bottom = 10.0
+texture = ExtResource("button-confirm-disabled")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="confirm_hover"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("button-confirm-hover")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="confirm_normal"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("button-confirm")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="confirm_pressed"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("button-confirm-pressed")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="dialog"]
+content_margin_left = 20.0
+content_margin_top = 18.0
+content_margin_right = 20.0
+content_margin_bottom = 18.0
+texture = ExtResource("dialog-box")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [sub_resource type="StyleBoxTexture" id="google_disabled"]
-
-texture = ExtResource("button-google-disabled")
-
-texture_margin_left = 16.0
-
 content_margin_left = 20.0
-
-texture_margin_top = 16.0
-
 content_margin_top = 10.0
-
-texture_margin_right = 16.0
-
 content_margin_right = 20.0
-
+content_margin_bottom = 10.0
+texture = ExtResource("button-google-disabled")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 
+[sub_resource type="StyleBoxTexture" id="google_hover"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
 content_margin_bottom = 10.0
+texture = ExtResource("button-google-hover")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="google_normal"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("button-google")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="google_pressed"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("button-google-pressed")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="track"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = ExtResource("bar-track")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="progress"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("bar-progress")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="health"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("bar-health")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="inset"]
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+texture = ExtResource("panel-inset")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="field_focus"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("text-field-focus")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="field"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("text-field")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="field_disabled"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("text-field-disabled")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="panel"]
+content_margin_left = 20.0
+content_margin_top = 18.0
+content_margin_right = 20.0
+content_margin_bottom = 18.0
+texture = ExtResource("panel")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxTexture" id="status"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("bar-status")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="tooltip"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+texture = ExtResource("tooltip")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 
 [resource]
-
 default_font = ExtResource("font")
-
 default_font_size = 36
-
-Button/styles/normal = SubResource("normal")
-
-Button/styles/hover = SubResource("hover")
-
-Button/styles/pressed = SubResource("pressed")
-
-Button/styles/disabled = SubResource("disabled")
-
-Button/styles/focus = SubResource("focus")
-
 Button/colors/font_color = Color(1, 0.922, 0.745, 1)
-
-Button/colors/font_hover_color = Color(1, 0.965, 0.88, 1)
-
-Button/colors/font_pressed_color = Color(0.035, 0.067, 0.125, 1)
-
 Button/colors/font_disabled_color = Color(0.29, 0.42, 0.48, 1)
-
-OptionButton/styles/normal = SubResource("normal")
-
-OptionButton/styles/hover = SubResource("hover")
-
-OptionButton/styles/pressed = SubResource("pressed")
-
-OptionButton/styles/disabled = SubResource("disabled")
-
-OptionButton/styles/focus = SubResource("focus")
-
-OptionButton/colors/font_color = Color(1, 0.922, 0.745, 1)
-
-OptionButton/colors/font_hover_color = Color(1, 0.965, 0.88, 1)
-
-OptionButton/colors/font_pressed_color = Color(0.035, 0.067, 0.125, 1)
-
-OptionButton/colors/font_disabled_color = Color(0.29, 0.42, 0.48, 1)
-
-MenuButton/styles/normal = SubResource("normal")
-
-MenuButton/styles/hover = SubResource("hover")
-
-MenuButton/styles/pressed = SubResource("pressed")
-
-MenuButton/styles/disabled = SubResource("disabled")
-
-MenuButton/styles/focus = SubResource("focus")
-
-MenuButton/colors/font_color = Color(1, 0.922, 0.745, 1)
-
-MenuButton/colors/font_hover_color = Color(1, 0.965, 0.88, 1)
-
-MenuButton/colors/font_pressed_color = Color(0.035, 0.067, 0.125, 1)
-
-MenuButton/colors/font_disabled_color = Color(0.29, 0.42, 0.48, 1)
-
-ConfirmButton/base_type = &"Button"
-
-ConfirmButton/styles/normal = SubResource("confirm_normal")
-
-ConfirmButton/styles/hover = SubResource("confirm_hover")
-
-ConfirmButton/styles/pressed = SubResource("confirm_pressed")
-
-ConfirmButton/styles/disabled = SubResource("confirm_disabled")
-
+Button/colors/font_hover_color = Color(1, 0.965, 0.88, 1)
+Button/colors/font_pressed_color = Color(0.035, 0.067, 0.125, 1)
+Button/styles/disabled = SubResource("disabled")
+Button/styles/focus = SubResource("focus")
+Button/styles/hover = SubResource("hover")
+Button/styles/normal = SubResource("normal")
+Button/styles/pressed = SubResource("pressed")
 CancelButton/base_type = &"Button"
-
-CancelButton/styles/normal = SubResource("cancel_normal")
-
-CancelButton/styles/hover = SubResource("cancel_hover")
-
-CancelButton/styles/pressed = SubResource("cancel_pressed")
-
 CancelButton/styles/disabled = SubResource("cancel_disabled")
-
-GoogleButton/base_type = &"Button"
-
-GoogleButton/styles/normal = SubResource("google_normal")
-
-GoogleButton/styles/hover = SubResource("google_hover")
-
-GoogleButton/styles/pressed = SubResource("google_pressed")
-
-GoogleButton/styles/disabled = SubResource("google_disabled")
-
-GoogleButton/colors/font_color = Color(0.035, 0.067, 0.125, 1)
-
-GoogleButton/colors/font_hover_color = Color(0.035, 0.067, 0.125, 1)
-
-PanelContainer/styles/panel = SubResource("panel")
-
-Panel/styles/panel = SubResource("panel")
-
-DialogPanel/base_type = &"PanelContainer"
-
-DialogPanel/styles/panel = SubResource("dialog")
-
-InsetPanel/base_type = &"PanelContainer"
-
-InsetPanel/styles/panel = SubResource("inset")
-
-PopupPanel/styles/panel = SubResource("panel")
-
-PopupMenu/styles/panel = SubResource("panel")
-
-PopupMenu/styles/hover = SubResource("hover")
-
-TooltipPanel/styles/panel = SubResource("tooltip")
-
-LineEdit/styles/normal = SubResource("field")
-
-LineEdit/styles/focus = SubResource("field_focus")
-
-LineEdit/styles/read_only = SubResource("field_disabled")
-
-LineEdit/colors/font_color = Color(1, 0.922, 0.745, 1)
-
-LineEdit/colors/caret_color = Color(1, 0.922, 0.745, 1)
-
-ProgressBar/styles/background = SubResource("track")
-
-ProgressBar/styles/fill = SubResource("progress")
-
-HealthBar/base_type = &"ProgressBar"
-
-HealthBar/styles/background = SubResource("track")
-
-HealthBar/styles/fill = SubResource("health")
-
-StatusBar/base_type = &"ProgressBar"
-
-StatusBar/styles/background = SubResource("track")
-
-StatusBar/styles/fill = SubResource("status")
-
-HSlider/styles/slider = SubResource("track")
-
-HSlider/styles/grabber_area = SubResource("progress")
-
-HSlider/styles/grabber_area_highlight = SubResource("health")
-
-HSlider/icons/grabber = ExtResource("slider-grabber")
-
-HSlider/icons/grabber_highlight = ExtResource("slider-grabber-hover")
-
-VSlider/styles/slider = SubResource("track")
-
-VSlider/styles/grabber_area = SubResource("progress")
-
-VSlider/styles/grabber_area_highlight = SubResource("health")
-
-VSlider/icons/grabber = ExtResource("slider-grabber")
-
-VSlider/icons/grabber_highlight = ExtResource("slider-grabber-hover")
-
-CheckBox/styles/normal = SubResource("normal")
-
-CheckBox/styles/hover = SubResource("hover")
-
-CheckBox/styles/pressed = SubResource("pressed")
-
-CheckBox/styles/disabled = SubResource("disabled")
-
+CancelButton/styles/hover = SubResource("cancel_hover")
+CancelButton/styles/normal = SubResource("cancel_normal")
+CancelButton/styles/pressed = SubResource("cancel_pressed")
 CheckBox/icons/checked = ExtResource("check-on")
-
 CheckBox/icons/radio_checked = ExtResource("check-on")
-
-CheckBox/icons/unchecked = ExtResource("check-off")
-
 CheckBox/icons/radio_unchecked = ExtResource("check-off")
-
-CheckButton/styles/normal = SubResource("normal")
-
-CheckButton/styles/hover = SubResource("hover")
-
-CheckButton/styles/pressed = SubResource("pressed")
-
-CheckButton/styles/disabled = SubResource("disabled")
-
+CheckBox/icons/unchecked = ExtResource("check-off")
+CheckBox/styles/disabled = SubResource("disabled")
+CheckBox/styles/hover = SubResource("hover")
+CheckBox/styles/normal = SubResource("normal")
+CheckBox/styles/pressed = SubResource("pressed")
 CheckButton/icons/checked = ExtResource("check-on")
-
 CheckButton/icons/radio_checked = ExtResource("check-on")
-
-CheckButton/icons/unchecked = ExtResource("check-off")
-
 CheckButton/icons/radio_unchecked = ExtResource("check-off")
-
-OptionButton/icons/arrow = ExtResource("arrow-down")
-
-HScrollBar/styles/scroll = SubResource("track")
-
+CheckButton/icons/unchecked = ExtResource("check-off")
+CheckButton/styles/disabled = SubResource("disabled")
+CheckButton/styles/hover = SubResource("hover")
+CheckButton/styles/normal = SubResource("normal")
+CheckButton/styles/pressed = SubResource("pressed")
+ConfirmButton/base_type = &"Button"
+ConfirmButton/styles/disabled = SubResource("confirm_disabled")
+ConfirmButton/styles/hover = SubResource("confirm_hover")
+ConfirmButton/styles/normal = SubResource("confirm_normal")
+ConfirmButton/styles/pressed = SubResource("confirm_pressed")
+DialogPanel/base_type = &"PanelContainer"
+DialogPanel/styles/panel = SubResource("dialog")
+GoogleButton/base_type = &"Button"
+GoogleButton/colors/font_color = Color(0.035, 0.067, 0.125, 1)
+GoogleButton/colors/font_hover_color = Color(0.035, 0.067, 0.125, 1)
+GoogleButton/styles/disabled = SubResource("google_disabled")
+GoogleButton/styles/hover = SubResource("google_hover")
+GoogleButton/styles/normal = SubResource("google_normal")
+GoogleButton/styles/pressed = SubResource("google_pressed")
 HScrollBar/styles/grabber = SubResource("normal")
-
 HScrollBar/styles/grabber_highlight = SubResource("hover")
-
 HScrollBar/styles/grabber_pressed = SubResource("pressed")
-
-VScrollBar/styles/scroll = SubResource("track")
-
+HScrollBar/styles/scroll = SubResource("track")
+HSlider/icons/grabber = ExtResource("slider-grabber")
+HSlider/icons/grabber_highlight = ExtResource("slider-grabber-hover")
+HSlider/styles/grabber_area = SubResource("progress")
+HSlider/styles/grabber_area_highlight = SubResource("health")
+HSlider/styles/slider = SubResource("track")
+HealthBar/base_type = &"ProgressBar"
+HealthBar/styles/background = SubResource("track")
+HealthBar/styles/fill = SubResource("health")
+InsetPanel/base_type = &"PanelContainer"
+InsetPanel/styles/panel = SubResource("inset")
+LineEdit/colors/caret_color = Color(1, 0.922, 0.745, 1)
+LineEdit/colors/font_color = Color(1, 0.922, 0.745, 1)
+LineEdit/styles/focus = SubResource("field_focus")
+LineEdit/styles/normal = SubResource("field")
+LineEdit/styles/read_only = SubResource("field_disabled")
+MenuButton/colors/font_color = Color(1, 0.922, 0.745, 1)
+MenuButton/colors/font_disabled_color = Color(0.29, 0.42, 0.48, 1)
+MenuButton/colors/font_hover_color = Color(1, 0.965, 0.88, 1)
+MenuButton/colors/font_pressed_color = Color(0.035, 0.067, 0.125, 1)
+MenuButton/styles/disabled = SubResource("disabled")
+MenuButton/styles/focus = SubResource("focus")
+MenuButton/styles/hover = SubResource("hover")
+MenuButton/styles/normal = SubResource("normal")
+MenuButton/styles/pressed = SubResource("pressed")
+OptionButton/colors/font_color = Color(1, 0.922, 0.745, 1)
+OptionButton/colors/font_disabled_color = Color(0.29, 0.42, 0.48, 1)
+OptionButton/colors/font_hover_color = Color(1, 0.965, 0.88, 1)
+OptionButton/colors/font_pressed_color = Color(0.035, 0.067, 0.125, 1)
+OptionButton/icons/arrow = ExtResource("arrow-down")
+OptionButton/styles/disabled = SubResource("disabled")
+OptionButton/styles/focus = SubResource("focus")
+OptionButton/styles/hover = SubResource("hover")
+OptionButton/styles/normal = SubResource("normal")
+OptionButton/styles/pressed = SubResource("pressed")
+Panel/styles/panel = SubResource("panel")
+PanelContainer/styles/panel = SubResource("panel")
+PopupMenu/styles/hover = SubResource("hover")
+PopupMenu/styles/panel = SubResource("panel")
+PopupPanel/styles/panel = SubResource("panel")
+ProgressBar/styles/background = SubResource("track")
+ProgressBar/styles/fill = SubResource("progress")
+StatusBar/base_type = &"ProgressBar"
+StatusBar/styles/background = SubResource("track")
+StatusBar/styles/fill = SubResource("status")
+TooltipPanel/styles/panel = SubResource("tooltip")
 VScrollBar/styles/grabber = SubResource("normal")
-
 VScrollBar/styles/grabber_highlight = SubResource("hover")
-
 VScrollBar/styles/grabber_pressed = SubResource("pressed")
+VScrollBar/styles/scroll = SubResource("track")
+VSlider/icons/grabber = ExtResource("slider-grabber")
+VSlider/icons/grabber_highlight = ExtResource("slider-grabber-hover")
+VSlider/styles/grabber_area = SubResource("progress")
+VSlider/styles/grabber_area_highlight = SubResource("health")
+VSlider/styles/slider = SubResource("track")

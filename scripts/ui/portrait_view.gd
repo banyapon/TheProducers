@@ -5,6 +5,36 @@ var talking = false
 var _clock = 0.0
 var _blink_at = 2.7
 var _frame = -1
+var fullbody: ModularCharacter
+var crop_half := false
+var body_pose := "idle"
+
+## Uses the same saved appearance and synchronized part animation as world actors.
+func use_fullbody(enabled: bool, half: bool = false) -> void:
+	crop_half = half
+	clip_contents = enabled
+	if enabled:
+		if not is_instance_valid(fullbody):
+			fullbody = ModularCharacter.new()
+			fullbody.name = "FullBody"
+			add_child(fullbody)
+		fullbody.show()
+		fullbody.configure(art_id)
+		texture = null
+		_layout_body()
+	else:
+		if is_instance_valid(fullbody): fullbody.hide()
+		_frame = -1
+		_update_frame()
+
+func _layout_body() -> void:
+	if not is_instance_valid(fullbody) or not fullbody.visible: return
+	# Portrait hair begins at y=24; the waist is near y=260 in a 400px cell.
+	var zoom = minf(size.x / (140.0 if crop_half else 200.0), size.y / (236.0 if crop_half else 376.0))
+	fullbody.scale = Vector2(-zoom if flip_h else zoom, zoom)
+	fullbody.position = Vector2(size.x * 0.5, 376.0 * zoom if crop_half else size.y)
+	var pose = "talk" if talking else body_pose
+	if fullbody.animation != pose: fullbody.play(pose)
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -16,10 +46,17 @@ func configure(id: String, face_left: bool = false) -> void:
 	art_id = id
 	flip_h = face_left
 	_frame = -1
+	if is_instance_valid(fullbody) and fullbody.visible:
+		fullbody.configure(id)
+		_layout_body()
+		return
 	_update_frame()
 
 func _process(delta: float) -> void:
 	if not is_visible_in_tree():
+		return
+	if is_instance_valid(fullbody) and fullbody.visible:
+		_layout_body()
 		return
 	_clock += delta
 	if _clock > _blink_at + 0.15:

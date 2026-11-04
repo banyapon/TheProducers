@@ -291,6 +291,7 @@ func configure_art(id: String, is_principal: bool = false) -> void:
 	principal = is_principal
 	body.sprite_frames = Art.frames(id)
 	body.play("idle")
+	body.show()
 	name_label.visible = principal
 	if principal:
 		name_label.add_theme_font_size_override("font_size", UIKit.DEFAULT_FONT_SIZE)

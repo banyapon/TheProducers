@@ -1,0 +1,985 @@
+{
+  "version": 2,
+  "cell": [
+    400,
+    400
+  ],
+  "grid": [
+    4,
+    4
+  ],
+  "anchor": [
+    200,
+    400
+  ],
+  "rows": [
+    "idle",
+    "talk",
+    "walk",
+    "upset"
+  ],
+  "layer_order": [
+    "hair_back",
+    "legs",
+    "shoes",
+    "body",
+    "arms",
+    "head",
+    "foreground"
+  ],
+  "tint_mode": "palette_replace",
+  "fps": {
+    "idle": 3.3,
+    "talk": 5.5,
+    "walk": 7.1,
+    "upset": 5.5
+  },
+  "outfits": [
+    "jacket",
+    "shirt",
+    "tee",
+    "hoodie",
+    "polo",
+    "vest",
+    "suit"
+  ],
+  "outfit_templates": {
+    "jacket": "producer",
+    "shirt": "alice",
+    "tee": "npc-02-female-bob",
+    "hoodie": "npc-13-male-mohawk",
+    "polo": "npc-20-female-curly",
+    "vest": "npc-23-male-sidesweep",
+    "suit": "super-01"
+  },
+  "characters": {
+    "producer": {
+      "source": "res://assets/main/producer-grey-pixel-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#b8b8b8",
+      "pants_tint": "#657447",
+      "shoes_tint": "#ffffff",
+      "skin_tint": "#fcba83",
+      "head": "res://assets/fullbody/head/producer-4x4.png",
+      "inner_tint": "#ffffff",
+      "reference_world": "res://assets/main/producer-mini-6x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/producer-4x4.png",
+        "body": "res://assets/fullbody/body/producer-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/producer-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/producer-4x4.png",
+        "head": "res://assets/fullbody/head/producer-4x4.png",
+        "legs": "res://assets/fullbody/legs/producer-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/producer-4x4.png"
+      },
+      "palette": {
+        "cloth": "#b8b8b8",
+        "hair": "#211b2b",
+        "pants": "#657447",
+        "shoes": "#ffffff",
+        "skin": "#fcba83",
+        "inner": "#ffffff"
+      }
+    },
+    "alice": {
+      "source": "res://assets/main/secret-pixel-2x2.png",
+      "body": "shirt",
+      "cloth_tint": "#ffffff",
+      "pants_tint": "#537998",
+      "shoes_tint": "#ffffff",
+      "skin_tint": "#fcba83",
+      "head": "res://assets/fullbody/head/alice-4x4.png",
+      "inner_tint": "#ffffff",
+      "reference_world": "res://assets/main/secret-mini-6x4.png",
+      "previous_body": "shirt",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/alice-4x4.png",
+        "body": "res://assets/fullbody/body/alice-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/alice-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/alice-4x4.png",
+        "head": "res://assets/fullbody/head/alice-4x4.png",
+        "legs": "res://assets/fullbody/legs/alice-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/alice-4x4.png"
+      },
+      "palette": {
+        "cloth": "#ffffff",
+        "hair": "#743d2f",
+        "pants": "#537998",
+        "shoes": "#ffffff",
+        "skin": "#fcba83",
+        "inner": "#ffffff"
+      }
+    },
+    "npc-01-male-buzz": {
+      "source": "res://assets/npc/npc-01-male-buzz/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#027c88",
+      "inner_tint": "#fbefdf",
+      "skin_tint": "#f4a661",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-01-male-buzz/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-01-male-buzz-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-01-male-buzz-4x4.png",
+        "body": "res://assets/fullbody/body/npc-01-male-buzz-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-01-male-buzz-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-01-male-buzz-4x4.png",
+        "head": "res://assets/fullbody/head/npc-01-male-buzz-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-01-male-buzz-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-01-male-buzz-4x4.png"
+      },
+      "palette": {
+        "cloth": "#027c88",
+        "hair": "#251c30",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#f4a661",
+        "inner": "#fbefdf"
+      }
+    },
+    "npc-02-female-bob": {
+      "source": "res://assets/npc/npc-02-female-bob/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#fb6d55",
+      "inner_tint": "#fb6d55",
+      "skin_tint": "#fcc18e",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-02-female-bob/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-02-female-bob-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-02-female-bob-4x4.png",
+        "body": "res://assets/fullbody/body/npc-02-female-bob-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-02-female-bob-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-02-female-bob-4x4.png",
+        "head": "res://assets/fullbody/head/npc-02-female-bob-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-02-female-bob-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-02-female-bob-4x4.png"
+      },
+      "palette": {
+        "cloth": "#fb6d55",
+        "hair": "#291d35",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fcc18e",
+        "inner": "#fb6d55"
+      }
+    },
+    "npc-03-male-sidepart": {
+      "source": "res://assets/npc/npc-03-male-sidepart/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#222f59",
+      "inner_tint": "#e59536",
+      "skin_tint": "#fbbb7e",
+      "pants_tint": "#697548",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-03-male-sidepart/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-03-male-sidepart-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-03-male-sidepart-4x4.png",
+        "body": "res://assets/fullbody/body/npc-03-male-sidepart-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-03-male-sidepart-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-03-male-sidepart-4x4.png",
+        "head": "res://assets/fullbody/head/npc-03-male-sidepart-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-03-male-sidepart-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-03-male-sidepart-4x4.png"
+      },
+      "palette": {
+        "cloth": "#222f59",
+        "hair": "#754135",
+        "pants": "#697548",
+        "shoes": "#e8e4df",
+        "skin": "#fbbb7e",
+        "inner": "#e59536"
+      }
+    },
+    "npc-04-female-long": {
+      "source": "res://assets/npc/npc-04-female-long/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#eadfbe",
+      "inner_tint": "#eadfbe",
+      "skin_tint": "#f5ac6a",
+      "pants_tint": "#697548",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-04-female-long/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-04-female-long-4x4.png",
+      "previous_body": "tee",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-04-female-long-4x4.png",
+        "body": "res://assets/fullbody/body/npc-04-female-long-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-04-female-long-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-04-female-long-4x4.png",
+        "head": "res://assets/fullbody/head/npc-04-female-long-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-04-female-long-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-04-female-long-4x4.png"
+      },
+      "palette": {
+        "cloth": "#eadfbe",
+        "hair": "#4d2e2b",
+        "pants": "#697548",
+        "shoes": "#e8e4df",
+        "skin": "#f5ac6a",
+        "inner": "#eadfbe"
+      }
+    },
+    "npc-05-male-spikes": {
+      "source": "res://assets/npc/npc-05-male-spikes/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#cf2a27",
+      "inner_tint": "#cf2a27",
+      "skin_tint": "#fab36c",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-05-male-spikes/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-05-male-spikes-4x4.png",
+      "previous_body": "tee",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-05-male-spikes-4x4.png",
+        "body": "res://assets/fullbody/body/npc-05-male-spikes-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-05-male-spikes-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-05-male-spikes-4x4.png",
+        "head": "res://assets/fullbody/head/npc-05-male-spikes-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-05-male-spikes-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-05-male-spikes-4x4.png"
+      },
+      "palette": {
+        "cloth": "#cf2a27",
+        "hair": "#23182b",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fab36c",
+        "inner": "#cf2a27"
+      }
+    },
+    "npc-06-female-ponytail": {
+      "source": "res://assets/npc/npc-06-female-ponytail/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#f66879",
+      "inner_tint": "#fff8ea",
+      "skin_tint": "#fbbf8c",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-06-female-ponytail/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-06-female-ponytail-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-06-female-ponytail-4x4.png",
+        "body": "res://assets/fullbody/body/npc-06-female-ponytail-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-06-female-ponytail-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-06-female-ponytail-4x4.png",
+        "head": "res://assets/fullbody/head/npc-06-female-ponytail-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-06-female-ponytail-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-06-female-ponytail-4x4.png"
+      },
+      "palette": {
+        "cloth": "#f66879",
+        "hair": "#653628",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fbbf8c",
+        "inner": "#fff8ea"
+      }
+    },
+    "npc-07-male-quiff": {
+      "source": "res://assets/npc/npc-07-male-quiff/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#15488a",
+      "inner_tint": "#f5e7da",
+      "skin_tint": "#dfac76",
+      "pants_tint": "#697548",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-07-male-quiff/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-07-male-quiff-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-07-male-quiff-4x4.png",
+        "body": "res://assets/fullbody/body/npc-07-male-quiff-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-07-male-quiff-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-07-male-quiff-4x4.png",
+        "head": "res://assets/fullbody/head/npc-07-male-quiff-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-07-male-quiff-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-07-male-quiff-4x4.png"
+      },
+      "palette": {
+        "cloth": "#15488a",
+        "hair": "#bb8a47",
+        "pants": "#697548",
+        "shoes": "#e8e4df",
+        "skin": "#dfac76",
+        "inner": "#f5e7da"
+      }
+    },
+    "npc-08-female-bun": {
+      "source": "res://assets/npc/npc-08-female-bun/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#969ba6",
+      "inner_tint": "#969ba6",
+      "skin_tint": "#d78651",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-08-female-bun/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-08-female-bun-4x4.png",
+      "previous_body": "tee",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-08-female-bun-4x4.png",
+        "body": "res://assets/fullbody/body/npc-08-female-bun-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-08-female-bun-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-08-female-bun-4x4.png",
+        "head": "res://assets/fullbody/head/npc-08-female-bun-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-08-female-bun-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-08-female-bun-4x4.png"
+      },
+      "palette": {
+        "cloth": "#969ba6",
+        "hair": "#422344",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#d78651",
+        "inner": "#969ba6"
+      }
+    },
+    "npc-09-male-curly": {
+      "source": "res://assets/npc/npc-09-male-curly/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#635e30",
+      "inner_tint": "#fce0c5",
+      "skin_tint": "#fcb06b",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-09-male-curly/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-09-male-curly-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-09-male-curly-4x4.png",
+        "body": "res://assets/fullbody/body/npc-09-male-curly-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-09-male-curly-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-09-male-curly-4x4.png",
+        "head": "res://assets/fullbody/head/npc-09-male-curly-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-09-male-curly-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-09-male-curly-4x4.png"
+      },
+      "palette": {
+        "cloth": "#635e30",
+        "hair": "#5e352e",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fcb06b",
+        "inner": "#fce0c5"
+      }
+    },
+    "npc-10-female-braid": {
+      "source": "res://assets/npc/npc-10-female-braid/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#e777ab",
+      "inner_tint": "#e777ab",
+      "skin_tint": "#975334",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-10-female-braid/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-10-female-braid-4x4.png",
+      "previous_body": "tee",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-10-female-braid-4x4.png",
+        "body": "res://assets/fullbody/body/npc-10-female-braid-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-10-female-braid-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-10-female-braid-4x4.png",
+        "head": "res://assets/fullbody/head/npc-10-female-braid-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-10-female-braid-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-10-female-braid-4x4.png"
+      },
+      "palette": {
+        "cloth": "#e777ab",
+        "hair": "#352235",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#975334",
+        "inner": "#e777ab"
+      }
+    },
+    "npc-11-male-bald": {
+      "source": "res://assets/npc/npc-11-male-bald/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#333d63",
+      "inner_tint": "#333d63",
+      "skin_tint": "#fbb877",
+      "pants_tint": "#697548",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-11-male-bald/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-11-male-bald-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-11-male-bald-4x4.png",
+        "body": "res://assets/fullbody/body/npc-11-male-bald-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-11-male-bald-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-11-male-bald-4x4.png",
+        "head": "res://assets/fullbody/head/npc-11-male-bald-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-11-male-bald-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-11-male-bald-4x4.png"
+      },
+      "palette": {
+        "cloth": "#333d63",
+        "hair": "#32232c",
+        "pants": "#697548",
+        "shoes": "#e8e4df",
+        "skin": "#fbb877",
+        "inner": "#333d63"
+      }
+    },
+    "npc-12-female-wavy": {
+      "source": "res://assets/npc/npc-12-female-wavy/portrait-v2-2x2.png",
+      "body": "shirt",
+      "cloth_tint": "#fcead3",
+      "inner_tint": "#eb655e",
+      "skin_tint": "#ffbf88",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-12-female-wavy/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-12-female-wavy-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-12-female-wavy-4x4.png",
+        "body": "res://assets/fullbody/body/npc-12-female-wavy-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-12-female-wavy-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-12-female-wavy-4x4.png",
+        "head": "res://assets/fullbody/head/npc-12-female-wavy-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-12-female-wavy-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-12-female-wavy-4x4.png"
+      },
+      "palette": {
+        "cloth": "#fcead3",
+        "hair": "#e8788f",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#ffbf88",
+        "inner": "#eb655e"
+      }
+    },
+    "npc-13-male-mohawk": {
+      "source": "res://assets/npc/npc-13-male-mohawk/portrait-v2-2x2.png",
+      "body": "hoodie",
+      "cloth_tint": "#f6b03b",
+      "inner_tint": "#f6b03b",
+      "skin_tint": "#f5a661",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-13-male-mohawk/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-13-male-mohawk-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-13-male-mohawk-4x4.png",
+        "body": "res://assets/fullbody/body/npc-13-male-mohawk-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-13-male-mohawk-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-13-male-mohawk-4x4.png",
+        "head": "res://assets/fullbody/head/npc-13-male-mohawk-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-13-male-mohawk-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-13-male-mohawk-4x4.png"
+      },
+      "palette": {
+        "cloth": "#f6b03b",
+        "hair": "#166b79",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#f5a661",
+        "inner": "#f6b03b"
+      }
+    },
+    "npc-14-female-pixie": {
+      "source": "res://assets/npc/npc-14-female-pixie/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#058376",
+      "inner_tint": "#f9edde",
+      "skin_tint": "#fcbe85",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-14-female-pixie/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-14-female-pixie-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-14-female-pixie-4x4.png",
+        "body": "res://assets/fullbody/body/npc-14-female-pixie-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-14-female-pixie-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-14-female-pixie-4x4.png",
+        "head": "res://assets/fullbody/head/npc-14-female-pixie-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-14-female-pixie-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-14-female-pixie-4x4.png"
+      },
+      "palette": {
+        "cloth": "#058376",
+        "hair": "#9d442e",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fcbe85",
+        "inner": "#f9edde"
+      }
+    },
+    "npc-15-male-shag": {
+      "source": "res://assets/npc/npc-15-male-shag/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#623c82",
+      "inner_tint": "#623c82",
+      "skin_tint": "#feba7a",
+      "pants_tint": "#697548",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-15-male-shag/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-15-male-shag-4x4.png",
+      "previous_body": "tee",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-15-male-shag-4x4.png",
+        "body": "res://assets/fullbody/body/npc-15-male-shag-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-15-male-shag-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-15-male-shag-4x4.png",
+        "head": "res://assets/fullbody/head/npc-15-male-shag-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-15-male-shag-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-15-male-shag-4x4.png"
+      },
+      "palette": {
+        "cloth": "#623c82",
+        "hair": "#24172c",
+        "pants": "#697548",
+        "shoes": "#e8e4df",
+        "skin": "#feba7a",
+        "inner": "#623c82"
+      }
+    },
+    "npc-16-female-sidesweep": {
+      "source": "res://assets/npc/npc-16-female-sidesweep/portrait-v2-2x2.png",
+      "body": "shirt",
+      "cloth_tint": "#609bca",
+      "inner_tint": "#faefe4",
+      "skin_tint": "#fcb87c",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-16-female-sidesweep/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-16-female-sidesweep-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-16-female-sidesweep-4x4.png",
+        "body": "res://assets/fullbody/body/npc-16-female-sidesweep-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-16-female-sidesweep-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-16-female-sidesweep-4x4.png",
+        "head": "res://assets/fullbody/head/npc-16-female-sidesweep-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-16-female-sidesweep-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-16-female-sidesweep-4x4.png"
+      },
+      "palette": {
+        "cloth": "#609bca",
+        "hair": "#9863af",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fcb87c",
+        "inner": "#faefe4"
+      }
+    },
+    "npc-17-male-ponytail": {
+      "source": "res://assets/npc/npc-17-male-ponytail/portrait-v2-2x2.png",
+      "body": "shirt",
+      "cloth_tint": "#6c2237",
+      "inner_tint": "#6c2237",
+      "skin_tint": "#fcb36c",
+      "pants_tint": "#697548",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-17-male-ponytail/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-17-male-ponytail-4x4.png",
+      "previous_body": "shirt",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-17-male-ponytail-4x4.png",
+        "body": "res://assets/fullbody/body/npc-17-male-ponytail-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-17-male-ponytail-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-17-male-ponytail-4x4.png",
+        "head": "res://assets/fullbody/head/npc-17-male-ponytail-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-17-male-ponytail-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-17-male-ponytail-4x4.png"
+      },
+      "palette": {
+        "cloth": "#6c2237",
+        "hair": "#22162a",
+        "pants": "#697548",
+        "shoes": "#e8e4df",
+        "skin": "#fcb36c",
+        "inner": "#6c2237"
+      }
+    },
+    "npc-18-female-twintails": {
+      "source": "res://assets/npc/npc-18-female-twintails/portrait-v2-2x2.png",
+      "body": "hoodie",
+      "cloth_tint": "#2447ab",
+      "inner_tint": "#fff8ea",
+      "skin_tint": "#fcbb7c",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-18-female-twintails/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-18-female-twintails-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-18-female-twintails-4x4.png",
+        "body": "res://assets/fullbody/body/npc-18-female-twintails-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-18-female-twintails-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-18-female-twintails-4x4.png",
+        "head": "res://assets/fullbody/head/npc-18-female-twintails-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-18-female-twintails-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-18-female-twintails-4x4.png"
+      },
+      "palette": {
+        "cloth": "#2447ab",
+        "hair": "#673d32",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fcbb7c",
+        "inner": "#fff8ea"
+      }
+    },
+    "npc-19-male-afro": {
+      "source": "res://assets/npc/npc-19-male-afro/portrait-v2-2x2.png",
+      "body": "hoodie",
+      "cloth_tint": "#ea6315",
+      "inner_tint": "#ea6315",
+      "skin_tint": "#b06235",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-19-male-afro/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-19-male-afro-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-19-male-afro-4x4.png",
+        "body": "res://assets/fullbody/body/npc-19-male-afro-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-19-male-afro-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-19-male-afro-4x4.png",
+        "head": "res://assets/fullbody/head/npc-19-male-afro-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-19-male-afro-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-19-male-afro-4x4.png"
+      },
+      "palette": {
+        "cloth": "#ea6315",
+        "hair": "#281c2d",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#b06235",
+        "inner": "#ea6315"
+      }
+    },
+    "npc-20-female-curly": {
+      "source": "res://assets/npc/npc-20-female-curly/portrait-v2-2x2.png",
+      "body": "polo",
+      "cloth_tint": "#2abfc1",
+      "inner_tint": "#2abfc1",
+      "skin_tint": "#b8693a",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-20-female-curly/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-20-female-curly-4x4.png",
+      "previous_body": "shirt",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-20-female-curly-4x4.png",
+        "body": "res://assets/fullbody/body/npc-20-female-curly-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-20-female-curly-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-20-female-curly-4x4.png",
+        "head": "res://assets/fullbody/head/npc-20-female-curly-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-20-female-curly-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-20-female-curly-4x4.png"
+      },
+      "palette": {
+        "cloth": "#2abfc1",
+        "hair": "#332033",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#b8693a",
+        "inner": "#2abfc1"
+      }
+    },
+    "npc-21-male-undercut": {
+      "source": "res://assets/npc/npc-21-male-undercut/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#61347c",
+      "inner_tint": "#f9efe1",
+      "skin_tint": "#fdbf84",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-21-male-undercut/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-21-male-undercut-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-21-male-undercut-4x4.png",
+        "body": "res://assets/fullbody/body/npc-21-male-undercut-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-21-male-undercut-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-21-male-undercut-4x4.png",
+        "head": "res://assets/fullbody/head/npc-21-male-undercut-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-21-male-undercut-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-21-male-undercut-4x4.png"
+      },
+      "palette": {
+        "cloth": "#61347c",
+        "hair": "#c99a55",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#fdbf84",
+        "inner": "#f9efe1"
+      }
+    },
+    "npc-22-female-bangs": {
+      "source": "res://assets/npc/npc-22-female-bangs/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#fcc740",
+      "inner_tint": "#fcc740",
+      "skin_tint": "#ffaf71",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-22-female-bangs/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-22-female-bangs-4x4.png",
+      "previous_body": "shirt",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-22-female-bangs-4x4.png",
+        "body": "res://assets/fullbody/body/npc-22-female-bangs-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-22-female-bangs-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-22-female-bangs-4x4.png",
+        "head": "res://assets/fullbody/head/npc-22-female-bangs-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-22-female-bangs-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-22-female-bangs-4x4.png"
+      },
+      "palette": {
+        "cloth": "#fcc740",
+        "hair": "#251a31",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#ffaf71",
+        "inner": "#fcc740"
+      }
+    },
+    "npc-23-male-sidesweep": {
+      "source": "res://assets/npc/npc-23-male-sidesweep/portrait-v2-2x2.png",
+      "body": "vest",
+      "cloth_tint": "#231126",
+      "inner_tint": "#fbf3dd",
+      "skin_tint": "#fbbe85",
+      "pants_tint": "#697548",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-23-male-sidesweep/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-23-male-sidesweep-4x4.png",
+      "previous_body": "shirt",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-23-male-sidesweep-4x4.png",
+        "body": "res://assets/fullbody/body/npc-23-male-sidesweep-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-23-male-sidesweep-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-23-male-sidesweep-4x4.png",
+        "head": "res://assets/fullbody/head/npc-23-male-sidesweep-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-23-male-sidesweep-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-23-male-sidesweep-4x4.png"
+      },
+      "palette": {
+        "cloth": "#231126",
+        "hair": "#50302b",
+        "pants": "#697548",
+        "shoes": "#e8e4df",
+        "skin": "#fbbe85",
+        "inner": "#fbf3dd"
+      }
+    },
+    "npc-24-female-highpony": {
+      "source": "res://assets/npc/npc-24-female-highpony/portrait-v2-2x2.png",
+      "body": "tee",
+      "cloth_tint": "#ea5947",
+      "inner_tint": "#ea5947",
+      "skin_tint": "#f9ae6a",
+      "pants_tint": "#34475c",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/npc/npc-24-female-highpony/sheet-6x4.png",
+      "head": "res://assets/fullbody/head/npc-24-female-highpony-4x4.png",
+      "previous_body": "shirt",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/npc-24-female-highpony-4x4.png",
+        "body": "res://assets/fullbody/body/npc-24-female-highpony-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/npc-24-female-highpony-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/npc-24-female-highpony-4x4.png",
+        "head": "res://assets/fullbody/head/npc-24-female-highpony-4x4.png",
+        "legs": "res://assets/fullbody/legs/npc-24-female-highpony-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/npc-24-female-highpony-4x4.png"
+      },
+      "palette": {
+        "cloth": "#ea5947",
+        "hair": "#a5482d",
+        "pants": "#34475c",
+        "shoes": "#e8e4df",
+        "skin": "#f9ae6a",
+        "inner": "#ea5947"
+      }
+    },
+    "super-01": {
+      "source": "res://assets/vip/super-01/portrait-v2-2x2.png",
+      "body": "suit",
+      "cloth_tint": "#20243c",
+      "inner_tint": "#f9ecde",
+      "skin_tint": "#fcbb82",
+      "pants_tint": "#424252",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/vip/super-01/super-01-6x4.png",
+      "head": "res://assets/fullbody/head/super-01-4x4.png",
+      "previous_body": "suit",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/super-01-4x4.png",
+        "body": "res://assets/fullbody/body/super-01-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/super-01-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/super-01-4x4.png",
+        "head": "res://assets/fullbody/head/super-01-4x4.png",
+        "legs": "res://assets/fullbody/legs/super-01-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/super-01-4x4.png"
+      },
+      "palette": {
+        "cloth": "#20243c",
+        "hair": "#a19ba7",
+        "pants": "#424252",
+        "shoes": "#e8e4df",
+        "skin": "#fcbb82",
+        "inner": "#f9ecde"
+      }
+    },
+    "super-02": {
+      "source": "res://assets/vip/super-02/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#fcecd1",
+      "inner_tint": "#d97054",
+      "skin_tint": "#fcbc86",
+      "pants_tint": "#424252",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/vip/super-02/super-02-6x4.png",
+      "head": "res://assets/fullbody/head/super-02-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/super-02-4x4.png",
+        "body": "res://assets/fullbody/body/super-02-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/super-02-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/super-02-4x4.png",
+        "head": "res://assets/fullbody/head/super-02-4x4.png",
+        "legs": "res://assets/fullbody/legs/super-02-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/super-02-4x4.png"
+      },
+      "palette": {
+        "cloth": "#fcecd1",
+        "hair": "#281d35",
+        "pants": "#424252",
+        "shoes": "#e8e4df",
+        "skin": "#fcbc86",
+        "inner": "#d97054"
+      }
+    },
+    "super-03": {
+      "source": "res://assets/vip/super-03/portrait-v2-2x2.png",
+      "body": "suit",
+      "cloth_tint": "#2f2c3e",
+      "inner_tint": "#fbead6",
+      "skin_tint": "#f1a365",
+      "pants_tint": "#424252",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/vip/super-03/super-03-6x4.png",
+      "head": "res://assets/fullbody/head/super-03-4x4.png",
+      "previous_body": "suit",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/super-03-4x4.png",
+        "body": "res://assets/fullbody/body/super-03-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/super-03-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/super-03-4x4.png",
+        "head": "res://assets/fullbody/head/super-03-4x4.png",
+        "legs": "res://assets/fullbody/legs/super-03-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/super-03-4x4.png"
+      },
+      "palette": {
+        "cloth": "#2f2c3e",
+        "hair": "#52312d",
+        "pants": "#424252",
+        "shoes": "#e8e4df",
+        "skin": "#f1a365",
+        "inner": "#fbead6"
+      }
+    },
+    "super-04": {
+      "source": "res://assets/vip/super-04/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#068557",
+      "inner_tint": "#f8e6d0",
+      "skin_tint": "#f9bb85",
+      "pants_tint": "#424252",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/vip/super-04/super-04-6x4.png",
+      "head": "res://assets/fullbody/head/super-04-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/super-04-4x4.png",
+        "body": "res://assets/fullbody/body/super-04-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/super-04-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/super-04-4x4.png",
+        "head": "res://assets/fullbody/head/super-04-4x4.png",
+        "legs": "res://assets/fullbody/legs/super-04-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/super-04-4x4.png"
+      },
+      "palette": {
+        "cloth": "#068557",
+        "hair": "#a34a32",
+        "pants": "#424252",
+        "shoes": "#e8e4df",
+        "skin": "#f9bb85",
+        "inner": "#f8e6d0"
+      }
+    },
+    "super-05": {
+      "source": "res://assets/vip/super-05/portrait-v2-2x2.png",
+      "body": "suit",
+      "cloth_tint": "#611f33",
+      "inner_tint": "#f9eee2",
+      "skin_tint": "#fcbe83",
+      "pants_tint": "#424252",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/vip/super-05/super-05-6x4.png",
+      "head": "res://assets/fullbody/head/super-05-4x4.png",
+      "previous_body": "suit",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/super-05-4x4.png",
+        "body": "res://assets/fullbody/body/super-05-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/super-05-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/super-05-4x4.png",
+        "head": "res://assets/fullbody/head/super-05-4x4.png",
+        "legs": "res://assets/fullbody/legs/super-05-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/super-05-4x4.png"
+      },
+      "palette": {
+        "cloth": "#611f33",
+        "hair": "#d0c4c3",
+        "pants": "#424252",
+        "shoes": "#e8e4df",
+        "skin": "#fcbe83",
+        "inner": "#f9eee2"
+      }
+    },
+    "super-06": {
+      "source": "res://assets/vip/super-06/portrait-v2-2x2.png",
+      "body": "jacket",
+      "cloth_tint": "#5b2d75",
+      "inner_tint": "#5b2d75",
+      "skin_tint": "#a9613e",
+      "pants_tint": "#424252",
+      "shoes_tint": "#e8e4df",
+      "reference_world": "res://assets/vip/super-06/super-06-6x4.png",
+      "head": "res://assets/fullbody/head/super-06-4x4.png",
+      "previous_body": "jacket",
+      "parts": {
+        "arms": "res://assets/fullbody/arms/super-06-4x4.png",
+        "body": "res://assets/fullbody/body/super-06-4x4.png",
+        "foreground": "res://assets/fullbody/foreground/super-06-4x4.png",
+        "hair_back": "res://assets/fullbody/hair_back/super-06-4x4.png",
+        "head": "res://assets/fullbody/head/super-06-4x4.png",
+        "legs": "res://assets/fullbody/legs/super-06-4x4.png",
+        "shoes": "res://assets/fullbody/shoes/super-06-4x4.png"
+      },
+      "palette": {
+        "cloth": "#5b2d75",
+        "hair": "#d5a442",
+        "pants": "#424252",
+        "shoes": "#e8e4df",
+        "skin": "#a9613e",
+        "inner": "#5b2d75"
+      }
+    }
+  }
+}
