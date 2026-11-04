@@ -843,7 +843,7 @@
       "reference_world": "res://assets/vip/super-06/super-06-6x4.png"
     }
   },
-  "face_style": "Reference-style slender jaw, tall pixel eyes, small nose and mouth; 3 skin tones.",
+  "face_style": "Reference face at 92 percent size; chin anchored; nearest-neighbor pixels.",
   "gallery_order": [
     "producer",
     "alice",
@@ -882,7 +882,8 @@
     4,
     4
   ],
-  "head_revision": 2,
+  "head_revision": 3,
+  "head_scale": 0.92,
   "layer_order": [
     "hair_back",
     "legs",
