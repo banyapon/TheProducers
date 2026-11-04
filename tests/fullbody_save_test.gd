@@ -63,7 +63,7 @@ func _ready() -> void:
 	var worker = load("res://scenes/office/worker.tscn").instantiate(); add_child(worker)
 	for id in ["producer", "alice", Art.npc_ids[0], Art.vip_ids[0]]:
 		worker.configure_art(id)
-		check(worker.body.visible and worker.body.sprite_frames == Art.frames(id), "office uses original pixel sheet " + id)
+		check(worker.body.visible and worker.body.sprite_frames == Art.office_frames(id), "office uses native 3x3 sprite sheet " + id)
 	check(worker.get_children().all(func(child): return not child is ModularCharacter), "office does not instantiate fullbody parts")
 	worker.state = Worker.State.WALK; worker._update_visual(0.2)
 	check(worker.body.animation == "walk", "world walking drives original pixel animation")

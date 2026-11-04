@@ -1,7 +1,7 @@
 class_name Worker
 extends Node2D
 ## One 1:1 square character. Wanders, rides the stair shaft between floors, idles, chats with
-## neighbours — or in work mode walks to the Recording Studio and jams until the song is done.
+## neighbours â€” or in work mode walks to the Recording Studio and jams until the song is done.
 
 enum State { IDLE, WALK, CHAT, WORK }
 
@@ -31,6 +31,7 @@ var _visit_done = false
 
 var body: AnimatedSprite2D
 var principal = false
+var _native_sprite := false
 var _art_id = "producer"
 var _instrument = ""
 var _instrument_data: Dictionary
@@ -92,6 +93,8 @@ func say(text: String, duration: float) -> void:
 
 
 func hit_test(p: Vector2) -> bool:
+	if _native_sprite:
+		return Rect2(global_position + Vector2(-30, -118), Vector2(60, 118)).has_point(p)
 	return Rect2(global_position + Vector2(-SIZE * 0.5 - 6.0, -SIZE - 6.0), Vector2(SIZE + 12.0, SIZE + 12.0)).has_point(p)
 
 
@@ -289,7 +292,14 @@ func leave() -> void:
 func configure_art(id: String, is_principal: bool = false) -> void:
 	_art_id = id
 	principal = is_principal
-	body.sprite_frames = Art.frames(id)
+	body.sprite_frames = Art.office_frames(id)
+	_native_sprite = body.sprite_frames.has_animation("play")
+	body.scale = Vector2.ONE
+	# Native sheets face right; flip only while travelling left.
+	body.flip_h = false
+	body.position = Vector2(-80, -137) if _native_sprite else Vector2(-16, -45)
+	_chat.position.y = -145 if _native_sprite else -75
+	bubble.position.y = -145 if _native_sprite else -70
 	body.play("idle")
 	body.show()
 	name_label.visible = principal
@@ -307,14 +317,14 @@ func _update_name_scale() -> void:
 	name_label.scale = Vector2.ONE / world_scale
 	name_label.reset_size()
 	name_label.position = Vector2(-name_label.size.x * name_label.scale.x * 0.5,
-		-68.0 - (name_label.size.y + 8.0) * name_label.scale.y)
+		(-132.0 if _native_sprite else -68.0) - (name_label.size.y + 8.0) * name_label.scale.y)
 
 func _update_visual(dt: float) -> void:
 	_fx_clock += dt
 	var animation = "idle"
 	if state == State.WALK: animation = "walk"
 	elif state == State.CHAT: animation = "talk"
-	elif state == State.WORK: animation = "sway"
+	elif state == State.WORK: animation = "play" if _native_sprite else "sway"
 	if body.animation != animation: body.play(animation)
 	if state in [State.WORK, State.CHAT]: body.flip_h = false
 	if not principal: name_label.visible = state == State.CHAT
@@ -322,25 +332,27 @@ func _update_visual(dt: float) -> void:
 	_chat.visible = state == State.CHAT and _chat_texture != null
 	if _chat.visible:
 		_chat.texture = Art.atlas(_chat_texture, Rect2((int(_fx_clock * 7) % 6) * 80, 0, 80, 36))
-	_instrument_back.visible = state == State.WORK and _instrument == "organ"
+	_instrument_back.visible = state == State.WORK and _instrument == "organ" and not _instrument_data.is_empty()
 	_instrument_front.visible = state == State.WORK and not _instrument_data.is_empty()
 	if _instrument_front.visible:
 		var dimensions: Vector2i = _instrument_data["size"]
 		var origin = Vector2(-_instrument_data["anchor"])
 		var strip: Texture2D = _instrument_data["texture"]
-		var x = (body.frame % 6) * dimensions.x
+		var count = body.sprite_frames.get_frame_count(body.animation)
+		var instrument_frame = mini(5, floori(float(body.frame) * 6.0 / max(1, count)))
+		var x = instrument_frame * dimensions.x
 		if _instrument == "organ":
 			_instrument_back.position = origin
-			_instrument_back.texture = Art.atlas(strip, Rect2(x, 0, dimensions.x, 31))
-			_instrument_front.position = origin + Vector2(0, 31)
-			_instrument_front.texture = Art.atlas(strip, Rect2(x, 31, dimensions.x, dimensions.y - 31))
+			_instrument_back.texture = Art.atlas(strip, Rect2(x, 0, dimensions.x, int(_instrument_data.get("rear_split", 76))))
+			_instrument_front.position = origin + Vector2(0, int(_instrument_data.get("rear_split", 76)))
+			_instrument_front.texture = Art.atlas(strip, Rect2(x, int(_instrument_data.get("rear_split", 76)), dimensions.x, dimensions.y - int(_instrument_data.get("rear_split", 76))))
 		else:
 			_instrument_front.position = origin
 			_instrument_front.texture = Art.atlas(strip, Rect2(x, 0, dimensions.x, dimensions.y))
 		_note_clock -= dt
 		if _note_clock <= 0:
 			_note_clock = randf_range(0.3, 0.7)
-			_notes.append({"position": Vector2(randf_range(-20, 20), -45), "life": 1.6, "row": randi() % 8, "time": 0.0})
+			_notes.append({"position": Vector2(randf_range(-20, 20), -110 if _native_sprite else -45), "life": 1.6, "row": randi() % 8, "time": 0.0})
 	for note in _notes:
 		note["position"] += Vector2(4, -22) * dt
 		note["life"] -= dt
@@ -350,7 +362,7 @@ func _update_visual(dt: float) -> void:
 
 func _draw() -> void:
 	if principal:
-		var y = -59.0
+		var y = -122.0 if _native_sprite else -59.0
 		draw_colored_polygon(PackedVector2Array([Vector2(-4, y - 5), Vector2(4, y - 5), Vector2(0, y)]), Color("ffd166") if _art_id == "producer" else Color("80ed99"))
 	if _note_atlas:
 		for note in _notes:

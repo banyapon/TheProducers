@@ -121,11 +121,12 @@ var floors: Array = []             ## floors[f][c] = room type
 
 
 func _process(delta: float) -> void:
+	if running and check_bankruptcy(): return
 	PlaytestLog.tick(delta)
 	if not running or is_paused() or tutorial_gate:
 		return
 	_day_timer += delta * speed
-	while _day_timer >= DAY_SECONDS and not is_paused():
+	while running and _day_timer >= DAY_SECONDS and not is_paused():
 		_day_timer -= DAY_SECONDS
 		_advance_day()
 
@@ -157,6 +158,9 @@ func start(slot: String) -> void:
 		new_game()
 		if slot == "demo_career" or PlaytestLog.data()["runs"].has(slot): DemoCareer.setup()
 	running = true
+	if check_bankruptcy():
+		_emit_all()
+		return
 	PlaytestLog.start_session()
 	_save_character_parts()
 	_emit_all()
@@ -217,8 +221,8 @@ func reset_game() -> void:
 	save_game()
 
 
-func save_game() -> void:
-	if not running:
+func save_game(force: bool = false) -> void:
+	if not running and not force:
 		return
 	if not PlaytestLog.current().is_empty(): PlaytestLog.save()
 	var data = {"version": 3}
@@ -310,8 +314,21 @@ func _id(prefix: String) -> String:
 
 
 func add_money(amount: int) -> void:
+	if life.get("bankrupt", false): return
 	money += amount
 	money_changed.emit(money)
+	check_bankruptcy()
+
+signal bankrupted
+
+func check_bankruptcy() -> bool:
+	if money >= 0 and not life.get("bankrupt", false): return false
+	running = false
+	if not life.get("bankrupt", false):
+		life["bankrupt"] = true
+	save_game(true)
+	bankrupted.emit()
+	return true
 
 
 # --- daily / weekly simulation -------------------------------------------------
@@ -322,6 +339,7 @@ signal fire_started
 signal creative_decision_requested(job_id: String)
 
 func _advance_day() -> void:
+	if life.get("bankrupt", false): return
 	day += 1
 	date_changed.emit(day)
 	if StudioCity.emergency_day(): return
@@ -332,12 +350,16 @@ func _advance_day() -> void:
 		return
 	StudioCity.resume_calendar()
 	StudioLife.tick_day()
+	if life.get("bankrupt", false): return
 	StudioCity.tick_day()
+	if life.get("bankrupt", false): return
 	StudioStars.tick_day()
+	if life.get("bankrupt", false): return
 	_tick_all_projects()
 	_tick_schedule()
 	_tick_research()
 	_tick_invoices()
+	if life.get("bankrupt", false): return
 	for job in jobs.duplicate():
 		if job_days_left(job) <= 0: _fail_job(job)
 	if day % 28 == 0 and not DemoCareer.active(): _run_contest()
@@ -355,12 +377,16 @@ func _advance_day() -> void:
 
 
 func _advance_week(deferred_week: int = -1) -> void:
+	if life.get("bankrupt", false): return
 	var week = deferred_week if deferred_week >= 0 else int(day / 7)
 	var payroll = 0
 	for a in staff:
 		payroll += StudioCity.weekly_fee(a)
 	if payroll > 0:
 		add_money(-payroll)
+		if life.get("bankrupt", false):
+			save_game()
+			return
 		notify.emit(Locale.text("legacy_098") % Data.money(payroll))
 
 	var income = 0
