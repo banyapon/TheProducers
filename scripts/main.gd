@@ -762,8 +762,9 @@ func _flow_demo_brief(job: Dictionary) -> void:
 	if not job in Game.offers: return
 	dialog.open(PLAYER, _alice_portrait())
 	var brief = Locale.text("flow_brief_" + job["brief_kind"]) + "\n" + Locale.text("flow_targets_" + job["brief_kind"])
+	brief = Locale.text("flow_lesson_%d" % int(job["demo_index"])) + "\n" + Locale.text("tutorial_goal_%d" % int(job["demo_index"])) + "\n\n" + brief
 	brief += "\n" + Data.money(job["pay"]) + " | " + str(job["deadline"]) + " " + Locale.text("weeks")
-	var choice = await dialog.ask("alice", brief, [Locale.text("flow_manual"), Locale.text("flow_auto"), Locale.text("back")])
+	var choice = await dialog.ask("alice", brief, [Locale.text("flow_manual"), Locale.text("tutorial_auto"), Locale.text("back")])
 	dialog.close()
 	if choice == 2: return
 	Game.accept_offer(job, "manual" if choice == 0 else "auto")

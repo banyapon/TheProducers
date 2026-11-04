@@ -86,6 +86,16 @@ func _ready() -> void:
 	main.login.hide()
 	main.star_panel.open()
 	await capture("ranking")
+	var grid = main.star_panel.find_child("ArtistGrid", true, false)
+	check(grid.get_child_count() == 4, "ranking shows four cards per page")
+	var portrait = grid.find_child("ArtistFullBody", true, false) as PortraitView
+	check(portrait.fullbody.animation == "talk" and not portrait.crop_half, "cards animate full body in talk pose")
+	main.star_panel.page = 2
+	main.star_panel.refresh()
+	await capture("ranking-last")
+	grid = main.star_panel.find_child("ArtistGrid", true, false)
+	check(grid.find_children("ArtistFullBody", "", true, false).size() == StudioStars.rankings().size() - 8, "last ranking page includes remaining artists")
+	main.star_panel.page = 0
 	main.star_panel.tab = 1
 	main.star_panel.refresh()
 	await capture("offers")

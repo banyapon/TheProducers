@@ -398,10 +398,12 @@ func _play_tab(body: VBoxContainer) -> void:
 	var offline = UIKit.button(Locale.text("offline"), _offline_pressed, 0, "" if FirebaseAuth.has_saved_session() else "ConfirmButton")
 	offline.disabled = _busy
 	body.add_child(offline)
-	body.add_child(UIKit.button(Locale.text("demo_entry"), func():
+	var tutorial = UIKit.button(Locale.text("demo_entry"), func():
 		FirebaseAuth.sign_out()
 		hide()
-		login_completed.emit("demo_career")))
+		login_completed.emit("demo_career"))
+	tutorial.tooltip_text = Locale.text("tutorial_intro")
+	body.add_child(tutorial)
 	var guest = UIKit.button(Locale.text("guest"), func(): _run(FirebaseAuth.sign_in_anonymous, false))
 	guest.disabled = _busy or not Secrets.has_firebase()
 	body.add_child(guest)
