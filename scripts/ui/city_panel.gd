@@ -91,6 +91,7 @@ func refresh() -> void:
 	body.add_child(row)
 	var scene = TextureRect.new()
 	scene.name = "CityBackdrop"
+	scene.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	scene.texture = Art.texture("res://assets/story/award-hall.png" if ceremony.get("win", false) else "res://assets/city/" + location + ".png")
 	scene.custom_minimum_size = Vector2(860, 484)
 	scene.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -172,8 +173,8 @@ func _stage_people(scene: TextureRect) -> void:
 	for i in 2:
 		var view = PortraitView.new()
 		view.name = "CityProducer" if i == 0 else "CityCompanion"
-		view.size = Vector2(190, 230)
-		var destination = Vector2(230 + i * 230, 207)
+		view.size = Vector2(160, 228)
+		var destination = Vector2(244 + i * 230, 208)
 		view.position = destination + Vector2(-90 if i == 0 else 90, 0)
 		scene.add_child(view)
 		view.configure(Game.player_character if i == 0 else Art.model_id(person), i == 1)

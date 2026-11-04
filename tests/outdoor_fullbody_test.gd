@@ -34,6 +34,9 @@ func _ready() -> void:
 		check(view.fullbody.animation == "walk", "arrival uses walk animation")
 		await get_tree().create_timer(0.75).timeout
 		check(view.fullbody.animation == "idle" and partner.flip_h, "arrival settles and partner faces player")
+		check(view.fullbody.scale.is_equal_approx(Vector2(2,2)), "native city character scale")
+		check(view.position.y + view.size.y == 436, "feet match city ground")
+		await capture("Native-city/" + place + "-ingame")
 	panel.location = "park"
 	panel.social_action = "talk"
 	panel.refresh()
