@@ -7,10 +7,10 @@ signal room_clicked(floor_index: int, column: int, room_type: String)
 signal worker_clicked(artist_id: String)
 signal zoom_changed(value: float)
 
-const ROOM_W := 256.0
-const FLOOR_H := 144.0
-const SHAFT_W := 48.0
-const SLAB := 16.0
+const ROOM_W := 640.0
+const FLOOR_H := 360.0
+const SHAFT_W := 120.0
+const SLAB := 40.0
 const WORKER_SCENE := preload("res://scenes/office/worker.tscn")
 
 @onready var workers_root: Node2D = $Workers
@@ -71,7 +71,7 @@ func _draw_fire(overlay: Node2D) -> void:
 			var tex = Art.texture("res://assets/city/fire-%d.png" % (i + 1))
 			if tex:
 				var frame = (int(Time.get_ticks_msec() / 120) + i * 2) % 6
-				overlay.draw_texture_rect_region(tex, Rect2(room.position + Vector2(18 + i * 69, 10), Vector2(96, 128)), Rect2(frame * 48, 0, 48, 64))
+				overlay.draw_texture_rect_region(tex, Rect2(room.position + Vector2(18 + i * 69, 10) * 2.5, Vector2(240, 320)), Rect2(frame * 48, 0, 48, 64))
 		overlay.draw_string(_font, room.position + Vector2(10, 30), Locale.text("city_damage", [int(damage["until"]) - Game.day]), HORIZONTAL_ALIGNMENT_LEFT, -1, 22, Color("ffe0a0"))
 
 
@@ -155,10 +155,14 @@ func _draw() -> void:
 	for f in floor_count():
 		var y = -(f + 1) * FLOOR_H
 		draw_rect(Rect2(0, y, SHAFT_W, FLOOR_H), Color("22223b"))
-		draw_line(Vector2(12, y + FLOOR_H), Vector2(SHAFT_W - 12, y + 10), Color("9a8c98"), 4)
-		for i in 6:
-			var p = Vector2(12, y + FLOOR_H).lerp(Vector2(SHAFT_W - 12, y + 10), i / 6.0)
-			draw_line(p, p + Vector2(12, 0), Color("c9ada7"), 3)
+		# Square treads, dark risers, and a recessed shadow behind the flight.
+		for step in range(12):
+			var sx = 8.0 + step * 8.0
+			var sy = y + FLOOR_H - SLAB - (step + 1) * 25.0
+			draw_rect(Rect2(sx + 4, sy + 5, SHAFT_W - sx - 4, 25), Color("151d2a"))
+			draw_rect(Rect2(sx, sy, SHAFT_W - sx - 8, 25), Color("465064"))
+			draw_rect(Rect2(sx, sy, SHAFT_W - sx - 8, 4), Color("9b9ca6"))
+			draw_rect(Rect2(sx, sy + 4, 2, 21), Color("676f80"))
 		for c in column_count():
 			var r = room_rect(f, c)
 			var type: String = Game.floors[f][c]
@@ -387,7 +391,7 @@ func _click(pos: Vector2) -> void:
 
 func _zoom(factor: float) -> void:
 	_cancel_wheel_zoom()
-	var steps = [0.5,1.0,2.0,3.0,4.0]
+	var steps = [0.25,0.5,1.0,2.0,3.0,4.0]
 	var value = camera.zoom.x
 	if factor > 1.0:
 		for step in steps:
@@ -399,7 +403,7 @@ func _zoom(factor: float) -> void:
 			if steps[index] < value - 0.01:
 				value = steps[index]
 				break
-	camera.zoom = Vector2.ONE * clampf(value,0.5,4.0)
+	camera.zoom = Vector2.ONE * clampf(value,0.25,4.0)
 	camera.position = camera.position.round()
 	zoom_changed.emit(camera.zoom.x)
 
@@ -411,7 +415,7 @@ func _scroll_zoom(amount: float) -> void:
 	if not _wheel_active:
 		_wheel_target = log(camera.zoom.x)
 		_wheel_velocity = 0.0
-	_wheel_target = clampf(_wheel_target + amount * WHEEL_STEP, log(0.5), log(4.0))
+	_wheel_target = clampf(_wheel_target + amount * WHEEL_STEP, log(0.25), log(4.0))
 	_wheel_active = true
 
 func _tick_wheel_zoom(delta: float) -> void:
@@ -422,7 +426,7 @@ func _tick_wheel_zoom(delta: float) -> void:
 	var travel = (_wheel_velocity + ZOOM_DAMPING * error) * delta
 	var next_error = (error + travel) * decay
 	_wheel_velocity = (_wheel_velocity - ZOOM_DAMPING * travel) * decay
-	var value = clampf(exp(_wheel_target + next_error), 0.5, 4.0)
+	var value = clampf(exp(_wheel_target + next_error), 0.25, 4.0)
 	if absf(next_error) < 0.0001 and absf(_wheel_velocity) < 0.001:
 		value = exp(_wheel_target)
 		_cancel_wheel_zoom()
@@ -441,7 +445,7 @@ func _frame_building() -> void:
 	# Building + roof sign must fit between the HUD's top and bottom bars.
 	var height = floor_count() * FLOOR_H + 130.0
 	var fit = minf(1800.0 / building_width(), 780.0 / height)
-	var z = clampf(floorf(fit) if fit >= 1.0 else floorf(fit * 2.0) / 2.0, 0.5, 2.0)
+	var z = clampf(floorf(fit * 20.0) / 20.0, 0.25, 2.0)
 	camera.zoom = Vector2(z, z)
 	zoom_changed.emit(z)
 	camera.position = Vector2(building_width() * 0.5, -height * 0.5 + 30.0)
@@ -455,6 +459,7 @@ func _refresh_rooms() -> void:
 				var sprite = Sprite2D.new()
 				sprite.texture = art
 				sprite.centered = false
+				sprite.scale = Vector2(ROOM_W, FLOOR_H) / art.get_size()
 				sprite.position = room_rect(f, c).position
 				foreground.add_child(sprite)
 	queue_redraw()

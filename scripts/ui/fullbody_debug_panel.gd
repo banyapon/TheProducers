@@ -41,24 +41,22 @@ func refresh() -> void:
 		characters.select(0); selected_id = characters.get_item_metadata(0)
 	var right = VBoxContainer.new(); right.size_flags_horizontal = SIZE_EXPAND_FILL; content.add_child(right)
 	var poses = HBoxContainer.new(); poses.size_flags_vertical = SIZE_EXPAND_FILL; right.add_child(poses)
-	for state in ModularCharacter.catalogue()["rows"]:
+	for state in ["idle", "talk", "walk", "play"]:
 		var column = VBoxContainer.new(); column.size_flags_horizontal = SIZE_EXPAND_FILL; poses.add_child(column)
 		var label = UIKit.label(str(state).capitalize(), 32); label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; column.add_child(label)
 		var stage = Control.new(); stage.custom_minimum_size = Vector2(320, 480); column.add_child(stage)
 		var backdrop = ColorRect.new(); backdrop.color = Color("303a48"); backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); stage.add_child(backdrop)
 		var actor = ModularCharacter.new(); stage.add_child(actor)
-		actor.position = Vector2(160,440); actor.scale = Vector2.ONE
+		actor.position = Vector2(160,440); actor.scale = Vector2(3, 3)
 		previews.append(actor)
 	details = UIKit.label("", 26); details.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; right.add_child(details)
 	characters.item_selected.connect(func(index): selected_id = characters.get_item_metadata(index); _show_character())
 	_show_character()
-	var footer = UIKit.label("Shared frame clock | New fullbody art | Saved outfit palettes", 26)
+	var footer = UIKit.label("Native sprites | 160 x 160 cells | 9 frames per action", 26)
 	body.add_child(footer)
 
 func _show_character() -> void:
 	for i in previews.size():
 		previews[i].configure(selected_id)
-		previews[i].play(ModularCharacter.catalogue()["rows"][i])
-	var recipe: Dictionary = ModularCharacter.catalogue()["characters"][selected_id].duplicate(true)
-	recipe.merge(Game.character_appearance.get(selected_id, {}), true)
-	details.text = "%s\nOutfit: %s | Outer: %s | Inner: %s\nPants: %s | Shoes: %s\n%s" % [selected_id,recipe["body"],recipe["cloth_tint"],recipe.get("inner_tint","#ffffff"),recipe["pants_tint"],recipe["shoes_tint"],Game.character_parts_path()]
+		previews[i].play(["idle", "talk", "walk", "play"][i])
+	details.text = "%s | assets/sprites | Original character colors" % selected_id

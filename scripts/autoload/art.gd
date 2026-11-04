@@ -73,6 +73,26 @@ func frames(id: String) -> SpriteFrames:
 	_frames[id] = result
 	return result
 
+## Office protagonist only: original 480px sheets, nine 160px frames, no resampling.
+func producer_office_frames() -> SpriteFrames:
+	return office_frames("producer")
+
+func office_frames(id: String) -> SpriteFrames:
+	var folder = "male" if id == "producer" else id
+	var key = "office_original:" + folder
+	if _frames.has(key): return _frames[key]
+	if not ResourceLoader.exists("res://assets/sprites/%s/idle.png" % folder): return frames(id)
+	var result = SpriteFrames.new()
+	result.remove_animation("default")
+	for animation in ["idle", "walk", "play", "talk"]:
+		var sheet = texture("res://assets/sprites/%s/%s.png" % [folder, animation])
+		result.add_animation(animation)
+		result.set_animation_speed(animation, 5.0 if animation == "idle" else 9.0)
+		for frame in 9:
+			result.add_frame(animation, atlas(sheet, Rect2((frame % 3) * 160, (frame / 3) * 160, 160, 160)))
+	_frames[key] = result
+	return result
+
 func atlas(sheet: Texture2D, region: Rect2) -> AtlasTexture:
 	var result = AtlasTexture.new()
 	result.atlas = sheet
@@ -106,6 +126,5 @@ func room(type: String, foreground: bool = false) -> Texture2D:
 	return texture("res://assets/lots/rooms/%s-16x9-%s.png" % [id, "front" if foreground else "back"])
 
 func instrument_info(id: String) -> Dictionary:
-	var dimensions = {"drums": Vector2i(64, 64), "electone": Vector2i(64, 48), "organ": Vector2i(64, 64)}
-	var anchors = {"drums": Vector2(32, 58), "electone": Vector2(32, 45), "organ": Vector2(32, 60)}
-	return {"size": dimensions.get(id, Vector2i(32, 48)), "anchor": anchors.get(id, Vector2(16, 45)), "texture": texture("res://assets/instruments/%s-6frames.png" % id)}
+	return {"size": Vector2i(160, 160), "anchor": Vector2(80, 137), "rear_split": 76,
+		"texture": texture("res://assets/instruments/%s-6frames.png" % id)}

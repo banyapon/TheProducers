@@ -32,9 +32,11 @@ var star_panel: StarPanel
 var news_panel: NewsPanel
 var coach: TutorialCoach
 var fullbody_debug: FullbodyDebugPanel
+var _bankruptcy_transition := false
 
 
 func _ready() -> void:
+	Game.bankrupted.connect(_on_bankrupted)
 	if OS.is_debug_build():
 		fullbody_debug = FullbodyDebugPanel.new()
 		$UI.add_child(fullbody_debug)
@@ -102,7 +104,21 @@ func _ready() -> void:
 		_on_login_completed.call_deferred(Game.save_slot)
 
 
+func _on_bankrupted() -> void:
+	if _bankruptcy_transition: return
+	_bankruptcy_transition = true
+	_queue.clear()
+	$UI.hide()
+	_finish_bankruptcy.call_deferred()
+
+func _finish_bankruptcy() -> void:
+	Game.save_game(true)
+	Game._pause_requests = 0
+	Audio.stop_preview()
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+
 func _enqueue(flow: Callable) -> void:
+	if Game.life.get("bankrupt", false): return
 	_queue.append(flow)
 	if not _queue_running and not _booting:
 		_run_queue()
@@ -111,6 +127,9 @@ func _enqueue(flow: Callable) -> void:
 func _run_queue() -> void:
 	_queue_running = true
 	while not _queue.is_empty():
+		if Game.life.get("bankrupt", false):
+			_queue.clear()
+			break
 		# Reports wait until the player closes an existing modal, including Alice's desk.
 		while not _queue.is_empty() and (_board_open() or (StudioCity.fire_active() and _queue.front().get_method() != "_flow_fire_notice")):
 			await get_tree().process_frame
@@ -129,6 +148,7 @@ func _board_open() -> bool:
 func _on_login_completed(uid: String) -> void:
 	_booting = true
 	Game.start(uid)
+	if Game.life.get("bankrupt", false): return
 	if not Game.identity_initialized:
 		shell.open("identity")
 		await shell.identity_completed
@@ -639,6 +659,7 @@ func _return_to_title() -> void:
 
 
 func _on_fire_started() -> void:
+	if Game.life.get("bankrupt", false): return
 	_queue.push_front(_flow_fire_notice)
 	if not _queue_running and not _booting: _run_queue()
 

@@ -9,7 +9,7 @@ var fullbody: ModularCharacter
 var crop_half := false
 var body_pose := "idle"
 
-## Uses the same saved appearance and synchronized part animation as world actors.
+## Uses the same native sprite animations as world actors.
 func use_fullbody(enabled: bool, half: bool = false) -> void:
 	crop_half = half
 	clip_contents = enabled
@@ -29,10 +29,10 @@ func use_fullbody(enabled: bool, half: bool = false) -> void:
 
 func _layout_body() -> void:
 	if not is_instance_valid(fullbody) or not fullbody.visible: return
-	# Portrait hair begins at y=24; the waist is near y=260 in a 400px cell.
-	var zoom = minf(size.x / (140.0 if crop_half else 200.0), size.y / (236.0 if crop_half else 376.0))
+	# Native 160px cell: hair near y=23, feet at y=137, waist near y=85.
+	var zoom = minf(size.x / (64.0 if crop_half else 80.0), size.y / (62.0 if crop_half else 114.0))
 	fullbody.scale = Vector2(-zoom if flip_h else zoom, zoom)
-	fullbody.position = Vector2(size.x * 0.5, 376.0 * zoom if crop_half else size.y)
+	fullbody.position = Vector2(size.x * 0.5, 114.0 * zoom if crop_half else size.y)
 	var pose = "talk" if talking else body_pose
 	if fullbody.animation != pose: fullbody.play(pose)
 

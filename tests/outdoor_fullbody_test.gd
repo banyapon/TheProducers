@@ -29,7 +29,7 @@ func _ready() -> void:
 		var view = panel.find_child("CityProducer", true, false) as PortraitView
 		var partner = panel.find_child("CityCompanion", true, false) as PortraitView
 		check(view != null and partner != null, place + " has both assembled actors")
-		check(view.fullbody.parts.size() == 7 and partner.fullbody.parts.size() == 7, "seven new part layers")
+		check(view.fullbody.body.sprite_frames == Art.office_frames("producer") and partner.fullbody.body.sprite_frames == Art.office_frames("alice"), "native sprite sheets for both actors")
 		await get_tree().create_timer(0.2).timeout
 		check(view.fullbody.animation == "walk", "arrival uses walk animation")
 		await get_tree().create_timer(0.75).timeout
@@ -40,7 +40,7 @@ func _ready() -> void:
 	await get_tree().create_timer(1.0).timeout
 	var companion = panel.find_child("CityCompanion", true, false) as PortraitView
 	check(companion.fullbody.animation == "talk", "social conversation animates assembled parts")
-	check(companion.fullbody.parts["body"].texture.resource_path == "res://assets/fullbody/body/alice-4x4.png" and companion.fullbody.parts["body"].material == null, "new colored Alice art used without double tint")
+	check(companion.fullbody.body.sprite_frames == Art.office_frames("alice") and companion.fullbody.body.material == null, "new colored Alice art used without double tint")
 	var city_portrait = panel.find_child("CityCompanionPortrait", true, false) as PortraitView
 	check(city_portrait.crop_half and city_portrait.clip_contents and city_portrait.fullbody.visible, "City conversation uses cropped assembled character")
 	await capture("city-fullbody")
