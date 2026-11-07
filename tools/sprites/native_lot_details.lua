@@ -1,3 +1,4 @@
+local G=dofile('D:/GitHub/TheProducers/tools/props/tree-style.lua')
 local root='D:/GitHub/TheProducers/'
 local out='D:/EP45/ndlp/Producers/Native-lots/'
 local L=dofile(root..'assets/lots/source/pixel-lib.lua');local R,B,E,P=L.rect,L.line,L.ellipse,L.poly;local C=L.C
@@ -12,7 +13,7 @@ for k,id in ipairs({'far','mid','trees'})do
    if j%3==0 then R(im,x+18,y-12,1,12,col);R(im,x+10,y-3,23,3,col)end
   end
  else
-  for j=0,6 do local x=j*82+20;local h=45+(j*13)%25;R(im,x,288-h,4,h,C.bark);B(im,x+1,282,x-10,255,C.bark);E(im,x-24,288-h-17,49,37,C.leafDark);E(im,x-20,288-h-20,39,30,C.leaf);E(im,x-16,288-h-20,27,18,C.leafMid);B(im,x-12,288-h-18,x+4,288-h-18,C.leafHi)end
+  for j=0,6 do local x=j*82+20;local h=78+(j*13)%25;im:drawImage(G.draw(74,h,j,false),Point(x-37,288-h))end
  end
  save(im,'city-'..id, 'assets/lots/backgrounds/city-'..id..'-16x9.png')
 end

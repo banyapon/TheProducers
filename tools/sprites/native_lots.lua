@@ -1,3 +1,4 @@
+local G=dofile('D:/GitHub/TheProducers/tools/props/tree-style.lua')
 -- Native pixel drawing, executed inside Aseprite; no resampling of old artwork.
 local root='D:/GitHub/TheProducers/'
 local out='D:/EP45/ndlp/Producers/Native-lots/'
@@ -102,8 +103,7 @@ local function shelf(im,x,f,w,crates)
  end
 end
 local function plant(im,x,f)
- box(im,x,f-27,24,27,C.wood);R(im,x+2,f-26,20,2,C.woodHi);R(im,x+11,f-75,2,48,C.bark)
- for i=0,5 do local y=f-70+i*6;local xx=x+(i%2==0 and -7 or 12);P(im,{{xx,y},{xx+16,y+4},{xx+19,y+8},{xx+7,y+6}},i%2==0 and C.leaf or C.leafMid);B(im,xx+2,y+2,xx+14,y+5,C.leafHi)end
+ im:drawImage(G.draw(58,85,math.floor(x)%6,true),Point(x-17,f-82))
 end
 local roomGallery=L.image(1280,1080)
 local kinds={'recording','lounge','office','meeting','cafeteria','storage'}

@@ -1,3 +1,4 @@
+local G=dofile('D:/GitHub/TheProducers/tools/props/tree-style.lua')
 -- Native pixel city scenery, drawn using Aseprite Image:drawPixel primitives.
 local root='D:/GitHub/TheProducers/'
 local out='D:/EP45/ndlp/Producers/Native-city/'
@@ -10,8 +11,7 @@ local function box(im,x,y,w,h,col)R(im,x,y,w,h,C.ink);R(im,x+1,y+1,w-2,h-2,col)e
 local function sign(im,x,y,txt)box(im,x,y,#txt*6+12,18,c('413f4e'));T(im,x+6,y+6,txt,c('f1d399'));B(im,x+2,y+1,x+#txt*6+9,y+1,c('a18470'))end
 local function lamp(im,x,y)R(im,x,y,2,95,C.ink);R(im,x-4,y+94,10,3,C.ink);box(im,x-5,y-12,12,16,c('aa9166'));R(im,x-3,y-10,8,11,c('ffe2a0'));R(im,x-1,y-10,1,11,c('fff0c4'));R(im,x-3,y-15,8,3,C.ink)end
 local function plant(im,x,f)
- box(im,x-8,f-17,19,17,c('956850'));R(im,x-6,f-16,15,2,c('d2a47b'));B(im,x,f-17,x+2,f-47,c('4b573b'))
- for i=0,4 do local y=f-42+i*6;P(im,{{x,y+7},{x-14,y-2},{x-16,y-7},{x-7,y-5}},c('3b6351'));P(im,{{x+1,y+5},{x+13,y-5},{x+16,y-5},{x+12,y+2}},c('698761'));B(im,x+3,y+2,x+12,y-3,c('a4ad74'))end
+ im:drawImage(G.draw(46,67,math.floor(x)%6,true),Point(x-23,f-64))
 end
 local function bench(im,x,f,w)
  R(im,x+5,f-29,3,29,C.ink);R(im,x+w-8,f-29,3,29,C.ink)
@@ -19,8 +19,7 @@ local function bench(im,x,f,w)
  box(im,x-3,f-29,w+6,6,c('906548'));R(im,x-2,f-28,w+4,1,c('d5ac7b'));B(im,x+8,f-22,x+w-8,f-22,C.ink)
 end
 local function tree(im,x,f)
- R(im,x-3,f-75,7,75,c('584943'));B(im,x,f-4,x,f-70,c('ae8661'))
- for _,v in ipairs({{-26,-92,42,44},{-6,-107,43,53},{15,-87,33,37}})do E(im,x+v[1],f+v[2],v[3],v[4],c('294b46'));E(im,x+v[1]+2,f+v[2]+1,v[3]-5,v[4]-10,c('486d54'));E(im,x+v[1]+6,f+v[2]+2,v[3]-14,12,c('78915e'))end
+ im:drawImage(G.draw(85,125,math.floor(x)%3,false),Point(x-42,f-125))
 end
 local function door(im,x,f)
  box(im,x,f-136,53,136,c('86634f'));box(im,x+4,f-131,45,126,c('4b5559'));box(im,x+7,f-128,39,81,c('38525e'));B(im,x+9,f-126,x+42,f-126,c('8da7a4'));R(im,x+41,f-56,3,11,c('e5c58e'));box(im,x+8,f-40,37,30,c('5f716e'))

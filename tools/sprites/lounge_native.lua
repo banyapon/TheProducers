@@ -1,3 +1,4 @@
+local G=dofile('D:/GitHub/TheProducers/tools/props/tree-style.lua')
 -- Native 640x360 lounge, drawn directly into Aseprite pixel layers.
 local root='D:/GitHub/TheProducers/'
 local pc=app.pixelColor
@@ -30,8 +31,7 @@ box(back,245,278,13,3,'c8d0bd')
 -- Tall door matching the native sprite height.
 box(back,553,174,61,146,'85735b');box(back,557,178,53,138,'574d46');box(back,561,183,45,46,'304651');rect(back,563,185,41,2,'66838b');rect(back,599,253,3,7,'d9c399')
 -- Plant and framed acoustic print.
-box(back,438,280,28,40,'927059');rect(back,441,282,22,3,'c6a385');rect(back,450,240,3,40,'6d7652')
-for i=0,5 do local x= i%2==0 and 432 or 451;local y=240+i*6;rect(back,x,y,19,6,'345952');rect(back,x+2,y-2,14,3,'69846a')end
+back:drawImage(G.draw(58,85,4,true),Point(423,238))
 box(back,64,119,118,78,'a49c90');box(back,68,123,110,70,'293541')
 for i=0,9 do local h=12+(i*13)%48;rect(back,77+i*9,181-h,4,h,'6f9397');rect(back,77+i*9,181-h,4,2,'cbb996')end
 back:saveAs(root..'assets/lots/rooms/lounge-16x9-back.png');front:saveAs(root..'assets/lots/rooms/lounge-16x9-front.png')

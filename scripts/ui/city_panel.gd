@@ -48,6 +48,10 @@ func refresh() -> void:
 	header.add_child(UIKit.button(Locale.text("close"), close))
 	header.add_child(UIKit.button("Marketing Agency", func(): location = "agency"; refresh()))
 	header.add_child(UIKit.button(Locale.text("risk_title"), func(): location = "risk"; refresh()))
+	header.add_child(UIKit.button(Locale.text("vip_title"), func(): location = "vip"; refresh()))
+	if location == "vip":
+		_vip_picker(body)
+		return
 	if location == "risk":
 		var info = UIKit.label(Locale.text("risk_help", [maxi(0,int(StudioResilience.data()["insurance_until"]) - Game.day), maxi(0,int(StudioResilience.data()["inspection_until"]) - Game.day)]), 34)
 		info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -323,3 +327,31 @@ func _process(_delta: float) -> void:
 	var host = find_child("Announcer", true, false) as TextureRect
 	if host:
 		(host.texture as AtlasTexture).region.position.x = (int(Time.get_ticks_msec() / 160) % 6) * 32
+
+
+func _vip_picker(body: VBoxContainer) -> void:
+	var help = UIKit.label(Locale.text("vip_help"), 26)
+	help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	body.add_child(help)
+	var feedback = UIKit.label(message, 26)
+	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	body.add_child(feedback)
+	var scroll = ScrollContainer.new()
+	scroll.size_flags_vertical = SIZE_EXPAND_FILL
+	body.add_child(scroll)
+	var list = VBoxContainer.new()
+	list.size_flags_horizontal = SIZE_EXPAND_FILL
+	scroll.add_child(list)
+	for id in Game.clients:
+		var client = Game.get_client(id)
+		var error = VipOffice.reason(id)
+		var row = UIKit.button(Locale.text("vip_invite", [Game.client_contact(client), client.get("rel", 0)]), func():
+			message = VipOffice.invite(id)
+			if message.is_empty(): close()
+			else: refresh())
+		row.disabled = error != ""
+		row.tooltip_text = error
+		list.add_child(row)
+		if error != "": list.add_child(UIKit.label(error, 22))
+	if Game.clients.is_empty(): list.add_child(UIKit.label(Locale.text("vip_missing"), 26))
+	body.add_child(UIKit.button(Locale.text("back"), func(): location = "city"; refresh()))

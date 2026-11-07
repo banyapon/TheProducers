@@ -30,6 +30,8 @@ var _leaving = false
 var _visit_done = false
 
 var body: AnimatedSprite2D
+var appointment := false
+var name_lane := 0
 var principal = false
 var _native_sprite := false
 var _art_id = "producer"
@@ -133,6 +135,9 @@ func _process(delta: float) -> void:
 
 
 func _decide() -> void:
+	if appointment:
+		_timer = 1.0
+		return
 	if is_visitor:
 		if _visit_done:
 			leave()
@@ -243,7 +248,7 @@ func _try_chat() -> bool:
 		var w = other as Worker
 		if w == null or w == self:
 			continue
-		if w.state != State.IDLE or w.working or w.is_visitor or w.floor_index != floor_index:
+		if w.state != State.IDLE or w.working or w.appointment or w.is_visitor or w.floor_index != floor_index:
 			continue
 		if absf(w.position.x - position.x) > 150.0:
 			continue
@@ -302,22 +307,22 @@ func configure_art(id: String, is_principal: bool = false) -> void:
 	bubble.position.y = -145 if _native_sprite else -70
 	body.play("idle")
 	body.show()
-	name_label.visible = principal
-	if principal:
-		name_label.add_theme_font_size_override("font_size", UIKit.DEFAULT_FONT_SIZE)
-		name_label.z_index = 20
-		_update_name_scale()
+	name_label.visible = true
+	name_label.add_theme_font_size_override("font_size", 36)
+	name_label.add_theme_color_override("font_outline_color", Color("101823"))
+	name_label.add_theme_constant_override("outline_size", 5)
+	name_label.z_index = 20
+	_update_name_scale()
 	queue_redraw()
 
 func _update_name_scale() -> void:
-	if not principal: return
 	# Match UI units, cancelling only the world/camera scale (not viewport stretch).
 	var transform = get_global_transform_with_canvas()
 	var world_scale = Vector2(maxf(transform.x.length(), 0.001), maxf(transform.y.length(), 0.001))
 	name_label.scale = Vector2.ONE / world_scale
 	name_label.reset_size()
 	name_label.position = Vector2(-name_label.size.x * name_label.scale.x * 0.5,
-		(-132.0 if _native_sprite else -68.0) - (name_label.size.y + 8.0) * name_label.scale.y)
+		(-132.0 if _native_sprite else -68.0) - (name_label.size.y + 8.0 + name_lane * 28.0) * name_label.scale.y)
 
 func _update_visual(dt: float) -> void:
 	_fx_clock += dt
@@ -327,7 +332,7 @@ func _update_visual(dt: float) -> void:
 	elif state == State.WORK: animation = "play" if _native_sprite else "sway"
 	if body.animation != animation: body.play(animation)
 	if state in [State.WORK, State.CHAT]: body.flip_h = false
-	if not principal: name_label.visible = state == State.CHAT
+	name_label.visible = true
 	if state == State.CHAT: bubble.hide()
 	_chat.visible = state == State.CHAT and _chat_texture != null
 	if _chat.visible:

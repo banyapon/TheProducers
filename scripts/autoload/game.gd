@@ -194,7 +194,7 @@ func new_game() -> void:
 	trophies = []
 	contest_edition = 1
 	items = {"research": 0, "gift": 1, "energy": 1, "pizza": 1, "coffee": 0}
-	floors = [["lobby", "office", "lounge"], ["studio", "office", "empty"]]
+	floors = [["meeting", "lounge", "studio"]]
 	# Starter crew so the first song is possible right away.
 	for role in ["Vocal", "Producer"]:
 		var artist = generate_artist(0.35, role)
@@ -363,7 +363,7 @@ func _advance_day() -> void:
 	for job in jobs.duplicate():
 		if job_days_left(job) <= 0: _fail_job(job)
 	if day % 28 == 0 and not DemoCareer.active(): _run_contest()
-	if not DemoCareer.active() and offers.size() < MAX_OFFERS and randf() < 0.3:
+	if not DemoCareer.active() and offers.size() < MAX_OFFERS and randf() < 0.3 + VipOffice.offer_bonus():
 		offers.append(generate_job())
 		offers_changed.emit()
 	if not DemoCareer.active() and randf() < 0.04:
@@ -524,6 +524,7 @@ func generate_job(easy := false) -> Dictionary:
 		"upfront_pct": 0,
 		"status": "offer",
 	}
+	job["vip_connection"] = VipOffice.connection(get_client(client_name))
 	var bands = StudioStage.playable_bands()
 	if not bands.is_empty() and randf() < 0.30:
 		job["requested_band"] = bands[randi() % bands.size()]["id"]
@@ -559,7 +560,11 @@ func _pick_client() -> String:
 		}
 		StudioCity.ensure_person(clients[c["name"]], true)
 		return c["name"]
-	return clients.keys().pick_random()
+	var names = clients.keys()
+	var weights: Array = []
+	for key in names:
+		weights.append(1.0 + VipOffice.connection(clients[key]) * 3.0)
+	return names[_weighted_index(weights)]
 
 
 func get_client(client_name: String) -> Dictionary:
@@ -740,7 +745,7 @@ func get_artist(id: String) -> Dictionary:
 
 
 func staff_capacity() -> int:
-	return count_rooms("office") * STAFF_PER_OFFICE
+	return (count_rooms("office") + mini(1, count_rooms("meeting"))) * STAFF_PER_OFFICE
 
 
 ## Longer contracts get a weekly discount.
@@ -1099,6 +1104,7 @@ func release_project(marketing_index: int) -> Dictionary:
 	DemoCareer.released(job, song)
 	StudioStage.on_release(song, team_ids)
 	StudioStars.on_release(song, team_ids)
+	VipOffice.production_pressure(job, team_ids)
 	var played = StudioStage.matching_band(team_ids)
 	if not played.is_empty() and str(job.get("requested_band", "")) == str(played["id"]):
 		alice_notice.emit(Locale.text("stage_band_delivered", [StudioStage.band_label(played), song["title"]]))

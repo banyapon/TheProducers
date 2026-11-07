@@ -1,0 +1,14 @@
+{
+  "vip_title": "VIP appointments",
+  "vip_help": "Invite a client to your office or meeting room. Free, one appointment a day; each VIP once every 7 days. Talk: relationship +8, trust +6, comfort +4. Connections bring more briefs (daily chance up to +20 percentage points). On delivery, connected commissions have a 45-75% chance to cost the recording team 3-6 trust due to VIP pressure.",
+  "vip_missing": "Meet a client first.",
+  "vip_pending": "A VIP is already on the way or meeting with you.",
+  "vip_unavailable": "Appointments are unavailable during an emergency.",
+  "vip_room": "Build an office or meeting room first.",
+  "vip_busy": "Finish your current meeting or research first.",
+  "vip_daily": "You have already hosted a VIP today.",
+  "vip_wait": "Available again in %s days.",
+  "vip_invite": "Invite %s | Relationship %s/100",
+  "vip_done": "Meeting with %s finished: relationship +8, trust +6, comfort +4. Their connections can now bring more work.",
+  "vip_pressure": "VIP pressure on \"%s\": the recording team lost %s trust each. Spend time with them to rebuild trust."
+}

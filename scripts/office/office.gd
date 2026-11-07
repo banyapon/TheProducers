@@ -19,6 +19,10 @@ const WORKER_SCENE := preload("res://scenes/office/worker.tscn")
 
 var principals = {}
 var foreground: Node2D
+var decoration: Node2D
+var room_labels: Array[Label] = []
+var vip_actor: Worker
+var vip_chat_time := 0.0
 var workers = {}  ## artist_id -> Worker
 var _font: Font
 var _pressed = false
@@ -36,6 +40,10 @@ func _ready() -> void:
 	foreground = Node2D.new()
 	foreground.z_index = 5
 	add_child(foreground)
+	decoration = Node2D.new()
+	decoration.name = "SceneProps"
+	add_child(decoration)
+	move_child(decoration, 0)
 	_build_parallax()
 	Locale.language_changed.connect(func(_lang: String): queue_redraw())
 	var project_theme = ThemeDB.get_project_theme()
@@ -76,6 +84,11 @@ func _draw_fire(overlay: Node2D) -> void:
 
 
 func _process(delta: float) -> void:
+	_layout_names()
+	for label in room_labels:
+		var t = get_global_transform_with_canvas()
+		label.scale = Vector2(1.0 / maxf(t.x.length(), 0.001), 1.0 / maxf(t.y.length(), 0.001))
+	_tick_vip(delta)
 	if not Game.running or Game.is_paused():
 		_cancel_wheel_zoom()
 		return
@@ -173,7 +186,7 @@ func _draw() -> void:
 				draw_rect(r, info["color"])
 				_draw_room_details(type, r)
 			draw_rect(r, Color(0, 0, 0, 0.55), false, 4.0)
-			draw_string(_font, r.position + Vector2(6, 16), info["name"], HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(1, 1, 1, 0.85))
+
 		draw_rect(Rect2(0, y + FLOOR_H - SLAB, width, SLAB), Color("1b1b1e"))
 		draw_string(_font, Vector2(8, y + 22), "%dF" % (f + 1), HORIZONTAL_ALIGNMENT_LEFT, -1, 12, Color(1, 1, 1, 0.6))
 	var top = -floor_count() * FLOOR_H
@@ -242,6 +255,8 @@ func _draw_room_details(type: String, r: Rect2) -> void:
 # --- workers --------------------------------------------------------------------
 
 func _on_state_loaded() -> void:
+	if is_instance_valid(vip_actor): vip_actor.queue_free()
+	vip_actor = null
 	for principal in principals.values(): principal.queue_free()
 	principals.clear()
 	for id in ["producer", "alice"]:
@@ -436,7 +451,7 @@ func _tick_wheel_zoom(delta: float) -> void:
 
 func _clamp_camera() -> void:
 	var top = -floor_count() * FLOOR_H
-	camera.position.x = clampf(camera.position.x, -300.0, building_width() + 300.0)
+	camera.position.x = clampf(camera.position.x, -600.0, building_width() + 600.0)
 	camera.position.y = clampf(camera.position.y, top - 300.0, 200.0)
 
 
@@ -451,9 +466,21 @@ func _frame_building() -> void:
 	camera.position = Vector2(building_width() * 0.5, -height * 0.5 + 30.0)
 
 func _refresh_rooms() -> void:
+	for label in room_labels: label.queue_free()
+	room_labels.clear()
 	UIKit.clear(foreground)
 	for f in floor_count():
 		for c in column_count():
+			var label = Label.new()
+			label.text = Data.ROOM_TYPES[Game.floors[f][c]]["name"]
+			label.position = room_rect(f, c).position + Vector2(16, 16)
+			label.add_theme_font_size_override("font_size", 36)
+			label.add_theme_color_override("font_outline_color", Color("101823"))
+			label.add_theme_constant_override("outline_size", 6)
+			label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			label.z_index = 21
+			add_child(label)
+			room_labels.append(label)
 			var art = Art.room(Game.floors[f][c], true) if Game.floors[f][c] != "empty" else null
 			if art:
 				var sprite = Sprite2D.new()
@@ -462,6 +489,7 @@ func _refresh_rooms() -> void:
 				sprite.scale = Vector2(ROOM_W, FLOOR_H) / art.get_size()
 				sprite.position = room_rect(f, c).position
 				foreground.add_child(sprite)
+	_refresh_props()
 	queue_redraw()
 
 func _build_parallax() -> void:
@@ -485,3 +513,110 @@ func meeting_ready() -> bool:
 		var actor: Worker = principals.get(id, workers.get(id))
 		if actor == null or actor.state == Worker.State.WALK or not is_in_room(actor.position, actor.floor_index, "lounge"): return false
 	return true
+
+
+func _refresh_props() -> void:
+	if not is_instance_valid(decoration): return
+	for child in decoration.get_children():
+		decoration.remove_child(child)
+		child.queue_free()
+	var plants = ["plant-monstera", "plant-snake-plant", "plant-rubber-plant", "plant-areca-palm", "plant-lotus-pot", "plant-bonsai"]
+	for f in floor_count():
+		for col in column_count():
+			var kind = str(Game.floors[f][col])
+			if kind == "empty": continue
+			var rng = RandomNumberGenerator.new()
+			rng.seed = hash(str(Game.save_slot) + Game.studio_name + ":%d:%d:%s" % [f, col, kind])
+			var origin = room_rect(f, col).position.x
+			var floor_line = floor_y(f)
+			_add_prop(plants[rng.randi_range(0, plants.size()-1)], Vector2(origin + 528, floor_line))
+			if kind in ["lounge", "lobby"]:
+				_add_prop(["arcade-fighter", "arcade-rhythm"][rng.randi_range(0,1)], Vector2(origin + 350, floor_line))
+			elif kind == "cafeteria":
+				_add_prop("wood-bar-front", Vector2(origin + 340, floor_line))
+	var outside_rng = RandomNumberGenerator.new()
+	outside_rng.seed = hash(str(Game.save_slot) + Game.studio_name + ":outside")
+	_add_prop("thai-taxi-green-yellow", Vector2(-145, 0))
+	_add_prop("8-12-convenience-store", Vector2(building_width()+180, 0))
+	_add_prop("thai-power-pole", Vector2(-310, 0))
+	var trees = ["rain-tree", "banana-tree", "coconut-palm"]
+	_add_prop(trees[outside_rng.randi_range(0,2)], Vector2(-430, 0))
+	_add_prop(trees[outside_rng.randi_range(0,2)], Vector2(building_width()+410, 0))
+
+func _add_prop(id: String, ground: Vector2) -> void:
+	var prop = SceneProp.new()
+	if not prop.configure(id):
+		prop.free()
+		return
+	prop.name = id.validate_node_name()
+	prop.position = ground
+	decoration.add_child(prop)
+
+
+func _tick_vip(delta: float) -> void:
+	if StudioCity.fire_active() or not Game.idea_meeting.is_empty() or Game.is_researching("producer"):
+		_suspend_vip()
+		return
+	if not Game.running or Game.is_paused() or StudioCity.fire_active(): return
+	var pending: Dictionary = Game.life.get("vip_appointment", {})
+	if pending.is_empty(): return
+	var client = Game.get_client(str(pending.get("client", "")))
+	if client.is_empty():
+		Game.life["vip_appointment"] = {}
+		return
+	var rooms = find_rooms("office") + find_rooms("meeting")
+	if rooms.is_empty() or not Game.idea_meeting.is_empty() or Game.is_researching("producer"): return
+	var host: Worker = principals.get("producer")
+	if not is_instance_valid(host): return
+	if not is_instance_valid(vip_actor):
+		var room: Vector2i = rooms[0]
+		vip_actor = WORKER_SCENE.instantiate()
+		workers_root.add_child(vip_actor)
+		vip_actor.setup(self, "", Game.client_contact(client), client.get("color", Color.WHITE))
+		vip_actor.configure_art(Art.model_id(client))
+		vip_actor.is_visitor = true
+		vip_actor.appointment = true
+		vip_actor.place(0, building_width() + 200.0)
+		var x = room_rect(room.x, room.y).position.x + ROOM_W * 0.5
+		vip_actor.go_to(room.x, x + 55)
+		host.appointment = true
+		host.go_to(room.x, x - 55)
+		vip_chat_time = 0.0
+	if vip_actor.state == Worker.State.WALK or host.state == Worker.State.WALK: return
+	if vip_chat_time == 0.0:
+		vip_actor.start_chat(20)
+		host.start_chat(20)
+	vip_chat_time += delta * Game.speed
+	if vip_chat_time < 4.0: return
+	VipOffice.complete()
+	host.appointment = false
+	host._end_chat()
+	vip_actor.appointment = false
+	vip_actor.leave()
+	vip_actor = null
+
+func _suspend_vip() -> void:
+	if not is_instance_valid(vip_actor): return
+	vip_actor.queue_free()
+	vip_actor = null
+	var host: Worker = principals.get("producer")
+	if is_instance_valid(host): host.appointment = false
+	vip_chat_time = 0.0
+
+func _layout_names() -> void:
+	var occupied: Array[Rect2] = []
+	for actor in workers_root.get_children():
+		if not actor is Worker or not actor.visible: continue
+		actor.name_lane = 0
+		actor._update_name_scale()
+		for lane in range(8):
+			actor.name_lane = lane
+			actor._update_name_scale()
+			var label: Label = actor.name_label
+			var rect = label.get_global_transform_with_canvas() * Rect2(Vector2.ZERO, label.size)
+			var overlaps = false
+			for other in occupied:
+				if rect.intersects(other): overlaps = true; break
+			if not overlaps:
+				occupied.append(rect.grow(3))
+				break
