@@ -8,6 +8,15 @@ static func events(deck: Array, placed: Array) -> Array:
 	for position in placed:
 		var block: Dictionary = deck[int(position["block"])]
 		var base = [72, 60, 48, 36][int(position["row"])]
+		if block.has("recorded_notes"):
+			var lane = int(position["row"])
+			for note in block["recorded_notes"]:
+				out.append({"step":int(position["col"]) * 8 + float(note["beat"]) * 2,
+					"note":clampi(int(note["note"]) + (int(block.get("transpose", 0)) if lane != 3 else 0), 0, 127),
+					"length":float(note["duration"]) * 2, "drum":lane == 3, "voice":lane,
+					"loop_steps":64, "genre":block["genre"], "volume":float(block.get("volume", 1.0)),
+					"instrument":0 if lane != 3 else -1})
+			continue
 		if block.get("freeform", false):
 			var lane = int(position["row"])
 			var phrase = SongIdentity.phrase(block, lane, int(position["col"])) if block.has("signature") else block["notes"]

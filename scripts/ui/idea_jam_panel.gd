@@ -34,6 +34,7 @@ var listening_label: Label
 var audition_lane := 0
 var _pending_audio := false
 var _audio_boundary := 0.0
+var improvise: ImprovisePanel
 
 
 func _build_transport(body: VBoxContainer, meeting: Dictionary) -> void:
@@ -172,6 +173,10 @@ func _ready() -> void:
 	super()
 
 func close() -> void:
+	if is_instance_valid(improvise):
+		improvise.stop()
+		improvise.queue_free()
+		improvise = null
 	Game.save_game()
 	player.stop()
 	audition.stop()
@@ -179,6 +184,7 @@ func close() -> void:
 
 func _process(_delta: float) -> void:
 	if not visible or Game.idea_meeting.is_empty(): return
+	if is_instance_valid(improvise): return
 	if Game.idea_meeting["phase"] == "gathering" and (office == null or office.meeting_ready()):
 		Game.idea_meeting["phase"] = "ready"
 		refresh()
@@ -198,6 +204,7 @@ func _process(_delta: float) -> void:
 	if is_instance_valid(play_button): play_button.text = Locale.english("composer_pause" if player.playing and not player.stream_paused else "composer_play")
 
 func refresh() -> void:
+	if is_instance_valid(improvise): return
 	UIKit.clear(body_root)
 	# Keep the meeting pause while the actors walk, but leave the office visible.
 	body_root.visible = not Game.idea_meeting.is_empty() and Game.idea_meeting.get("phase", "") != "gathering"
@@ -227,6 +234,10 @@ func refresh() -> void:
 	var title = UIKit.label(Locale.text("composer_title"), 36)
 	title.size_flags_horizontal = SIZE_EXPAND_FILL
 	head.add_child(title)
+	if meeting.get("freeform", false):
+		var improvise_button = UIKit.button("Improvise", open_improvise)
+		improvise_button.name = "ComposerImprovise"
+		head.add_child(improvise_button)
 	head.add_child(UIKit.button(Locale.english("arr_save_back"), close))
 	head.add_child(UIKit.button(Locale.english("identity_title"), func(): identity_open = not identity_open; market_open = false; review_open = false; refresh()))
 	if identity_open:
@@ -387,6 +398,7 @@ func refresh() -> void:
 					var pitch = int(meeting["deck"][p["block"]].get("transpose", 0))
 					if pitch != 0 and lane != 3: cell.text += " %+d" % pitch
 					cell.text += "\n" + Locale.english("flow_style_%d" % int(meeting["deck"][p["block"]].get("style", 0)))
+					if meeting["deck"][p["block"]].has("recorded_notes"): cell.text = "Improvise\n" + str(meeting["deck"][p["block"]]["recorded_notes"].size()) + " notes"
 					cell.theme_type_variation = "ConfirmButton"
 			cell.block_dropped.connect(place)
 			cell.block_removed.connect(_remove_clip)
@@ -539,9 +551,56 @@ func change_style() -> void:
 		if candidate.get("palette", false) and candidate["genre"] == clip["genre"] and candidate.get("style", 0) == style:
 			clip["style"] = style
 			clip["notes"] = candidate["notes"].duplicate(true)
+			clip.erase("recorded_notes")
 			break
 	queue_audio_update()
 	Game.save_game()
+	refresh()
+
+func open_improvise() -> void:
+	if is_instance_valid(improvise) or not Game.idea_meeting.get("freeform", false): return
+	stop_playback()
+	improvise = ImprovisePanel.new()
+	improvise.bpm = int(Game.idea_meeting["bpm"])
+	improvise.lane = audition_lane
+	improvise.octave = 3 if audition_lane == 2 else 4
+	if inspected >= 0:
+		for placement in Game.idea_meeting["placed"]:
+			if int(placement["block"]) == inspected:
+				improvise.first_bar = int(placement["col"])
+				improvise.lane = int(placement["row"])
+	improvise.saved.connect(_save_improvise)
+	improvise.dismissed.connect(_close_improvise)
+	improvise.prepare_backing.connect(_improvise_backing)
+	improvise.recording_started.connect(func(first_bar: int, _lane: int):
+		if player.stream != null: player.play(first_bar * 4.0 * 60.0 / _preview_bpm))
+	improvise.recording_stopped.connect(stop_playback)
+	body_root.hide()
+	add_child(improvise)
+
+func _improvise_backing(first_bar: int, lane: int) -> void:
+	player.stream = null
+	var state = ComposerFlow.preview_state(Game.idea_meeting, false, -1, [lane])
+	var notes = IdeaMusic.events(state["deck"], state["placed"])
+	if notes.is_empty(): return
+	_preview_bpm = int(state["bpm"])
+	player.stream = IdeaMusic.stream(notes, _preview_bpm)
+
+func _save_improvise(notes: Array, lane: int, first_bar: int, bars: int) -> void:
+	remember()
+	if ImproviseTake.apply(Game.idea_meeting, notes, lane, first_bar, bars):
+		PlaytestLog.event("edit", Game.idea_meeting)
+		compare_before = false
+		selected = -1; inspected = -1
+		Game.save_game()
+	_close_improvise()
+
+func _close_improvise() -> void:
+	stop_playback()
+	if is_instance_valid(improvise):
+		remove_child(improvise)
+		improvise.queue_free()
+		improvise = null
 	refresh()
 
 func queue_audio_update() -> void:
