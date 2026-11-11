@@ -37,7 +37,6 @@ var _native_sprite := false
 var _art_id = "producer"
 var _instrument = ""
 var _instrument_data: Dictionary
-var _instrument_back: Sprite2D
 var _instrument_front: Sprite2D
 var _chat: Sprite2D
 var _chat_texture: Texture2D
@@ -52,10 +51,6 @@ func _ready() -> void:
 	body.centered = false
 	body.position = Vector2(-16, -45)
 	add_child(body)
-	_instrument_back = Sprite2D.new()
-	_instrument_back.centered = false
-	_instrument_back.z_index = -1
-	add_child(_instrument_back)
 	_instrument_front = Sprite2D.new()
 	_instrument_front.centered = false
 	_instrument_front.z_index = 1
@@ -337,23 +332,18 @@ func _update_visual(dt: float) -> void:
 	_chat.visible = state == State.CHAT and _chat_texture != null
 	if _chat.visible:
 		_chat.texture = Art.atlas(_chat_texture, Rect2((int(_fx_clock * 7) % 6) * 80, 0, 80, 36))
-	_instrument_back.visible = state == State.WORK and _instrument == "organ" and not _instrument_data.is_empty()
 	_instrument_front.visible = state == State.WORK and not _instrument_data.is_empty()
 	if _instrument_front.visible:
 		var dimensions: Vector2i = _instrument_data["size"]
-		var origin = Vector2(-_instrument_data["anchor"])
+		# The six-frame overlays sit in front of both native play and row-three sway.
+		var instrument_scale = 1.0 if _native_sprite else 48.0 / 160.0
+		_instrument_front.scale = Vector2.ONE * instrument_scale
+		_instrument_front.position = -Vector2(_instrument_data["anchor"]) * instrument_scale
 		var strip: Texture2D = _instrument_data["texture"]
 		var count = body.sprite_frames.get_frame_count(body.animation)
 		var instrument_frame = mini(5, floori(float(body.frame) * 6.0 / max(1, count)))
 		var x = instrument_frame * dimensions.x
-		if _instrument == "organ":
-			_instrument_back.position = origin
-			_instrument_back.texture = Art.atlas(strip, Rect2(x, 0, dimensions.x, int(_instrument_data.get("rear_split", 76))))
-			_instrument_front.position = origin + Vector2(0, int(_instrument_data.get("rear_split", 76)))
-			_instrument_front.texture = Art.atlas(strip, Rect2(x, int(_instrument_data.get("rear_split", 76)), dimensions.x, dimensions.y - int(_instrument_data.get("rear_split", 76))))
-		else:
-			_instrument_front.position = origin
-			_instrument_front.texture = Art.atlas(strip, Rect2(x, 0, dimensions.x, dimensions.y))
+		_instrument_front.texture = Art.atlas(strip, Rect2(x, 0, dimensions.x, dimensions.y))
 		_note_clock -= dt
 		if _note_clock <= 0:
 			_note_clock = randf_range(0.3, 0.7)

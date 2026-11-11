@@ -29,6 +29,10 @@ for group in ('npc','vip'):
 for room in ('recording','office','lounge','meeting','cafeteria','storage'):
     for layer in ('back','front'): keep.add(f'assets/lots/rooms/{room}-16x9-{layer}.png')
 for layer in ('far','mid','trees'): keep.add(f'assets/lots/backgrounds/city-{layer}-16x9.png')
+for layer in ('Sky', 'Buildings 1', 'Buildings 2', 'Buildings 3', 'Buildings 4', 'Shade 2', 'Shade 3', 'Tiny Cloud', 'Tiny Cloud 2'):
+    keep.add(f'assets/props/outside/bg/{layer}.png')
+for layer in ('Sky', 'Buildings 1', 'Buildings 2', 'Buildings 3', 'Buildings 4', 'Tiny Cloud', 'Tiny Cloud 2'):
+    keep.add(f'assets/props/outside/bg/day/{layer}.png')
 for instrument in ('guitar','drums','electone','saxophone','organ','mic','bass'):
     keep.add(f'assets/instruments/{instrument}-6frames.png')
 art = (project/'scripts/autoload/art.gd').read_text(encoding='utf-8')

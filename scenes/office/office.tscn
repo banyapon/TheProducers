@@ -2,13 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/office/office.gd" id="1_office"]
 
-[sub_resource type="Gradient" id="Gradient_sky"]
-offsets = PackedFloat32Array(0, 1)
-colors = PackedColorArray(0.29, 0.47, 0.78, 1, 0.98, 0.78, 0.6, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sky"]
-gradient = SubResource("Gradient_sky")
-fill_to = Vector2(0, 1)
+[ext_resource type="Texture2D" path="res://assets/props/outside/bg/Sky.png" id="2_sky"]
 
 [node name="Office" type="Node2D"]
 script = ExtResource("1_office")
@@ -23,7 +17,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = SubResource("GradientTexture2D_sky")
+texture = ExtResource("2_sky")
+texture_filter = 1
 expand_mode = 1
 
 [node name="Workers" type="Node2D" parent="."]

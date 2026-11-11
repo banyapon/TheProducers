@@ -12,6 +12,11 @@ const FLOOR_H := 360.0
 const SHAFT_W := 120.0
 const SLAB := 40.0
 const WORKER_SCENE := preload("res://scenes/office/worker.tscn")
+const BACKGROUND_TIME_SHADER := preload("res://scripts/art/background_time.gdshader")
+const BACKGROUND_CYCLE_SECONDS := 120.0
+var _background_elapsed := 0.0
+var _background_materials: Dictionary = {}
+var _background_shades: Array[Sprite2D] = []
 
 @onready var workers_root: Node2D = $Workers
 @onready var fx_root: Node2D = $FX
@@ -45,6 +50,8 @@ func _ready() -> void:
 	add_child(decoration)
 	move_child(decoration, 0)
 	_build_parallax()
+	$Sky/SkyGradient.material = _background_material("Sky")
+	_set_background_daylight(_background_daylight())
 	Locale.language_changed.connect(func(_lang: String): queue_redraw())
 	var project_theme = ThemeDB.get_project_theme()
 	_font = project_theme.default_font if project_theme and project_theme.default_font else ThemeDB.fallback_font
@@ -84,6 +91,7 @@ func _draw_fire(overlay: Node2D) -> void:
 
 
 func _process(delta: float) -> void:
+	_tick_background_time(delta)
 	_layout_names()
 	for label in room_labels:
 		var t = get_global_transform_with_canvas()
@@ -493,18 +501,86 @@ func _refresh_rooms() -> void:
 	queue_redraw()
 
 func _build_parallax() -> void:
-	for i in 3:
-		var parallax = Parallax2D.new()
-		parallax.scroll_scale = Vector2([0.12, 0.32, 0.55][i], 1.0)
-		parallax.repeat_size = Vector2(512, 0)
-		parallax.repeat_times = 8
-		parallax.z_index = -10 + i
-		add_child(parallax)
-		var sprite = Sprite2D.new()
-		sprite.centered = false
-		sprite.position = Vector2(-512, -288)
-		sprite.texture = Art.texture("res://assets/lots/backgrounds/city-%s-16x9.png" % ["far", "mid", "trees"][i])
-		parallax.add_child(sprite)
+	# A 512px strip becomes one seamless 2048-world-unit repeat at 4x pixel scale.
+	# Keep the skyline grounded vertically; horizontal camera travel adds depth.
+	_add_background_layer("Buildings 4", 0.10, 2.0, -330.0, -14)
+	var distant = _add_background_layer("Buildings 3", 0.20, 3.5, -210.0, -13)
+	_add_background_sprite(distant, "Shade 3", Vector2(0, -210))
+	var middle = _add_background_layer("Buildings 2", 0.34, 5.0, -90.0, -12)
+	_add_background_sprite(middle, "Shade 2", Vector2(0, -90))
+	_add_background_layer("Buildings 1", 0.50, 7.0, 0.0, -11)
+	var clouds = _add_background_layer("Tiny Cloud", 0.06, 9.0, -1000.0, -15)
+	clouds.scroll_scale.y = 0.65
+	_add_background_sprite(clouds, "Tiny Cloud 2", Vector2(720, -860))
+	_add_background_sprite(clouds, "Tiny Cloud", Vector2(1400, -1120))
+	_resize_background_repeats()
+	get_viewport().size_changed.connect(_resize_background_repeats)
+
+
+func _add_background_layer(asset: String, depth: float, speed: float, ground: float, order: int) -> Parallax2D:
+	var parallax = Parallax2D.new()
+	parallax.name = asset.replace(" ", "") + "Parallax"
+	parallax.scroll_scale = Vector2(depth, 1.0)
+	parallax.repeat_size = Vector2(2048, 0)
+	parallax.autoscroll = Vector2(-speed, 0)
+	parallax.z_index = order
+	add_child(parallax)
+	_add_background_sprite(parallax, asset, Vector2(0, ground))
+	return parallax
+
+
+func _add_background_sprite(layer: Parallax2D, asset: String, ground: Vector2) -> void:
+	var texture = Art.texture("res://assets/props/outside/bg/%s.png" % asset)
+	if texture == null: return
+	var sprite = Sprite2D.new()
+	sprite.centered = false
+	sprite.texture = texture
+	if asset.begins_with("Shade"):
+		_background_shades.append(sprite)
+	else:
+		sprite.material = _background_material(asset)
+	sprite.scale = Vector2.ONE * 4.0
+	sprite.position = ground - Vector2(0, texture.get_height() * 4.0)
+	layer.add_child(sprite)
+
+
+func _background_material(asset: String) -> ShaderMaterial:
+	if _background_materials.has(asset): return _background_materials[asset]
+	var material = ShaderMaterial.new()
+	material.shader = BACKGROUND_TIME_SHADER
+	material.set_shader_parameter("day_texture", Art.texture("res://assets/props/outside/bg/day/%s.png" % asset))
+	_background_materials[asset] = material
+	return material
+
+
+func _set_background_daylight(amount: float) -> void:
+	for material in _background_materials.values():
+		material.set_shader_parameter("daylight", amount)
+	# The day pack has no haze strips; fade the night haze out with its skyline.
+	for sprite in _background_shades:
+		sprite.modulate.a = 1.0 - amount
+
+
+func _tick_background_time(delta: float) -> void:
+	if not Game.running or Game.is_paused() or Game.tutorial_gate: return
+	# Ambient time is real play time: game speed does not shorten the two-minute cycle.
+	_background_elapsed = fposmod(_background_elapsed + delta, BACKGROUND_CYCLE_SECONDS)
+	_set_background_daylight(_background_daylight())
+
+
+func _background_daylight() -> float:
+	# Day 0–50s, sunset 50–60s, night 60–110s, sunrise 110–120s.
+	if _background_elapsed < 50.0: return 1.0
+	if _background_elapsed < 60.0: return 1.0 - smoothstep(50.0, 60.0, _background_elapsed)
+	if _background_elapsed < 110.0: return 0.0
+	return smoothstep(110.0, BACKGROUND_CYCLE_SECONDS, _background_elapsed)
+
+
+func _resize_background_repeats() -> void:
+	# Cover the widest view at the minimum supported zoom, including both edges.
+	for child in get_children():
+		if child is Parallax2D:
+			child.repeat_times = ceili(get_viewport_rect().size.x / (0.25 * child.repeat_size.x)) + 2
 
 
 func meeting_ready() -> bool:
