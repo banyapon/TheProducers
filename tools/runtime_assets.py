@@ -29,6 +29,9 @@ for group in ('npc','vip'):
 for room in ('recording','office','lounge','meeting','cafeteria','storage'):
     for layer in ('back','front'): keep.add(f'assets/lots/rooms/{room}-16x9-{layer}.png')
 for layer in ('far','mid','trees'): keep.add(f'assets/lots/backgrounds/city-{layer}-16x9.png')
+for quest in json.loads((project/'data/quests/story_quests.json').read_text(encoding='utf-8'))['quests']:
+    for sheet in ('portrait-2x2', 'idle', 'walk', 'play'):
+        keep.add(f"assets/quests/{quest['id']}/{sheet}.png")
 for layer in ('Sky', 'Buildings 1', 'Buildings 2', 'Buildings 3', 'Buildings 4', 'Shade 2', 'Shade 3', 'Tiny Cloud', 'Tiny Cloud 2'):
     keep.add(f'assets/props/outside/bg/{layer}.png')
 for layer in ('Sky', 'Buildings 1', 'Buildings 2', 'Buildings 3', 'Buildings 4', 'Tiny Cloud', 'Tiny Cloud 2'):

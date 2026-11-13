@@ -186,7 +186,10 @@ func _trophies() -> void:
 	var collection = Game.trophies.duplicate()
 	collection.reverse()
 	_pages(collection, func(trophy: Dictionary):
-		var actions = _card("BEST TRACK #%d | 1st" % trophy["edition"], "%s | %d/40" % [trophy["song"], trophy["rating"]])
+		var award_title = "BEST TRACK #%d | 1st" % trophy["edition"]
+		if trophy.has("story_quest"):
+			award_title = "Quest | " + StoryQuests.text(StoryQuests.definition(trophy["story_quest"])["title"])
+		var actions = _card(award_title, "%s | %d/40" % [trophy["song"], trophy["rating"]])
 		actions.add_child(TrophyBadge.new())
 		var song: Dictionary = {}
 		for candidate in Game.songs:

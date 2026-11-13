@@ -30,12 +30,15 @@ var city_panel: CityPanel
 var staff_panel: StaffPanel
 var star_panel: StarPanel
 var news_panel: NewsPanel
+var quest_panel: QuestPanel
 var coach: TutorialCoach
 var fullbody_debug: FullbodyDebugPanel
 var _bankruptcy_transition := false
 
 
 func _ready() -> void:
+	quest_panel = QuestPanel.new()
+	$UI.add_child(quest_panel)
 	Game.bankrupted.connect(_on_bankrupted)
 	if OS.is_debug_build():
 		fullbody_debug = FullbodyDebugPanel.new()
@@ -90,6 +93,11 @@ func _ready() -> void:
 	Game.notify.connect(hud.toast)
 	Game.project_reset.connect(hud.toast)
 	Game.walk_in_client.connect(_on_walk_in_client)
+	office.quest_visitor_clicked.connect(func(id: String): _enqueue(_flow_quest_visit.bind(id)))
+	StoryQuests.visitor_arrived.connect(func(id: String):
+		office.spawn_quest_visitor(id)
+		hud.toast(StoryQuests.ui("arrived") % StoryQuests.text(StoryQuests.definition(id)["npc"]["name"])))
+	StoryQuests.visitor_left.connect(office.dismiss_quest_visitor)
 	Game.contract_expired.connect(_on_contract_expired)
 	Game.project_completed.connect(_on_project_completed)
 	production.review_requested.connect(func(job_id: String): production.close(); _enqueue(_flow_release.bind(job_id)))
@@ -139,6 +147,7 @@ func _run_queue() -> void:
 	_queue_running = false
 
 func _board_open() -> bool:
+	if is_instance_valid(quest_panel) and quest_panel.visible: return true
 	if is_instance_valid(fullbody_debug) and fullbody_debug.visible: return true
 	return star_panel.visible or news_panel.visible or city_panel.visible or staff_panel.visible or job_board.visible or hire_board.visible or production.visible or release_panel.visible or library.visible or planner.visible or jam.visible or shell.visible
 
@@ -176,6 +185,8 @@ func _on_hud_panel_requested(panel_name: String) -> void:
 	if StudioCity.fire_active() and panel_name != "menu": return
 	if panel_name in ["alice", "studio"] and _resume_composition(): return
 	match panel_name:
+		"quests":
+			quest_panel.open_catalogue()
 		"demo_next":
 			if not _board_open() and not _queue_running: _enqueue(_flow_demo_next)
 		"alice":
@@ -255,6 +266,36 @@ func _on_release_panel_released(song: Dictionary) -> void:
 
 
 # --- autoload signal handlers --------------------------------------------------
+
+func _quest_portrait(q: Dictionary) -> Dictionary:
+	var npc: Dictionary = q["npc"]
+	return {"name": StoryQuests.text(npc["name"]), "art_id": str(npc["art_id"]), "gender": str(npc["gender"])}
+
+
+func _flow_quest_visit(id: String) -> void:
+	var q = StoryQuests.definition(id)
+	if q.is_empty() or StoryQuests.pending_visitor() != id or StoryQuests.status(id) != "available":
+		return
+	dialog.open(PLAYER, _quest_portrait(q))
+	await dialog.say("right", StoryQuests.text(q["dialogue"]["intro"]))
+	await dialog.say("right", StoryQuests.objective(q))
+	var choice = await dialog.ask("left", StoryQuests.ui("visit_ask"), [StoryQuests.ui("accept"), StoryQuests.ui("new_start"), StoryQuests.ui("later")])
+	if choice >= 2:
+		StoryQuests.decline_visit()
+		await dialog.say("right", StoryQuests.ui("later_reply"))
+		dialog.close()
+		return
+	var mode = "together" if choice == 0 else "new_start"
+	if not StoryQuests.accept(id, mode):
+		dialog.close()
+		return
+	await dialog.say("left", StoryQuests.ui("fresh_reply" if mode == "new_start" else "choice_reply"))
+	await dialog.say("right", StoryQuests.text(q["dialogue"]["hint"]))
+	if q["mode"] == "commission" and StoryQuests.can_issue(id):
+		var take = await dialog.ask("right", StoryQuests.ui("visit_brief"), [StoryQuests.ui("brief"), StoryQuests.ui("later")])
+		if take == 0: StoryQuests.issue_brief(id)
+	dialog.close()
+
 
 func _on_walk_in_client(job: Dictionary) -> void:
 	var client = Game.get_client(job["client"])
@@ -613,7 +654,9 @@ func _input(event: InputEvent) -> void:
 		return
 	if not event.is_action_pressed("ui_cancel"): return
 	get_viewport().set_input_as_handled()
-	if login.visible:
+	if quest_panel.visible:
+		quest_panel.close()
+	elif login.visible:
 		login.escape()
 	elif news_panel.visible:
 		return

@@ -372,6 +372,7 @@ func _advance_day() -> void:
 		offers.append(walk_in)
 		offers_changed.emit()
 		walk_in_client.emit(walk_in)
+	StoryQuests.consider_visit()
 	if day % 7 == 0:
 		_advance_week()
 
@@ -504,6 +505,7 @@ func generate_job(easy := false) -> Dictionary:
 	# Same base scope: urgent commissions carry a premium; relaxed briefs pay less.
 	var base_pay = int(round((randf_range(10000.0, 18000.0) + fans * 2.0) / 500.0)) * 500
 	var pay = commission_pay(base_pay, deadline)
+	pay = int(round(pay * StoryQuests.client_multiplier(get_client(client_name))))
 	var job = {
 		"id": _id("j"),
 		"client": client_name,
@@ -563,7 +565,7 @@ func _pick_client() -> String:
 	var names = clients.keys()
 	var weights: Array = []
 	for key in names:
-		weights.append(1.0 + VipOffice.connection(clients[key]) * 3.0)
+		weights.append(1.0 + VipOffice.connection(clients[key]) * 3.0 + (8.0 if clients[key].get("regular", false) else 0.0))
 	return names[_weighted_index(weights)]
 
 
@@ -1098,6 +1100,7 @@ func release_project(marketing_index: int) -> Dictionary:
 	add_relationship(job["client"], int((total - 20) * 1.5))
 	job["status"] = "done"
 	jobs.erase(job)
+	StoryQuests.annotate_release(job, song)
 	songs.append(song)
 	CreativeJourney.on_release(job, song)
 	MarketShift.release(job, song, team_ids)
@@ -1378,6 +1381,9 @@ func character_name(visual_id: String) -> String:
 	return "%s %s" % [names[absi(visual_id.hash()) % names.size()], Data.STAGE_NAMES.pick_random()]
 
 func client_contact(client: Dictionary) -> String:
+	if client.has("story_npc"):
+		var quest = StoryQuests.definition(str(client["story_npc"]))
+		if not quest.is_empty(): return StoryQuests.text(quest["npc"]["name"])
 	var id = str(client.get("art_id", "super-01"))
 	var names = {"super-01": "Mr. Victor", "super-02": "Ms. Evelyn", "super-03": "Mr. Adrian", "super-04": "Ms. Scarlett", "super-05": "Mr. Winston", "super-06": "Ms. Victoria"}
 	return "%s | %s" % [names.get(id, "Client"), Locale.legacy(str(client.get("name", "")))]

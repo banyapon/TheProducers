@@ -1,0 +1,1147 @@
+{
+  "version": 1,
+  "quests": [
+    {
+      "id": "mali",
+      "order": 1,
+      "npc": {
+        "id": "mali",
+        "gender": "female",
+        "age": 32,
+        "art": "Teacher Mali, Thai woman, dark brown bob, mint cardigan and cream blouse, holds a small music notebook",
+        "base": "npc-02-female-bob",
+        "name": {
+          "th": "ครูมะลิ",
+          "en": "Teacher Mali"
+        },
+        "art_id": "quest-mali"
+      },
+      "title": {
+        "th": "เพลงแรกของห้องเรียน",
+        "en": "A Classroom's First Song"
+      },
+      "mode": "commission",
+      "genre": "Pop",
+      "rating": 20,
+      "count": 1,
+      "brief": "cafe",
+      "criterion": "gentle",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.2,
+        "money": 2000,
+        "fans": 50,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "มีเด็กคนหนึ่งไม่เคยกล้าร้องต่อหน้าเพื่อน ฉันอยากให้เพลงพาเขาเริ่มต้นค่ะ",
+          "en": "One child has never dared sing in front of the class. I'd like a song that helps him begin."
+        },
+        "hint": {
+          "th": "เพลงเบา ๆ จังหวะไม่เร็ว จะช่วยให้เด็กตามทันค่ะ",
+          "en": "A gentle song at an easy pace will help the children join in."
+        },
+        "success": {
+          "th": "วันนี้เด็กที่ไม่เคยยกมือ เป็นคนร้องนำค่ะ",
+          "en": "Today, the child who never raises a hand led the song."
+        },
+        "scene": {
+          "th": "ครูเปิดคลิปเสียงร้องจากห้องเรียน เด็ก ๆ ขอให้เขียนชื่อสตูดิโอไว้ในสมุดเพลง",
+          "en": "Mali plays a recording from her classroom. The children ask to write your studio's name in their songbooks."
+        },
+        "return": {
+          "th": "ครั้งหน้าเรามาทำเพลงสำหรับวันโรงเรียนกันนะคะ",
+          "en": "Next time, let's make something for the school festival."
+        }
+      }
+    },
+    {
+      "id": "boon",
+      "order": 2,
+      "npc": {
+        "id": "boon",
+        "gender": "male",
+        "age": 58,
+        "art": "Uncle Boon, warm elderly Thai coffee shop owner, silver hair and moustache, round glasses, brown apron over cream shirt",
+        "base": "npc-11-male-bald",
+        "name": {
+          "th": "ลุงบุญ",
+          "en": "Uncle Boon"
+        },
+        "art_id": "quest-boon"
+      },
+      "title": {
+        "th": "กาแฟแก้วสุดท้าย",
+        "en": "One Last Cup"
+      },
+      "mode": "commission",
+      "genre": "Lofi",
+      "rating": 22,
+      "count": 1,
+      "brief": "cafe",
+      "criterion": "gentle",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.3,
+        "money": 2500,
+        "fans": 70,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ร้านกำลังจะปิด แต่ผมยังอยากให้คนมีที่พักใจอีกสักเพลง",
+          "en": "The cafe is about to close. I still want to give people one more song to rest with."
+        },
+        "hint": {
+          "th": "ขอจังหวะสบาย ๆ ที่ไม่แย่งเสียงบทสนทนาของลูกค้านะ",
+          "en": "Keep it relaxed, with enough room for people to talk."
+        },
+        "success": {
+          "th": "กาแฟหมดแก้วแล้ว แต่ลูกค้ายังนั่งฟังเพลงอยู่เลย",
+          "en": "Their cups were empty, but they stayed for the music."
+        },
+        "scene": {
+          "th": "ลุงบุญแขวนป้ายชื่อเพลงข้างเครื่องชงกาแฟและเปิดไฟร้านต่ออีกหนึ่งชั่วโมง",
+          "en": "Boon hangs the song title beside his espresso machine and keeps the lights on for another hour."
+        },
+        "return": {
+          "th": "เพลงของคุณกลายเป็นรายการที่ลูกค้าสั่งประจำแล้ว",
+          "en": "Your song has become one of our regular orders."
+        }
+      }
+    },
+    {
+      "id": "pim",
+      "order": 3,
+      "npc": {
+        "id": "pim",
+        "gender": "female",
+        "age": 25,
+        "art": "Pim, Thai wedding planner, peach blazer, chestnut shoulder length hair, pearl stud earrings, carries a pastel folder",
+        "base": "npc-16-female-sidesweep",
+        "name": {
+          "th": "พิม",
+          "en": "Pim"
+        },
+        "art_id": "quest-pim"
+      },
+      "title": {
+        "th": "เพลงแทนคำสัญญา",
+        "en": "A Promise in Melody"
+      },
+      "mode": "commission",
+      "genre": "R&B",
+      "rating": 24,
+      "count": 1,
+      "brief": "debut",
+      "criterion": "hook",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.3,
+        "money": 3000,
+        "fans": 90,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "คู่บ่าวสาวไม่อยากได้เพลงรักสำเร็จรูป เขาอยากได้เสียงของคำสัญญาจริง ๆ",
+          "en": "The couple doesn't want a ready-made love song. They want to hear their own promise."
+        },
+        "hint": {
+          "th": "ลองให้ฮุกกลับมาอีกครั้งช่วงท้าย ให้คนรู้สึกเหมือนได้กลับบ้านค่ะ",
+          "en": "Let the hook return near the end, like coming home."
+        },
+        "success": {
+          "th": "ตอนเพลงขึ้น เขาลืมคำพูดที่ซ้อมไว้หมดเลยค่ะ",
+          "en": "When the music started, he forgot every word he'd rehearsed."
+        },
+        "scene": {
+          "th": "พิมส่งภาพฟลอร์เต้นรำและการ์ดขอบคุณที่มีชื่อโปรดิวเซอร์เขียนด้วยมือ",
+          "en": "Pim sends a picture of the dance floor and a thank-you card with the producer's name written by hand."
+        },
+        "return": {
+          "th": "มีคู่ใหม่ถามถึงคนที่แต่งเพลงนี้แล้วค่ะ",
+          "en": "Another couple has already asked who made that song."
+        }
+      }
+    },
+    {
+      "id": "dao",
+      "order": 4,
+      "npc": {
+        "id": "dao",
+        "gender": "female",
+        "age": 49,
+        "art": "Aunt Dao, charismatic Thai festival singer, curled dark hair, bright coral blouse and gold star earrings",
+        "base": "npc-20-female-curly",
+        "name": {
+          "th": "ป้าดาว",
+          "en": "Aunt Dao"
+        },
+        "art_id": "quest-dao"
+      },
+      "title": {
+        "th": "เวทีเล็กที่ไม่เล็ก",
+        "en": "A Small Stage, A Big Night"
+      },
+      "mode": "commission",
+      "genre": "Country",
+      "rating": 23,
+      "count": 2,
+      "brief": "debut",
+      "criterion": "",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.3,
+        "money": 3500,
+        "fans": 110,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "คนชอบเรียกงานวัดว่าเวทีเล็ก ป้าอยากให้เพลงนี้ทำให้เขาเปลี่ยนใจ",
+          "en": "People call our fair a small stage. I want these songs to change their minds."
+        },
+        "hint": {
+          "th": "ขอ Country สองเพลงที่คนฟังร้องตามได้คนละอารมณ์",
+          "en": "Give us two Country songs with different moods that everyone can sing along to."
+        },
+        "success": {
+          "th": "เวทีเราเล็ก แต่คืนนี้เสียงปรบมือไปถึงท้ายตลาดเลยนะ",
+          "en": "Our stage is small, but tonight the applause reached the end of the market."
+        },
+        "scene": {
+          "th": "ป้าดาวประกาศชื่อสตูดิโอและเชิญนักดนตรีรุ่นใหม่ขึ้นมาร่วมร้อง",
+          "en": "Dao announces your studio and invites young local musicians to join her on stage."
+        },
+        "return": {
+          "th": "งานชุมชนครั้งหน้า ป้าจองคิวคุณก่อนเลยนะ",
+          "en": "I'm booking you early for the next festival."
+        }
+      }
+    },
+    {
+      "id": "narin",
+      "order": 5,
+      "npc": {
+        "id": "narin",
+        "gender": "female",
+        "age": 27,
+        "art": "Narin, confident glamorous adult singer, red stage skirt dress with side slit and black boots, long dark wavy hair",
+        "base": "npc-12-female-wavy",
+        "name": {
+          "th": "นาริน",
+          "en": "Narin"
+        },
+        "art_id": "quest-narin"
+      },
+      "title": {
+        "th": "ชื่อของฉันบนโปสเตอร์",
+        "en": "My Name on the Poster"
+      },
+      "mode": "commission",
+      "genre": "Pop",
+      "rating": 24,
+      "count": 2,
+      "brief": "debut",
+      "criterion": "peak28",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1,
+        "money": 4000,
+        "fans": 130,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ฉันร้องแบ็กอัปมานาน คราวนี้อยากรู้ว่าถ้าเสียงฉันอยู่ข้างหน้า มันจะเป็นยังไง",
+          "en": "I've sung backup for years. I want to know what my voice sounds like out front."
+        },
+        "hint": {
+          "th": "เพลงแรกสร้างตัวตน เพลงถัดไปต้องไปได้ถึง 28 คะแนนนะ",
+          "en": "The first song finds my voice. The next needs to reach 28 points."
+        },
+        "success": {
+          "th": "คราวนี้ชื่อบนโปสเตอร์เป็นชื่อฉันจริง ๆ",
+          "en": "This time, that's really my name on the poster."
+        },
+        "scene": {
+          "th": "นารินคลี่โปสเตอร์เดี่ยวใบแรก ชื่อของเธออยู่เหนือเครดิตสตูดิโอของคุณ",
+          "en": "Narin unfolds her first solo poster. Her name stands above your studio credit."
+        },
+        "return": {
+          "th": "ถ้าสตูดิโอยังมีที่ ฉันอยากร้องเพลงต่อกับคุณ",
+          "en": "If there's room at the studio, I'd like to keep singing with you."
+        }
+      }
+    },
+    {
+      "id": "vivian",
+      "order": 6,
+      "npc": {
+        "id": "vivian",
+        "gender": "female",
+        "age": 36,
+        "art": "Vivian, elegant adult jazz club owner, dark plum velvet blazer, cream blouse, sleek black bob, gold lapel pin",
+        "base": "npc-02-female-bob",
+        "name": {
+          "th": "วิเวียน",
+          "en": "Vivian"
+        },
+        "art_id": "quest-vivian"
+      },
+      "title": {
+        "th": "คืนที่ห้าของ Blue Note",
+        "en": "Five Nights at Blue Note"
+      },
+      "mode": "collection",
+      "genre": "Jazz",
+      "rating": 0,
+      "count": 5,
+      "brief": "cafe",
+      "criterion": "",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "vip",
+        "multiplier": 1.8,
+        "money": 4500,
+        "fans": 150,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "คลับของฉันไม่ได้มองหาเพลงฮิตคืนเดียว ฉันมองหาคนที่ทำให้แจ๊ซมีชีวิตทุกคืน",
+          "en": "My club isn't looking for a one-night hit. I want someone who makes jazz live every night."
+        },
+        "hint": {
+          "th": "เผยแพร่ Jazz ให้ครบห้าเพลง ผลงานเก่าของคุณนับด้วย",
+          "en": "Release five Jazz songs. Your earlier work counts too."
+        },
+        "success": {
+          "th": "ห้าคืน ห้าเพลง และไม่มีคืนไหนที่ฉันอยากให้จบเร็ว",
+          "en": "Five nights. Five songs. Not once did I want the night to end."
+        },
+        "scene": {
+          "th": "วิเวียนวางบัตรสมาชิกสีทองบนโต๊ะ พร้อมเชิญคุณไปฟังเพลงของตัวเองที่คลับ",
+          "en": "Vivian places a gold membership card on the desk and invites you to hear your own music at her club."
+        },
+        "return": {
+          "th": "โต๊ะเดิมรอคุณอยู่ และงบเพลงชุดใหม่ก็เช่นกัน",
+          "en": "Your usual table is waiting. So is the budget for our next set."
+        }
+      }
+    },
+    {
+      "id": "rex",
+      "order": 7,
+      "npc": {
+        "id": "rex",
+        "gender": "male",
+        "age": 26,
+        "art": "Rex, adult rival rapper, black bomber jacket and silver chain, buzz cut, shaved eyebrow detail, confident smirk",
+        "base": "npc-01-male-buzz",
+        "name": {
+          "th": "เร็กซ์",
+          "en": "Rex"
+        },
+        "art_id": "quest-rex"
+      },
+      "title": {
+        "th": "ชนะฉันด้วยบีต",
+        "en": "Beat Me with a Beat"
+      },
+      "mode": "commission",
+      "genre": "HipHop",
+      "rating": 35,
+      "count": 1,
+      "brief": "sport",
+      "criterion": "",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1,
+        "money": 5000,
+        "fans": 170,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "เพลงฉันได้ 34 ถ้าคุณทำ HipHop ถึง 35 ฉันจะยอมฟังคำว่าโปรดิวเซอร์จากปากคุณ",
+          "en": "My track scored 34. Hit 35 with HipHop and I'll take you seriously as a producer."
+        },
+        "hint": {
+          "th": "ไม่ต้องเดาใจกรรมการ คะแนน 35 คือคุณชนะ",
+          "en": "No guessing what the judges want. A score of 35 means you win."
+        },
+        "success": {
+          "th": "โอเค คุณชนะ… ยังมีที่ให้คนแพ้ทำงานไหม?",
+          "en": "All right. You win... Got a job for the loser?"
+        },
+        "scene": {
+          "th": "เร็กซ์ปิดเพลงของตัวเอง แล้วเลื่อนใบสมัครเข้าหาคุณแทนใบประกาศท้า",
+          "en": "Rex switches off his own track and slides over an application instead of another challenge."
+        },
+        "return": {
+          "th": "ผมยังไม่เลิกแข่งนะ แต่คราวนี้แข่งให้ทีมเรา",
+          "en": "I'm not done competing. This time, I'm competing for our team."
+        }
+      }
+    },
+    {
+      "id": "kai",
+      "order": 8,
+      "npc": {
+        "id": "kai",
+        "gender": "female",
+        "age": 24,
+        "art": "Kai, confident adult Thai hiphop singer, turquoise cropped tank top, high waist baggy cargo trousers, sneakers, dark high ponytail",
+        "base": "npc-24-female-highpony",
+        "name": {
+          "th": "ไค",
+          "en": "Kai"
+        },
+        "art_id": "quest-kai"
+      },
+      "title": {
+        "th": "เสียงของฉัน ไม่ใช่เงาของใคร",
+        "en": "My Voice, My Rules"
+      },
+      "mode": "commission",
+      "genre": "HipHop",
+      "rating": 28,
+      "count": 2,
+      "brief": "sport",
+      "criterion": "hook",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1,
+        "money": 5500,
+        "fans": 190,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ทุกคนบอกให้ฉันเหมือนคนที่ดังอยู่แล้ว ฉันอยากได้บีตที่ไม่ต้องยืมชื่อใคร",
+          "en": "Everyone wants me to sound like whoever's famous. I need a beat that doesn't borrow a name."
+        },
+        "hint": {
+          "th": "HipHop สองเพลง ฮุกต้องกลับมาให้คนจำได้",
+          "en": "Two HipHop songs. Bring the hook back so people remember it."
+        },
+        "success": {
+          "th": "บีตนี้ไม่ได้ทำให้ฉันเหมือนใคร มันทำให้ฉันเป็นตัวเอง",
+          "en": "This beat doesn't make me sound like someone else. It makes me sound like me."
+        },
+        "scene": {
+          "th": "ไคลองร้องฮุกชื่อสตูดิโอแล้วหัวเราะ เธอขออัดเทคใหม่ด้วยความมั่นใจ",
+          "en": "Kai raps your studio name into the hook, laughs, and asks for another take with new confidence."
+        },
+        "return": {
+          "th": "ถ้าต้องการคนกล้าลองอะไรใหม่ ๆ เรียกฉันได้เลย",
+          "en": "If you need someone willing to try something new, call me."
+        }
+      }
+    },
+    {
+      "id": "selene",
+      "order": 9,
+      "npc": {
+        "id": "selene",
+        "gender": "female",
+        "age": 29,
+        "art": "Selene, glamorous adult R&B singer, shimmering purple stage skirt dress, long earrings, swept long auburn hair",
+        "base": "npc-04-female-long",
+        "name": {
+          "th": "เซลีน",
+          "en": "Selene"
+        },
+        "art_id": "quest-selene"
+      },
+      "title": {
+        "th": "กลับมาใต้สปอตไลต์",
+        "en": "Back in the Spotlight"
+      },
+      "mode": "commission",
+      "genre": "R&B",
+      "rating": 32,
+      "count": 1,
+      "brief": "debut",
+      "criterion": "rise",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1,
+        "money": 6000,
+        "fans": 210,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ฉันหายไปจากเวทีนานจนเริ่มกลัวไฟสปอตไลต์ ช่วยให้เพลงพาฉันกลับไปที",
+          "en": "I've been away so long that the spotlight scares me. Help me find my way back through a song."
+        },
+        "hint": {
+          "th": "เริ่มเบาหน่อย แล้วให้ฮุกเติบโตจนฉันกล้าร้องเต็มเสียง",
+          "en": "Start softly. Let the hook grow until I dare to sing at full strength."
+        },
+        "success": {
+          "th": "ฉันคิดถึงเสียงปรบมือ แต่คิดถึงความรู้สึกนี้มากกว่า",
+          "en": "I missed the applause. But I missed this feeling more."
+        },
+        "scene": {
+          "th": "ไฟเวทีส่องชุดสีม่วง เซลีนหยุดฟังเสียงปรบมือก่อนหันมาขอบคุณทีมหลังเวที",
+          "en": "The lights catch Selene's purple dress. She listens to the applause, then turns to thank the crew."
+        },
+        "return": {
+          "th": "ฉันพร้อมขึ้นเวทีอีกครั้ง ถ้าคุณพร้อมทำเพลงกับฉัน",
+          "en": "I'm ready for the stage again, if you're ready to make music with me."
+        }
+      }
+    },
+    {
+      "id": "beep",
+      "order": 10,
+      "npc": {
+        "id": "beep",
+        "gender": "male",
+        "age": 41,
+        "art": "Dr Beep, eccentric synth musician with small CRT monitor helmet showing simple expressive pixel eyes, white lab coat, teal shirt",
+        "base": "npc-03-male-sidepart",
+        "name": {
+          "th": "ดร.บี๊ป",
+          "en": "Dr. Beep"
+        },
+        "art_id": "quest-beep"
+      },
+      "title": {
+        "th": "หัวใจที่เครื่องจักรไม่มี",
+        "en": "A Machine with a Heart"
+      },
+      "mode": "commission",
+      "genre": "EDM",
+      "rating": 29,
+      "count": 1,
+      "brief": "sport",
+      "criterion": "improvise",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1,
+        "money": 6500,
+        "fans": 230,
+        "role": "Keys"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ผมสร้างเสียงได้ทุกชนิด แต่ยังสร้างความรู้สึกที่อยากฟังซ้ำไม่ได้",
+          "en": "I can build any sound. I haven't built the feeling that makes someone play it again."
+        },
+        "hint": {
+          "th": "อัดโน้ตจริงผ่าน Improvise อย่างน้อยหนึ่งไลน์นะ",
+          "en": "Record at least one real line through Improvise."
+        },
+        "success": {
+          "th": "ระบบตรวจพบสิ่งผิดปกติ… ผมอยากฟังอีกครั้ง",
+          "en": "Anomaly detected... I want to hear it again."
+        },
+        "scene": {
+          "th": "จอของดร.บี๊ปเปลี่ยนจากกราฟคลื่นเป็นหัวใจพิกเซล ก่อนกลับไปกระพริบตามเพลง",
+          "en": "Dr. Beep's screen changes from a waveform to a pixel heart, then blinks along with the music."
+        },
+        "return": {
+          "th": "ผมขอพื้นที่วางซินธ์ในสตูดิโอคุณได้ไหม",
+          "en": "Could I have a little space for a synth in your studio?"
+        }
+      }
+    },
+    {
+      "id": "orbit",
+      "order": 11,
+      "npc": {
+        "id": "orbit",
+        "gender": "male",
+        "age": 45,
+        "art": "Captain Orbit, eccentric older astronaut musician, retro orange and cream spacesuit, open helmet with face visible, dark moustache",
+        "base": "npc-17-male-ponytail",
+        "name": {
+          "th": "กัปตันออร์บิต",
+          "en": "Captain Orbit"
+        },
+        "art_id": "quest-orbit"
+      },
+      "title": {
+        "th": "ข้อความจากดาวที่เงียบ",
+        "en": "A Signal from Silence"
+      },
+      "mode": "commission",
+      "genre": "Lofi",
+      "rating": 27,
+      "count": 1,
+      "brief": "cafe",
+      "criterion": "",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.5,
+        "money": 7000,
+        "fans": 250,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ผมเปิดวิทยุฟังเสียงซ่าเวลาคิดถึงบ้าน ช่วยใส่ทำนองลงในความเงียบนี้ที",
+          "en": "I listen to radio static when I miss home. Put a melody into that silence for me."
+        },
+        "hint": {
+          "th": "Lofi ที่เดินทางได้ไกลโดยไม่ต้องรีบ และคะแนนอย่างน้อย 27",
+          "en": "Lofi that travels far without rushing, with at least 27 points."
+        },
+        "success": {
+          "th": "ถ้าอวกาศมีเสียง ผมอยากให้มันเป็นเพลงนี้",
+          "en": "If space had a sound, I'd want it to be this song."
+        },
+        "scene": {
+          "th": "ออร์บิตส่งเพลงผ่านวิทยุจำลอง แล้ววางแผนที่ดาวที่เขียนชื่อสตูดิโอไว้ข้างดวงจันทร์",
+          "en": "Orbit transmits the song through a model radio and pins up a star map with your studio beside the moon."
+        },
+        "return": {
+          "th": "สถานีออร์บิตรับสัญญาณชัดเจน พร้อมสำหรับภารกิจถัดไป",
+          "en": "Orbit Station reads you loud and clear. Ready for the next mission."
+        }
+      }
+    },
+    {
+      "id": "crumb",
+      "order": 12,
+      "npc": {
+        "id": "crumb",
+        "gender": "male",
+        "age": 38,
+        "art": "Mr Crumb, rock chef, tall white chef hat shaped like a mohawk, black shirt, red apron with gold lightning bolt, small goatee",
+        "base": "npc-13-male-mohawk",
+        "name": {
+          "th": "มิสเตอร์ครัมบ์",
+          "en": "Mr. Crumb"
+        },
+        "art_id": "quest-crumb"
+      },
+      "title": {
+        "th": "ครัวนี้ต้องมีโซโล",
+        "en": "This Kitchen Needs a Solo"
+      },
+      "mode": "commission",
+      "genre": "Rock",
+      "rating": 30,
+      "count": 1,
+      "brief": "sport",
+      "criterion": "melody_improvise",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1.4,
+        "money": 7500,
+        "fans": 270,
+        "role": "Guitar"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ผมเคยฝันจะเป็นมือกีตาร์ แต่ร้านต้องเปิดทุกวัน คืนนี้ขอให้ครัวได้เล่นโซโลบ้าง",
+          "en": "I dreamed of being a guitarist, but the restaurant opens every day. Tonight, let the kitchen play a solo."
+        },
+        "hint": {
+          "th": "Rock 30 คะแนน และโซโล Melody ที่คุณเล่นเองผ่าน Improvise",
+          "en": "Thirty-point Rock, with a Melody solo you play yourself through Improvise."
+        },
+        "success": {
+          "th": "คืนนี้อาหารอาจเผ็ด แต่โซโลเผ็ดกว่า!",
+          "en": "Dinner's hot tonight. That solo's hotter!"
+        },
+        "scene": {
+          "th": "ครัมบ์แขวนผ้ากันเปื้อนชั่วครู่แล้วหยิบกีตาร์ พนักงานทั้งร้านช่วยกันเคาะจังหวะ",
+          "en": "Crumb hangs up his apron and grabs a guitar. The whole kitchen joins the rhythm."
+        },
+        "return": {
+          "th": "ร้านปิดวันจันทร์ ถ้าจะซ้อมวง โทรหาผมวันนั้น",
+          "en": "We're closed on Mondays. Call me then if the band needs practice."
+        }
+      }
+    },
+    {
+      "id": "mint",
+      "order": 13,
+      "npc": {
+        "id": "mint",
+        "gender": "female",
+        "age": 25,
+        "art": "Mint, radio producer, green bomber jacket, large dark studio headphones around neck, short black pixie hair",
+        "base": "npc-14-female-pixie",
+        "name": {
+          "th": "มิ้นต์",
+          "en": "Mint"
+        },
+        "art_id": "quest-mint"
+      },
+      "title": {
+        "th": "สามสิบวินาทีที่คนจำ",
+        "en": "Thirty Seconds to Remember"
+      },
+      "mode": "commission",
+      "genre": "Pop",
+      "rating": 28,
+      "count": 1,
+      "brief": "sport",
+      "criterion": "hook",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.4,
+        "money": 8000,
+        "fans": 290,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "โฆษณามีเวลาแค่แป๊บเดียว ฉันอยากได้ท่อนที่คนยังฮัมหลังข่าวจบ",
+          "en": "An ad has barely a moment. I need something people still hum after the news."
+        },
+        "hint": {
+          "th": "ทำฮุกให้จำได้และกลับมาอีกครั้ง คะแนนต้องถึง 28",
+          "en": "Make the hook memorable and bring it back. Reach 28 points."
+        },
+        "success": {
+          "th": "เพลงจบไปแล้ว แต่สายโทรศัพท์ยังไม่หยุดเลย",
+          "en": "The song's over. The phone hasn't stopped ringing."
+        },
+        "scene": {
+          "th": "เสียงดีเจประกาศเครดิตสตูดิโอ มิ้นต์ยกหูฟังให้คุณฟังสายจากผู้ฟัง",
+          "en": "The DJ reads your studio credit. Mint hands you the headphones so you can hear a listener call in."
+        },
+        "return": {
+          "th": "มีคิวโฆษณาใหม่เข้ามา ฉันเก็บคิวดี ๆ ไว้ให้คุณ",
+          "en": "New ad slots just came in. I've saved the good ones for you."
+        }
+      }
+    },
+    {
+      "id": "aki",
+      "order": 14,
+      "npc": {
+        "id": "aki",
+        "gender": "male",
+        "age": 28,
+        "art": "Aki, athletic adult dance competition organizer, white and red tracksuit, dark swept quiff, headband",
+        "base": "npc-07-male-quiff",
+        "name": {
+          "th": "อากิ",
+          "en": "Aki"
+        },
+        "art_id": "quest-aki"
+      },
+      "title": {
+        "th": "พื้นเต้นยังรอเรา",
+        "en": "The Floor Is Waiting"
+      },
+      "mode": "commission",
+      "genre": "EDM",
+      "rating": 30,
+      "count": 2,
+      "brief": "sport",
+      "criterion": "dance_pair",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.4,
+        "money": 8500,
+        "fans": 310,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ทีมเต้นของเรามีทั้งสาย EDM กับ HipHop ช่วยทำให้พวกเขาได้เวทีเดียวกันที",
+          "en": "Our crew has EDM dancers and HipHop dancers. Help them share the same floor."
+        },
+        "hint": {
+          "th": "ต้องมีทั้ง EDM และ HipHop อย่างละเพลง คะแนน 30 ขึ้นไป",
+          "en": "We need one EDM track and one HipHop track, each scoring at least 30."
+        },
+        "success": {
+          "th": "พอฮุกมา ทุกคนหยุดนับจังหวะแล้วเริ่มเต้นจริง ๆ",
+          "en": "When the hook hit, everyone stopped counting and started dancing."
+        },
+        "scene": {
+          "th": "นักเต้นสองกลุ่มรวมวงกัน อากิชี้ไปที่เครดิตสตูดิโอบนจอหลังเวที",
+          "en": "The two crews merge into one circle. Aki points to your studio credit on the screen."
+        },
+        "return": {
+          "th": "เวทีครั้งหน้าจะใหญ่ขึ้น คุณช่วยดูเสียงให้เราอีกนะ",
+          "en": "The next floor will be bigger. Help us make it sound right again."
+        }
+      }
+    },
+    {
+      "id": "phakin",
+      "order": 15,
+      "npc": {
+        "id": "phakin",
+        "gender": "male",
+        "age": 34,
+        "art": "Phakin, Thai film director, muted navy shirt, camera strap around neck, dark sidepart hair, thoughtful expression",
+        "base": "npc-03-male-sidepart",
+        "name": {
+          "th": "ภาคิน",
+          "en": "Phakin"
+        },
+        "art_id": "quest-phakin"
+      },
+      "title": {
+        "th": "ฉากที่พูดไม่ได้",
+        "en": "The Scene Without Words"
+      },
+      "mode": "commission",
+      "genre": "Classical",
+      "rating": 32,
+      "count": 1,
+      "brief": "debut",
+      "criterion": "rise",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.6,
+        "money": 9000,
+        "fans": 330,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ฉากนี้ไม่มีบทพูด แต่ผมอยากให้คนดูเข้าใจว่าตัวละครเลือกจะเดินต่อ",
+          "en": "There is no dialogue in this scene. I want the audience to understand that the character chooses to go on."
+        },
+        "hint": {
+          "th": "เริ่มสงบแล้วเพิ่มพลังในฮุก คะแนนอย่างน้อย 32",
+          "en": "Start quietly, then build into the hook. Reach at least 32 points."
+        },
+        "success": {
+          "th": "ผมตัดบทพูดฉากนั้นออกแล้ว เพลงเล่ามันได้ดีกว่า",
+          "en": "I cut the dialogue from that scene. Your music tells it better."
+        },
+        "scene": {
+          "th": "ภาคินฉายหนังสั้นในห้องอัด เครดิตท้ายเรื่องขึ้นชื่อสตูดิโอท่ามกลางความเงียบที่อบอุ่น",
+          "en": "Phakin screens his short film in the studio. Your credit appears in a warm, thoughtful silence."
+        },
+        "return": {
+          "th": "หนังเรื่องใหม่ยังไม่มีเสียงแรก ผมอยากเริ่มกับคุณ",
+          "en": "My next film hasn't found its first sound. I'd like to start with you."
+        }
+      }
+    },
+    {
+      "id": "rose",
+      "order": 16,
+      "npc": {
+        "id": "rose",
+        "gender": "female",
+        "age": 30,
+        "art": "Rose, adult rock singer, short red pixie hair, red leather jacket over black shirt, blue jeans",
+        "base": "npc-14-female-pixie",
+        "name": {
+          "th": "โรส",
+          "en": "Rose"
+        },
+        "art_id": "quest-rose"
+      },
+      "title": {
+        "th": "เพลงที่วงทิ้งไว้",
+        "en": "The Song We Left Behind"
+      },
+      "mode": "commission",
+      "genre": "Rock",
+      "rating": 33,
+      "count": 1,
+      "brief": "debut",
+      "criterion": "",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1,
+        "money": 9500,
+        "fans": 350,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "วงเก่าทิ้งเพลงนี้ไว้ครึ่งเดียว ฉันไม่รู้ว่าควรจบมันหรือเริ่มใหม่",
+          "en": "My old band left this song unfinished. I don't know whether to finish it or start again."
+        },
+        "hint": {
+          "th": "ไม่ต้องลบอดีต แค่ทำ Rock ที่ไปถึง 33 คะแนนด้วยกัน",
+          "en": "We don't have to erase the past. Let's make a Rock track that reaches 33."
+        },
+        "success": {
+          "th": "เพลงนี้เคยเป็นเหตุผลที่ฉันเลิก วันนี้มันทำให้ฉันกลับมา",
+          "en": "This song used to be why I quit. Today, it brought me back."
+        },
+        "scene": {
+          "th": "โรสเก็บรูปวงเก่าเข้ากล่อง เปิดสมุดหน้าใหม่ และเขียนชื่อสตูดิโอไว้ที่มุมกระดาษ",
+          "en": "Rose puts her old band photo away, opens a fresh page, and writes your studio's name in the corner."
+        },
+        "return": {
+          "th": "คราวนี้ฉันจะไม่เดินออกจากห้องซ้อมโดยไม่บอกใคร",
+          "en": "This time, I won't walk out of rehearsal without telling anyone."
+        }
+      }
+    },
+    {
+      "id": "ingfah",
+      "order": 17,
+      "npc": {
+        "id": "ingfah",
+        "gender": "female",
+        "age": 24,
+        "art": "Ingfah, adult emerging singer, sky blue dress, dark braided hair, small lyric notebook",
+        "base": "npc-10-female-braid",
+        "name": {
+          "th": "อิงฟ้า",
+          "en": "Ingfah"
+        },
+        "art_id": "quest-ingfah"
+      },
+      "title": {
+        "th": "ก่อนประกาศชื่อผู้ชนะ",
+        "en": "Before They Call My Name"
+      },
+      "mode": "commission",
+      "genre": "Pop",
+      "rating": 30,
+      "count": 1,
+      "brief": "debut",
+      "criterion": "",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "artist",
+        "multiplier": 1,
+        "money": 10000,
+        "fans": 370,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ฉันซ้อมร้องในห้องทุกคืน แต่ยังไม่เคยได้ยินชื่อตัวเองบนเวทีเลย",
+          "en": "I rehearse in my room every night. I've never heard my name called on a stage."
+        },
+        "hint": {
+          "th": "เพลงประกวดนี้ใช้เกณฑ์ 30 คะแนน ไม่มีการสุ่มผลค่ะ",
+          "en": "This competition uses a 30-point threshold. The result isn't random."
+        },
+        "success": {
+          "th": "ตอนเขาเรียกชื่อฉัน ฉันอยากให้คุณอยู่ตรงนั้นด้วย",
+          "en": "When they called my name, I wished you were standing beside me."
+        },
+        "scene": {
+          "th": "พิธีกรประกาศผู้ชนะ Rising Star อิงฟาชูถ้วยแล้วชี้ไปที่ชื่อทีมโปรดิวเซอร์",
+          "en": "The host announces the Rising Star winner. Ingfah lifts the trophy and points to her production team."
+        },
+        "return": {
+          "th": "ฉันอยากให้เพลงถัดไปเป็นเพลงของทีมเราอีกค่ะ",
+          "en": "I'd like the next song to be another song from our team."
+        }
+      }
+    },
+    {
+      "id": "leo",
+      "order": 18,
+      "npc": {
+        "id": "leo",
+        "gender": "male",
+        "age": 33,
+        "art": "Leo, competition conductor, ivory tuxedo and dark bow tie, black gloves, slick black hair",
+        "base": "npc-23-male-sidesweep",
+        "name": {
+          "th": "ลีโอ",
+          "en": "Leo"
+        },
+        "art_id": "quest-leo"
+      },
+      "title": {
+        "th": "เพลงเดียวต่อหน้าทั้งเมือง",
+        "en": "One Song, One City"
+      },
+      "mode": "commission",
+      "genre": "Pop",
+      "rating": 34,
+      "count": 1,
+      "brief": "sport",
+      "criterion": "rise",
+      "prereq_count": 0,
+      "prerequisites": [
+        "ingfah"
+      ],
+      "reward": {
+        "kind": "client",
+        "multiplier": 1.7,
+        "money": 10500,
+        "fans": 390,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "เวทีเมืองไม่ได้ต้องการแค่เสียงดัง เราต้องการเพลงที่พาคนทั้งงานไปด้วยกัน",
+          "en": "A city stage needs more than volume. It needs a song that carries everyone together."
+        },
+        "hint": {
+          "th": "ผ่าน Rising Star ก่อน แล้วส่งเพลง 34 คะแนนที่ฮุกพุ่งชัดเจน",
+          "en": "Finish Rising Star, then deliver a 34-point song with a clear lift into the hook."
+        },
+        "success": {
+          "th": "คุณไม่ได้แค่ผ่านเวทีนี้ คุณทำให้คนจำเวทีนี้ได้",
+          "en": "You didn't just make it through this show. You made it worth remembering."
+        },
+        "scene": {
+          "th": "ลีโอยกไม้บาตองให้วงหยุดและหันให้ผู้ชมปรบมือแก่ทีมสตูดิโอ",
+          "en": "Leo lowers his baton and turns the audience's applause toward the studio team."
+        },
+        "return": {
+          "th": "ผมมีงานระดับเมืองอีกหลายงาน อยากให้คุณมาช่วยฟัง",
+          "en": "There are more city stages ahead. I'd like your ears on them."
+        }
+      }
+    },
+    {
+      "id": "vega",
+      "order": 19,
+      "npc": {
+        "id": "vega",
+        "gender": "female",
+        "age": 44,
+        "art": "Madame Vega, powerful record label owner, black and gold tailored suit, mature face, silver streak in dark updo, star brooch",
+        "base": "npc-08-female-bun",
+        "name": {
+          "th": "มาดามเวกา",
+          "en": "Madame Vega"
+        },
+        "art_id": "quest-vega"
+      },
+      "title": {
+        "th": "พิสูจน์ว่าคุณไม่ได้ฟลุค",
+        "en": "Prove It Wasn't Luck"
+      },
+      "mode": "collection",
+      "genre": "",
+      "rating": 34,
+      "count": 3,
+      "brief": "debut",
+      "criterion": "distinct",
+      "prereq_count": 0,
+      "prerequisites": [],
+      "reward": {
+        "kind": "vip",
+        "multiplier": 2,
+        "money": 11000,
+        "fans": 410,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ฉันไม่ได้ซื้อโชคของโปรดิวเซอร์ ฉันลงทุนกับคนที่ทำได้ซ้ำในหลายแนว",
+          "en": "I don't buy a producer's luck. I invest in someone who can deliver across genres."
+        },
+        "hint": {
+          "th": "สามเพลง สามแนวหลักต่างกัน ทุกเพลงอย่างน้อย 34 คะแนน",
+          "en": "Three songs, three different primary genres, each scoring at least 34."
+        },
+        "success": {
+          "th": "เพลงเดียวอาจเป็นโชค แต่สามเพลงแบบนี้คือฝีมือ",
+          "en": "One song could be luck. Three like these are craft."
+        },
+        "scene": {
+          "th": "เวกาวางข้อเสนอฉบับใหม่ลงบนโต๊ะ ตัวเลขค่าจ้างเพิ่มเป็นสองเท่าโดยไม่ต้องต่อรอง",
+          "en": "Vega places a new offer on the desk. The fee has doubled before you even negotiate."
+        },
+        "return": {
+          "th": "คราวนี้เราไม่ต้องเริ่มจากการพิสูจน์ตัวเองแล้ว",
+          "en": "This time, we don't have to begin by proving ourselves."
+        }
+      }
+    },
+    {
+      "id": "aurelian",
+      "order": 20,
+      "npc": {
+        "id": "aurelian",
+        "gender": "male",
+        "age": 52,
+        "art": "Aurelian, legendary producer, cream suit, silver swept hair, trimmed silver beard, microphone headed cane",
+        "base": "npc-09-male-curly",
+        "name": {
+          "th": "ออเรเลียน",
+          "en": "Aurelian"
+        },
+        "art_id": "quest-aurelian"
+      },
+      "title": {
+        "th": "เพลงที่เป็นชื่อของคุณ",
+        "en": "A Song That Bears Your Name"
+      },
+      "mode": "commission",
+      "genre": "",
+      "rating": 37,
+      "count": 1,
+      "brief": "debut",
+      "criterion": "improvise",
+      "prereq_count": 15,
+      "prerequisites": [],
+      "reward": {
+        "kind": "legend",
+        "multiplier": 2,
+        "money": 11500,
+        "fans": 430,
+        "role": "Vocal"
+      },
+      "dialogue": {
+        "intro": {
+          "th": "ผมฟังเรื่องของคนที่เดินผ่านห้องนี้มาแล้ว ตอนนี้อยากฟังเสียงของคุณเอง",
+          "en": "I've heard the stories of the people who came through this room. Now I want to hear your own voice."
+        },
+        "hint": {
+          "th": "จบเรื่องราวสิบห้าคน แล้วทำเพลง 37 คะแนนที่มีไลน์เล่นเอง",
+          "en": "Finish fifteen stories, then create a 37-point song with a line you performed yourself."
+        },
+        "success": {
+          "th": "ตอนนี้ผมไม่ต้องถามแล้วว่าใครทำเพลงนี้ ผมจำเสียงของคุณได้",
+          "en": "Now I don't have to ask who made this. I recognize your sound."
+        },
+        "scene": {
+          "th": "Alice เปิดประตูให้เหล่าเพื่อนเก่ามาฟังเพลง ออเรเลียนถอดหมวกให้เครดิตโปรดิวเซอร์คนใหม่",
+          "en": "Alice opens the door to familiar faces. Aurelian salutes the studio's producer as the final song plays."
+        },
+        "return": {
+          "th": "ตำนานไม่ใช่เพลงสุดท้าย เป็นเหตุผลให้คุณทำเพลงต่อไป",
+          "en": "A legacy isn't your last song. It's a reason to make the next one."
+        }
+      }
+    }
+  ]
+}

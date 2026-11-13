@@ -79,7 +79,7 @@ static func date_reason(person: Dictionary, client: bool) -> String:
 	if client:
 		if not person["contact_adult"] or not person["contact_opt_in"]: return Locale.text("city_unavailable")
 		if Game.day - int(person["met_day"]) < 28 or int(person["completed_jobs"]) < 2 or int(person.get("rel", 0)) < 40: return Locale.text("city_client_gate")
-	elif id != "alice" and Game.day - int(person["joined_day"]) <= StudioLife.ROMANCE_DAYS: return Locale.text("romance_locked")
+	elif id != "alice" and not person.get("romance_unlocked", false) and Game.day - int(person["joined_day"]) <= StudioLife.ROMANCE_DAYS: return Locale.text("romance_locked")
 	if int(s["trust"]) < 40 or int(s["comfort"]) < 35: return Locale.text("city_trust_gate")
 	return ""
 

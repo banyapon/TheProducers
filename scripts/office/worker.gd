@@ -23,6 +23,7 @@ var researching = false
 var gathering = false
 var gather_room = Vector2i.ZERO
 var is_visitor = false
+var quest_id := ""
 var _path: Array = []  ## [{pos: Vector2, floor: int}]
 var _timer = 0.0
 var _bubble_timer = 0.0
@@ -133,6 +134,9 @@ func _decide() -> void:
 	if appointment:
 		_timer = 1.0
 		return
+	if quest_id != "":
+		_wander_near_producer()
+		return
 	if is_visitor:
 		if _visit_done:
 			leave()
@@ -213,6 +217,10 @@ func _arrive() -> void:
 	if _leaving:
 		queue_free()
 		return
+	if quest_id != "":
+		state = State.IDLE
+		_timer = randf_range(0.8, 2.2)
+		return
 	if is_visitor and not _visit_done:
 		_visit_done = true
 		state = State.IDLE
@@ -236,6 +244,22 @@ func _arrive() -> void:
 		return
 	state = State.IDLE
 	_timer = randf_range(1.0, 4.0)
+
+
+func _wander_near_producer() -> void:
+	var host: Worker = office.principals.get("producer")
+	var anchor_floor = host.floor_index if is_instance_valid(host) else 0
+	var anchor_x = host.position.x + 84.0 if is_instance_valid(host) else position.x
+	anchor_x = clampf(anchor_x, office.shaft_x() + 36.0, office.building_width() - 36.0)
+	if floor_index != anchor_floor or absf(position.x - anchor_x) > 150.0:
+		go_to(anchor_floor, anchor_x)
+		return
+	if randf() < 0.5:
+		var x = clampf(anchor_x + randf_range(-120.0, 120.0), office.shaft_x() + 36.0, office.building_width() - 36.0)
+		go_to(floor_index, x)
+	else:
+		state = State.IDLE
+		_timer = randf_range(1.2, 3.4)
 
 
 func _try_chat() -> bool:

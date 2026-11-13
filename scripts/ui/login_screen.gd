@@ -21,11 +21,13 @@ var _password = ""
 var _legal_only = false
 var _layout: TitleLayout
 var _services: VBoxContainer
+var _quest_catalogue: QuestPanel
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(PRESET_FULL_RECT)
 	FirebaseAuth.auth_error.connect(_set_status)
-	Locale.language_changed.connect(func(_lang: String): _render())
+	Locale.language_changed.connect(func(_lang: String):
+		if not is_instance_valid(_quest_catalogue) or not _quest_catalogue.visible: _render())
 	resized.connect(_layout_title)
 	open()
 
@@ -43,6 +45,9 @@ func open() -> void:
 	_render()
 
 func escape() -> void:
+	if is_instance_valid(_quest_catalogue) and _quest_catalogue.visible:
+		_quest_catalogue.close()
+		return
 	if _busy:
 		FirebaseAuth.cancel_google()
 		return
@@ -63,6 +68,7 @@ func _render() -> void:
 	UIKit.clear(self)
 	email_edit = null
 	password_edit = null
+	_services = null
 	if _page == "home":
 		_render_title()
 		return
@@ -100,6 +106,15 @@ func _render() -> void:
 		var credits = UIKit.button(Locale.text("credits_title"), func(): _page = "credits"; _render())
 		credits.name = "OpenCredits"
 		body.add_child(credits)
+		_services = VBoxContainer.new()
+		body.add_child(_services)
+		_refresh_services()
+		ServiceStatus.check_all(Secrets)
+		var service_timer = Timer.new()
+		service_timer.wait_time = 1.0
+		service_timer.autostart = true
+		service_timer.timeout.connect(_refresh_services)
+		body.add_child(service_timer)
 		body.add_child(UIKit.button(Locale.text("back"), func(): _page = "home"; _render()))
 		return
 
@@ -227,17 +242,19 @@ func _render_title() -> void:
 	toolbar.add_child(settings)
 	var panel = PanelContainer.new()
 	panel.name = "TitleMenu"
+	if _home_tab == 0: panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	add_child(panel)
 	var body = VBoxContainer.new()
-	body.add_theme_constant_override("separation", _layout.px("gaps", "menu_padding"))
+	body.add_theme_constant_override("separation", _layout.px("gaps", "menu_padding") if _home_tab == 0 else 6)
 	panel.add_child(body)
 	var tabs = HBoxContainer.new()
 	tabs.name = "EntryTabs"
 	tabs.add_theme_constant_override("separation", _layout.px("gaps", "menu_padding"))
-	body.add_child(tabs)
+	if _home_tab != 0: body.add_child(tabs)
+	else: tabs.hide(); body.add_child(tabs)
 	var group = ButtonGroup.new()
 	var tab_names = ["play_tab", "signin", "signup"]
-	for index in 3:
+	for index in (range(3) if _home_tab != 0 else []):
 		var tab = UIKit.button(Locale.text(tab_names[index]), _select_home_tab.bind(index))
 		tab.name = ["PlayTab", "SignInTab", "SignUpTab"][index]
 		tab.toggle_mode = true
@@ -259,7 +276,18 @@ func _render_title() -> void:
 	for item in content.get_children():
 		if item is Button or item is LineEdit:
 			item.add_theme_font_size_override("font_size", 46)
-			item.custom_minimum_size.y = 54
+			item.custom_minimum_size.y = 66 if _home_tab == 0 else 54
+	if _home_tab == 0:
+		var accounts = HBoxContainer.new()
+		accounts.name = "AccountLinks"
+		accounts.add_theme_constant_override("separation", 16)
+		body.add_child(accounts)
+		for index in [1, 2]:
+			var account_button = UIKit.button(Locale.text("signin" if index == 1 else "signup"), _select_home_tab.bind(index))
+			account_button.size_flags_horizontal = SIZE_EXPAND_FILL
+			account_button.disabled = _busy
+			_style_title_link(account_button)
+			accounts.add_child(account_button)
 	var foot = HBoxContainer.new()
 	foot.alignment = BoxContainer.ALIGNMENT_CENTER
 	foot.add_theme_constant_override("separation", 14)
@@ -268,24 +296,25 @@ func _render_title() -> void:
 		var link = UIKit.button(Locale.text(spec[0]), spec[1])
 		link.flat = true
 		link.disabled = _busy
+		link.size_flags_horizontal = SIZE_EXPAND_FILL
 		link.add_theme_font_size_override("font_size", 38)
+		if _home_tab == 0: _style_title_link(link)
 		foot.add_child(link)
 	status_label = UIKit.label(Locale.text("auth_busy") if _busy else "", 38)
 	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	body.add_child(status_label)
 	status_label.visible = not status_label.text.is_empty()
+	if _home_tab == 0: status_label.add_theme_color_override("font_color", Color("963c24"))
 	var tagline_panel = _title_panel("TitleTaglinePanel")
+	tagline_panel.visible = _home_tab == 0
+	tagline_panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	var tagline = VBoxContainer.new()
 	tagline.name = "TitleTagline"
 	tagline.add_theme_constant_override("separation", 6)
 	tagline.mouse_filter = MOUSE_FILTER_IGNORE
 	tagline_panel.add_child(tagline)
-	tagline.add_child(_title_text("SHIFT the sound. Shape the star.", _layout.px("sizes", "tagline_title"), Color("ffd27b")))
-	tagline.add_child(_title_text(Locale.text("shift_tagline"), _layout.px("sizes", "tagline_body"), Color("fff8eb")))
-	var services_panel = _title_panel("TitleServices")
-	_services = VBoxContainer.new()
-	_services.add_theme_constant_override("separation", 2)
-	services_panel.add_child(_services)
+	tagline.add_child(_title_text("SHIFT the sound. Shape the star.", _layout.px("sizes", "tagline_title"), Color("963c24")))
+	tagline.add_child(_title_text(Locale.text("shift_tagline"), _layout.px("sizes", "tagline_body"), Color("536071")))
 	var credit_bar = ColorRect.new()
 	credit_bar.name = "TitleCreditBar"
 	credit_bar.color = Color("121d30")
@@ -311,17 +340,16 @@ func _render_title() -> void:
 	watch.timeout.connect(_tick_title)
 	add_child(watch)
 	_refresh_services()
-	ServiceStatus.check_all(Secrets) # persistent owner: survives title re-renders
 	_layout_title.call_deferred()
 
 func _layout_title() -> void:
 	if _page != "home" or _layout == null or not has_node("TitleMenu"): return
-	_layout.stack(size, get_node("LogoLayer"), [
+	var blocks = [
 		[get_node("TitleToolbar"), _layout.px("gaps", "logo_to_toolbar")],
 		[get_node("TitleMenu"), _layout.px("gaps", "toolbar_to_menu")],
-		[get_node("TitleTaglinePanel"), _layout.px("gaps", "menu_to_tagline")],
-		[get_node("TitleServices"), _layout.px("gaps", "tagline_to_services")],
-	])
+	]
+	if _home_tab == 0: blocks.append([get_node("TitleTaglinePanel"), _layout.px("gaps", "menu_to_tagline")])
+	_layout.stack(size, get_node("LogoLayer"), blocks)
 
 func _tick_title() -> void:
 	if OS.is_debug_build() and _layout.changed_on_disk():
@@ -384,29 +412,68 @@ func _hint(body: VBoxContainer, key: String) -> void:
 	body.add_child(copy)
 
 func _play_tab(body: VBoxContainer) -> void:
+	body.add_theme_constant_override("separation", 14)
 	var welcome = UIKit.label(Locale.text("welcome"), 44)
 	welcome.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	welcome.add_theme_color_override("font_color", Color("172235"))
 	body.add_child(welcome)
 	if FirebaseAuth.has_saved_session():
 		var saved = UIKit.button(Locale.text("continue"), _restore, 0, "ConfirmButton")
 		saved.disabled = _busy or not Secrets.has_firebase()
+		saved.name = "ContinueGame"
+		_style_title_primary(saved)
 		body.add_child(saved)
 		var account = UIKit.label(FirebaseAuth.mask_email(FirebaseAuth.saved_session_label()), 36)
 		account.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		account.modulate = Color("a1b8a8")
+		account.add_theme_color_override("font_color", Color("536071"))
 		body.add_child(account)
 	var offline = UIKit.button(Locale.text("offline"), _offline_pressed, 0, "" if FirebaseAuth.has_saved_session() else "ConfirmButton")
 	offline.disabled = _busy
+	offline.name = "OfflineGame"
+	if not FirebaseAuth.has_saved_session(): _style_title_primary(offline)
 	body.add_child(offline)
 	var tutorial = UIKit.button(Locale.text("demo_entry"), func():
 		FirebaseAuth.sign_out()
 		hide()
 		login_completed.emit("demo_career"))
 	tutorial.tooltip_text = Locale.text("tutorial_intro")
+	tutorial.name = "TutorialGame"
+	tutorial.disabled = _busy
 	body.add_child(tutorial)
-	var guest = UIKit.button(Locale.text("guest"), func(): _run(FirebaseAuth.sign_in_anonymous, false))
-	guest.disabled = _busy or not Secrets.has_firebase()
-	body.add_child(guest)
+	var quests = UIKit.button("Quest • " + ("เรื่องราวตัวละคร" if Locale.language == "th" else "Story encounters"), _open_quests)
+	quests.name = "TitleQuests"
+	quests.disabled = _busy
+	body.add_child(quests)
+
+func _open_quests() -> void:
+	if _busy: return
+	_quest_catalogue = QuestPanel.new()
+	add_child(_quest_catalogue)
+	_quest_catalogue.closed.connect(func():
+		_quest_catalogue.queue_free()
+		_render.call_deferred())
+	_quest_catalogue.open_catalogue(true)
+
+func _style_title_primary(button: Button) -> void:
+	for state in ["normal", "hover", "pressed", "disabled"]:
+		var skin = StyleBoxFlat.new()
+		skin.bg_color = Color("f48a32") if state == "normal" else (Color("ffc16a") if state == "hover" else (Color("cb6225") if state == "pressed" else Color("c5b9a5")))
+		skin.border_color = Color("172235")
+		skin.set_border_width_all(3)
+		skin.shadow_color = Color("172235")
+		skin.shadow_offset = Vector2(0, 4)
+		skin.shadow_size = 1
+		button.add_theme_stylebox_override(state, skin)
+		button.add_theme_color_override("font_" + ("color" if state == "normal" else state + "_color"), Color("172235"))
+
+func _style_title_link(button: Button) -> void:
+	button.flat = true
+	button.add_theme_font_size_override("font_size", 36)
+	for state in ["normal", "hover", "pressed", "disabled"]:
+		var skin = StyleBoxFlat.new()
+		skin.bg_color = Color("f7e7cc") if state in ["hover", "pressed"] else Color(0, 0, 0, 0)
+		button.add_theme_stylebox_override(state, skin)
+		button.add_theme_color_override("font_" + ("color" if state == "normal" else state + "_color"), Color("536071") if state == "disabled" else Color("172235"))
 
 func _offline_pressed() -> void:
 	if _busy: return
@@ -455,6 +522,11 @@ func _account_tab(body: VBoxContainer, signup: bool) -> void:
 	submit.disabled = _busy or not Secrets.has_firebase()
 	body.add_child(submit)
 	if signup: _hint(body, "signup_legal_hint")
+	else:
+		var guest = UIKit.button(Locale.text("guest"), func(): _run(FirebaseAuth.sign_in_anonymous, false))
+		guest.name = "GuestSignIn"
+		guest.disabled = _busy or not Secrets.has_firebase()
+		body.add_child(guest)
 
 func _add_google_button(body: VBoxContainer) -> void:
 	var google = UIKit.button(Locale.text("google_connect"), _on_google_pressed)

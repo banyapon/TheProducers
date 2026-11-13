@@ -32,6 +32,7 @@ FirebaseAuth="*res://scripts/autoload/firebase_auth.gd"
 Cloudinary="*res://scripts/autoload/cloudinary.gd"
 MusicGen="*res://scripts/autoload/music_gen.gd"
 Audio="*res://scripts/autoload/audio.gd"
+StoryQuests="*res://scripts/autoload/story_quests.gd"
 
 [display]
 

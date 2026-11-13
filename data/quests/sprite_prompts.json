@@ -1,0 +1,216 @@
+{
+  "generator": "Built-in image_gen",
+  "layout": "Separate 3x3 sheets, 9 frames per animation; idle and walk only; source grid 480x480",
+  "unchanged": "All portrait-2x2.png files",
+  "animations": [
+    "idle",
+    "walk"
+  ],
+  "reference_templates": {
+    "male": "assets/sprites/male/<animation>.png",
+    "female": "assets/sprites/alice/<animation>.png"
+  },
+  "constraints": "Copy reference layout, tiny adult pixel proportions and pose order. Exact 3 columns x 3 rows. Transparent background. Whole body, centered in 160px virtual cell, ground anchor (80,137). No grid or labels. Play uses empty hands for in-game instrument overlays.",
+  "cast": [
+    {
+      "id": "mali",
+      "identity": "Teacher Mali, Thai woman, dark brown bob, mint cardigan and cream blouse, holds a small music notebook",
+      "age": 32,
+      "portrait": "assets/quests/mali/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/mali/idle.png",
+        "assets/quests/mali/walk.png"
+      ]
+    },
+    {
+      "id": "boon",
+      "identity": "Uncle Boon, warm elderly Thai coffee shop owner, silver hair and moustache, round glasses, brown apron over cream shirt",
+      "age": 58,
+      "portrait": "assets/quests/boon/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/boon/idle.png",
+        "assets/quests/boon/walk.png"
+      ]
+    },
+    {
+      "id": "pim",
+      "identity": "Pim, Thai wedding planner, peach blazer, chestnut shoulder length hair, pearl stud earrings, carries a pastel folder",
+      "age": 25,
+      "portrait": "assets/quests/pim/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/pim/idle.png",
+        "assets/quests/pim/walk.png"
+      ]
+    },
+    {
+      "id": "dao",
+      "identity": "Aunt Dao, charismatic Thai festival singer, curled dark hair, bright coral blouse and gold star earrings",
+      "age": 49,
+      "portrait": "assets/quests/dao/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/dao/idle.png",
+        "assets/quests/dao/walk.png"
+      ]
+    },
+    {
+      "id": "narin",
+      "identity": "Narin, confident glamorous adult singer, red stage skirt dress with side slit and black boots, long dark wavy hair",
+      "age": 27,
+      "portrait": "assets/quests/narin/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/narin/idle.png",
+        "assets/quests/narin/walk.png"
+      ]
+    },
+    {
+      "id": "vivian",
+      "identity": "Vivian, elegant adult jazz club owner, dark plum velvet blazer, cream blouse, sleek black bob, gold lapel pin",
+      "age": 36,
+      "portrait": "assets/quests/vivian/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/vivian/idle.png",
+        "assets/quests/vivian/walk.png"
+      ]
+    },
+    {
+      "id": "rex",
+      "identity": "Rex, adult rival rapper, black bomber jacket and silver chain, buzz cut, shaved eyebrow detail, confident smirk",
+      "age": 26,
+      "portrait": "assets/quests/rex/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/rex/idle.png",
+        "assets/quests/rex/walk.png"
+      ]
+    },
+    {
+      "id": "kai",
+      "identity": "Kai, confident adult Thai hiphop singer, turquoise cropped tank top, high waist baggy cargo trousers, sneakers, dark high ponytail",
+      "age": 24,
+      "portrait": "assets/quests/kai/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/kai/idle.png",
+        "assets/quests/kai/walk.png"
+      ]
+    },
+    {
+      "id": "selene",
+      "identity": "Selene, glamorous adult R&B singer, shimmering purple stage skirt dress, long earrings, swept long auburn hair",
+      "age": 29,
+      "portrait": "assets/quests/selene/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/selene/idle.png",
+        "assets/quests/selene/walk.png"
+      ]
+    },
+    {
+      "id": "beep",
+      "identity": "Dr Beep, eccentric synth musician with small CRT monitor helmet showing simple expressive pixel eyes, white lab coat, teal shirt",
+      "age": 41,
+      "portrait": "assets/quests/beep/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/beep/idle.png",
+        "assets/quests/beep/walk.png"
+      ]
+    },
+    {
+      "id": "orbit",
+      "identity": "Captain Orbit, eccentric older astronaut musician, retro orange and cream spacesuit, open helmet with face visible, dark moustache",
+      "age": 45,
+      "portrait": "assets/quests/orbit/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/orbit/idle.png",
+        "assets/quests/orbit/walk.png"
+      ]
+    },
+    {
+      "id": "crumb",
+      "identity": "Mr Crumb, rock chef, tall white chef hat shaped like a mohawk, black shirt, red apron with gold lightning bolt, small goatee",
+      "age": 38,
+      "portrait": "assets/quests/crumb/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/crumb/idle.png",
+        "assets/quests/crumb/walk.png"
+      ]
+    },
+    {
+      "id": "mint",
+      "identity": "Mint, radio producer, green bomber jacket, large dark studio headphones around neck, short black pixie hair",
+      "age": 25,
+      "portrait": "assets/quests/mint/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/mint/idle.png",
+        "assets/quests/mint/walk.png"
+      ]
+    },
+    {
+      "id": "aki",
+      "identity": "Aki, athletic adult dance competition organizer, white and red tracksuit, dark swept quiff, headband",
+      "age": 28,
+      "portrait": "assets/quests/aki/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/aki/idle.png",
+        "assets/quests/aki/walk.png"
+      ]
+    },
+    {
+      "id": "phakin",
+      "identity": "Phakin, Thai film director, muted navy shirt, camera strap around neck, dark sidepart hair, thoughtful expression",
+      "age": 34,
+      "portrait": "assets/quests/phakin/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/phakin/idle.png",
+        "assets/quests/phakin/walk.png"
+      ]
+    },
+    {
+      "id": "rose",
+      "identity": "Rose, adult rock singer, short red pixie hair, red leather jacket over black shirt, blue jeans",
+      "age": 30,
+      "portrait": "assets/quests/rose/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/rose/idle.png",
+        "assets/quests/rose/walk.png"
+      ]
+    },
+    {
+      "id": "ingfah",
+      "identity": "Ingfah, adult emerging singer, sky blue dress, dark braided hair, small lyric notebook",
+      "age": 24,
+      "portrait": "assets/quests/ingfah/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/ingfah/idle.png",
+        "assets/quests/ingfah/walk.png"
+      ]
+    },
+    {
+      "id": "leo",
+      "identity": "Leo, competition conductor, ivory tuxedo and dark bow tie, black gloves, slick black hair",
+      "age": 33,
+      "portrait": "assets/quests/leo/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/leo/idle.png",
+        "assets/quests/leo/walk.png"
+      ]
+    },
+    {
+      "id": "vega",
+      "identity": "Madame Vega, powerful record label owner, black and gold tailored suit, mature face, silver streak in dark updo, star brooch",
+      "age": 44,
+      "portrait": "assets/quests/vega/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/vega/idle.png",
+        "assets/quests/vega/walk.png"
+      ]
+    },
+    {
+      "id": "aurelian",
+      "identity": "Aurelian, legendary producer, cream suit, silver swept hair, trimmed silver beard, microphone headed cane",
+      "age": 52,
+      "portrait": "assets/quests/aurelian/portrait-2x2.png",
+      "outputs": [
+        "assets/quests/aurelian/idle.png",
+        "assets/quests/aurelian/walk.png"
+      ]
+    }
+  ]
+}

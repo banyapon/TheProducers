@@ -5,6 +5,7 @@ extends Node2D
 
 signal room_clicked(floor_index: int, column: int, room_type: String)
 signal worker_clicked(artist_id: String)
+signal quest_visitor_clicked(quest_id: String)
 signal zoom_changed(value: float)
 
 const ROOM_W := 640.0
@@ -27,6 +28,7 @@ var foreground: Node2D
 var decoration: Node2D
 var room_labels: Array[Label] = []
 var vip_actor: Worker
+var quest_visitor: Worker
 var vip_chat_time := 0.0
 var workers = {}  ## artist_id -> Worker
 var _font: Font
@@ -284,6 +286,11 @@ func _on_state_loaded() -> void:
 	_refresh_work_mode()
 	queue_redraw()
 	_frame_building()
+	if is_instance_valid(quest_visitor):
+		quest_visitor.queue_free()
+		quest_visitor = null
+	var pending = StoryQuests.pending_visitor()
+	if pending != "": spawn_quest_visitor(pending)
 
 
 func _sync_workers() -> void:
@@ -308,6 +315,34 @@ func _spawn(artist: Dictionary) -> Worker:
 	w.configure_art(Art.model_id(artist))
 	workers[artist["id"]] = w
 	return w
+
+
+func spawn_quest_visitor(quest_id: String) -> void:
+	var q = StoryQuests.definition(quest_id)
+	if q.is_empty(): return
+	if is_instance_valid(quest_visitor):
+		quest_visitor.queue_free()
+		quest_visitor = null
+	var npc: Dictionary = q["npc"]
+	var w: Worker = WORKER_SCENE.instantiate()
+	workers_root.add_child(w)
+	w.setup(self, "", StoryQuests.text(npc["name"]), Color("e7b76a"))
+	w.configure_art(str(npc["art_id"]))
+	w.is_visitor = true
+	w.quest_id = quest_id
+	w.place(0, building_width() + 220.0)
+	var host: Worker = principals.get("producer")
+	var x = host.position.x + 84.0 if is_instance_valid(host) else random_x_in_room(0)
+	w.go_to(0, clampf(x, shaft_x() + 36.0, building_width() - 36.0))
+	quest_visitor = w
+
+
+func dismiss_quest_visitor() -> void:
+	if not is_instance_valid(quest_visitor): return
+	var w = quest_visitor
+	quest_visitor = null
+	w.quest_id = ""
+	w.leave()
 
 
 func spawn_visitor(color: Color, display_name: String, profile: Dictionary = {}) -> void:
@@ -401,6 +436,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _click(pos: Vector2) -> void:
+	for child in workers_root.get_children():
+		var guest = child as Worker
+		if guest and guest.quest_id != "" and guest.hit_test(pos):
+			quest_visitor_clicked.emit(guest.quest_id)
+			return
 	for child in workers_root.get_children():
 		var w = child as Worker
 		if w and not w.is_visitor and w.artist_id != "" and w.hit_test(pos):

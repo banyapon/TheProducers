@@ -1,0 +1,142 @@
+[
+  {
+    "id": "mali",
+    "gender": "female",
+    "age": 32,
+    "art": "Teacher Mali, Thai woman, dark brown bob, mint cardigan and cream blouse, holds a small music notebook",
+    "base": "npc-02-female-bob"
+  },
+  {
+    "id": "boon",
+    "gender": "male",
+    "age": 58,
+    "art": "Uncle Boon, warm elderly Thai coffee shop owner, silver hair and moustache, round glasses, brown apron over cream shirt",
+    "base": "npc-11-male-bald"
+  },
+  {
+    "id": "pim",
+    "gender": "female",
+    "age": 25,
+    "art": "Pim, Thai wedding planner, peach blazer, chestnut shoulder length hair, pearl stud earrings, carries a pastel folder",
+    "base": "npc-16-female-sidesweep"
+  },
+  {
+    "id": "dao",
+    "gender": "female",
+    "age": 49,
+    "art": "Aunt Dao, charismatic Thai festival singer, curled dark hair, bright coral blouse and gold star earrings",
+    "base": "npc-20-female-curly"
+  },
+  {
+    "id": "narin",
+    "gender": "female",
+    "age": 27,
+    "art": "Narin, confident glamorous adult singer, red stage skirt dress with side slit and black boots, long dark wavy hair",
+    "base": "npc-12-female-wavy"
+  },
+  {
+    "id": "vivian",
+    "gender": "female",
+    "age": 36,
+    "art": "Vivian, elegant adult jazz club owner, dark plum velvet blazer, cream blouse, sleek black bob, gold lapel pin",
+    "base": "npc-02-female-bob"
+  },
+  {
+    "id": "rex",
+    "gender": "male",
+    "age": 26,
+    "art": "Rex, adult rival rapper, black bomber jacket and silver chain, buzz cut, shaved eyebrow detail, confident smirk",
+    "base": "npc-01-male-buzz"
+  },
+  {
+    "id": "kai",
+    "gender": "female",
+    "age": 24,
+    "art": "Kai, confident adult Thai hiphop singer, turquoise cropped tank top, high waist baggy cargo trousers, sneakers, dark high ponytail",
+    "base": "npc-24-female-highpony"
+  },
+  {
+    "id": "selene",
+    "gender": "female",
+    "age": 29,
+    "art": "Selene, glamorous adult R&B singer, shimmering purple stage skirt dress, long earrings, swept long auburn hair",
+    "base": "npc-04-female-long"
+  },
+  {
+    "id": "beep",
+    "gender": "male",
+    "age": 41,
+    "art": "Dr Beep, eccentric synth musician with small CRT monitor helmet showing simple expressive pixel eyes, white lab coat, teal shirt",
+    "base": "npc-03-male-sidepart"
+  },
+  {
+    "id": "orbit",
+    "gender": "male",
+    "age": 45,
+    "art": "Captain Orbit, eccentric older astronaut musician, retro orange and cream spacesuit, open helmet with face visible, dark moustache",
+    "base": "npc-17-male-ponytail"
+  },
+  {
+    "id": "crumb",
+    "gender": "male",
+    "age": 38,
+    "art": "Mr Crumb, rock chef, tall white chef hat shaped like a mohawk, black shirt, red apron with gold lightning bolt, small goatee",
+    "base": "npc-13-male-mohawk"
+  },
+  {
+    "id": "mint",
+    "gender": "female",
+    "age": 25,
+    "art": "Mint, radio producer, green bomber jacket, large dark studio headphones around neck, short black pixie hair",
+    "base": "npc-14-female-pixie"
+  },
+  {
+    "id": "aki",
+    "gender": "male",
+    "age": 28,
+    "art": "Aki, athletic adult dance competition organizer, white and red tracksuit, dark swept quiff, headband",
+    "base": "npc-07-male-quiff"
+  },
+  {
+    "id": "phakin",
+    "gender": "male",
+    "age": 34,
+    "art": "Phakin, Thai film director, muted navy shirt, camera strap around neck, dark sidepart hair, thoughtful expression",
+    "base": "npc-03-male-sidepart"
+  },
+  {
+    "id": "rose",
+    "gender": "female",
+    "age": 30,
+    "art": "Rose, adult rock singer, short red pixie hair, red leather jacket over black shirt, blue jeans",
+    "base": "npc-14-female-pixie"
+  },
+  {
+    "id": "ingfah",
+    "gender": "female",
+    "age": 24,
+    "art": "Ingfah, adult emerging singer, sky blue dress, dark braided hair, small lyric notebook",
+    "base": "npc-10-female-braid"
+  },
+  {
+    "id": "leo",
+    "gender": "male",
+    "age": 33,
+    "art": "Leo, competition conductor, ivory tuxedo and dark bow tie, black gloves, slick black hair",
+    "base": "npc-23-male-sidesweep"
+  },
+  {
+    "id": "vega",
+    "gender": "female",
+    "age": 44,
+    "art": "Madame Vega, powerful record label owner, black and gold tailored suit, mature face, silver streak in dark updo, star brooch",
+    "base": "npc-08-female-bun"
+  },
+  {
+    "id": "aurelian",
+    "gender": "male",
+    "age": 52,
+    "art": "Aurelian, legendary producer, cream suit, silver swept hair, trimmed silver beard, microphone headed cane",
+    "base": "npc-09-male-curly"
+  }
+]

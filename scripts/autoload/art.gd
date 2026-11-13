@@ -43,6 +43,9 @@ func model_id(model: Dictionary) -> String:
 	return npc_ids[absi(str(model.get("id", model.get("name", "npc"))).hash()) % npc_ids.size()] if not npc_ids.is_empty() else "producer"
 
 func gender(id: String) -> String:
+	if id.begins_with("quest-"):
+		var quest = StoryQuests.definition(id.trim_prefix("quest-"))
+		if not quest.is_empty(): return quest["npc"]["gender"]
 	if id == "alice" or id.contains("female"):
 		return "female"
 	if id.begins_with("super-"):
@@ -78,6 +81,7 @@ func producer_office_frames() -> SpriteFrames:
 	return office_frames("producer")
 
 func office_frames(id: String) -> SpriteFrames:
+	if id.begins_with("quest-"): return quest_office_frames(id)
 	var folder = "male" if id == "producer" else id
 	var key = "office_original:" + folder
 	if _frames.has(key): return _frames[key]
@@ -106,15 +110,43 @@ func portrait(id: String, expression: int = 0) -> Texture2D:
 	var path = ""
 	if MAIN_PORTRAITS.has(id):
 		path = MAIN_PORTRAITS[id]
+	elif id.begins_with("quest-"):
+		path = "res://assets/quests/%s/portrait-2x2.png" % id.trim_prefix("quest-")
 	else:
 		var dir = "res://assets/%s/%s/" % ["vip" if id.begins_with("super-") else "npc", id]
 		path = dir + "portrait-v2-2x2.png"
-	var sheet = texture(path)
+	var sheet = texture(path, Vector2i(256, 256) if id.begins_with("quest-") else Vector2i.ZERO)
 	if sheet == null:
 		return null
 	var cell = sheet.get_size() / 2.0
 	var result = atlas(sheet, Rect2(Vector2(expression % 2, expression / 2) * cell, cell))
 	_portraits[key] = result
+	return result
+
+func quest_office_frames(id: String) -> SpriteFrames:
+	var key = "quest_office_3x3:" + id
+	if _frames.has(key): return _frames[key]
+	var folder = "res://assets/quests/%s/" % id.trim_prefix("quest-")
+	var result = SpriteFrames.new()
+	result.remove_animation("default")
+	for animation in ["idle", "walk", "play", "talk"]:
+		# Dialogue and performance use the idle body. Quest casts ship idle and walk only.
+		var source_name = "idle" if animation in ["talk", "play"] else animation
+		var sheet = texture(folder + source_name + ".png", Vector2i(480, 480))
+		if sheet == null:
+			var quest = StoryQuests.definition(id.trim_prefix("quest-"))
+			return office_frames(quest.get("npc", {}).get("base", "producer"))
+		result.add_animation(animation)
+		result.set_animation_speed(animation, 5.0 if animation in ["idle", "talk", "play"] else 9.0)
+		var pixels = sheet.get_image()
+		for frame in 9:
+			var origin = Vector2i((frame % 3) * 160, (frame / 3) * 160)
+			var used = pixels.get_region(Rect2i(origin, Vector2i(160, 160))).get_used_rect()
+			var pose = atlas(sheet, Rect2(origin + used.position, used.size))
+			# Preserve the original office ground anchor across generated cell margins.
+			pose.margin = Rect2(Vector2(80 - used.size.x / 2, 137 - used.size.y), Vector2(160, 160) - Vector2(used.size))
+			result.add_frame(animation, pose)
+	_frames[key] = result
 	return result
 
 func portrait_data(model: Dictionary) -> Dictionary:

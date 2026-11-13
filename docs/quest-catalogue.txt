@@ -1,0 +1,329 @@
+THE PRODUCERS ? STORY QUEST CATALOGUE
+20 adult characters / Thai and English
+
+01 | ครูมะลิ / Teacher Mali | 32
+เพลงแรกของห้องเรียน / A Classroom's First Song
+Goal: 1 release(s), Pop, minimum 20/40; gentle; commission
+Reward: $2000 + 50 fans; client commission fee x1.2
+INTRO TH: มีเด็กคนหนึ่งไม่เคยกล้าร้องต่อหน้าเพื่อน ฉันอยากให้เพลงพาเขาเริ่มต้นค่ะ
+INTRO EN: One child has never dared sing in front of the class. I'd like a song that helps him begin.
+HINT TH: เพลงเบา ๆ จังหวะไม่เร็ว จะช่วยให้เด็กตามทันค่ะ
+HINT EN: A gentle song at an easy pace will help the children join in.
+SUCCESS TH: วันนี้เด็กที่ไม่เคยยกมือ เป็นคนร้องนำค่ะ
+SUCCESS EN: Today, the child who never raises a hand led the song.
+SCENE TH: ครูเปิดคลิปเสียงร้องจากห้องเรียน เด็ก ๆ ขอให้เขียนชื่อสตูดิโอไว้ในสมุดเพลง
+SCENE EN: Mali plays a recording from her classroom. The children ask to write your studio's name in their songbooks.
+RETURN TH: ครั้งหน้าเรามาทำเพลงสำหรับวันโรงเรียนกันนะคะ
+RETURN EN: Next time, let's make something for the school festival.
+Art: assets/quests/mali/
+
+02 | ลุงบุญ / Uncle Boon | 58
+กาแฟแก้วสุดท้าย / One Last Cup
+Goal: 1 release(s), Lofi, minimum 22/40; gentle; commission
+Reward: $2500 + 70 fans; client commission fee x1.3
+INTRO TH: ร้านกำลังจะปิด แต่ผมยังอยากให้คนมีที่พักใจอีกสักเพลง
+INTRO EN: The cafe is about to close. I still want to give people one more song to rest with.
+HINT TH: ขอจังหวะสบาย ๆ ที่ไม่แย่งเสียงบทสนทนาของลูกค้านะ
+HINT EN: Keep it relaxed, with enough room for people to talk.
+SUCCESS TH: กาแฟหมดแก้วแล้ว แต่ลูกค้ายังนั่งฟังเพลงอยู่เลย
+SUCCESS EN: Their cups were empty, but they stayed for the music.
+SCENE TH: ลุงบุญแขวนป้ายชื่อเพลงข้างเครื่องชงกาแฟและเปิดไฟร้านต่ออีกหนึ่งชั่วโมง
+SCENE EN: Boon hangs the song title beside his espresso machine and keeps the lights on for another hour.
+RETURN TH: เพลงของคุณกลายเป็นรายการที่ลูกค้าสั่งประจำแล้ว
+RETURN EN: Your song has become one of our regular orders.
+Art: assets/quests/boon/
+
+03 | พิม / Pim | 25
+เพลงแทนคำสัญญา / A Promise in Melody
+Goal: 1 release(s), R&B, minimum 24/40; hook; commission
+Reward: $3000 + 90 fans; client commission fee x1.3
+INTRO TH: คู่บ่าวสาวไม่อยากได้เพลงรักสำเร็จรูป เขาอยากได้เสียงของคำสัญญาจริง ๆ
+INTRO EN: The couple doesn't want a ready-made love song. They want to hear their own promise.
+HINT TH: ลองให้ฮุกกลับมาอีกครั้งช่วงท้าย ให้คนรู้สึกเหมือนได้กลับบ้านค่ะ
+HINT EN: Let the hook return near the end, like coming home.
+SUCCESS TH: ตอนเพลงขึ้น เขาลืมคำพูดที่ซ้อมไว้หมดเลยค่ะ
+SUCCESS EN: When the music started, he forgot every word he'd rehearsed.
+SCENE TH: พิมส่งภาพฟลอร์เต้นรำและการ์ดขอบคุณที่มีชื่อโปรดิวเซอร์เขียนด้วยมือ
+SCENE EN: Pim sends a picture of the dance floor and a thank-you card with the producer's name written by hand.
+RETURN TH: มีคู่ใหม่ถามถึงคนที่แต่งเพลงนี้แล้วค่ะ
+RETURN EN: Another couple has already asked who made that song.
+Art: assets/quests/pim/
+
+04 | ป้าดาว / Aunt Dao | 49
+เวทีเล็กที่ไม่เล็ก / A Small Stage, A Big Night
+Goal: 2 release(s), Country, minimum 23/40; ; commission
+Reward: $3500 + 110 fans; client commission fee x1.3
+INTRO TH: คนชอบเรียกงานวัดว่าเวทีเล็ก ป้าอยากให้เพลงนี้ทำให้เขาเปลี่ยนใจ
+INTRO EN: People call our fair a small stage. I want these songs to change their minds.
+HINT TH: ขอ Country สองเพลงที่คนฟังร้องตามได้คนละอารมณ์
+HINT EN: Give us two Country songs with different moods that everyone can sing along to.
+SUCCESS TH: เวทีเราเล็ก แต่คืนนี้เสียงปรบมือไปถึงท้ายตลาดเลยนะ
+SUCCESS EN: Our stage is small, but tonight the applause reached the end of the market.
+SCENE TH: ป้าดาวประกาศชื่อสตูดิโอและเชิญนักดนตรีรุ่นใหม่ขึ้นมาร่วมร้อง
+SCENE EN: Dao announces your studio and invites young local musicians to join her on stage.
+RETURN TH: งานชุมชนครั้งหน้า ป้าจองคิวคุณก่อนเลยนะ
+RETURN EN: I'm booking you early for the next festival.
+Art: assets/quests/dao/
+
+05 | นาริน / Narin | 27
+ชื่อของฉันบนโปสเตอร์ / My Name on the Poster
+Goal: 2 release(s), Pop, minimum 24/40; peak28; commission
+Reward: $4000 + 130 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: ฉันร้องแบ็กอัปมานาน คราวนี้อยากรู้ว่าถ้าเสียงฉันอยู่ข้างหน้า มันจะเป็นยังไง
+INTRO EN: I've sung backup for years. I want to know what my voice sounds like out front.
+HINT TH: เพลงแรกสร้างตัวตน เพลงถัดไปต้องไปได้ถึง 28 คะแนนนะ
+HINT EN: The first song finds my voice. The next needs to reach 28 points.
+SUCCESS TH: คราวนี้ชื่อบนโปสเตอร์เป็นชื่อฉันจริง ๆ
+SUCCESS EN: This time, that's really my name on the poster.
+SCENE TH: นารินคลี่โปสเตอร์เดี่ยวใบแรก ชื่อของเธออยู่เหนือเครดิตสตูดิโอของคุณ
+SCENE EN: Narin unfolds her first solo poster. Her name stands above your studio credit.
+RETURN TH: ถ้าสตูดิโอยังมีที่ ฉันอยากร้องเพลงต่อกับคุณ
+RETURN EN: If there's room at the studio, I'd like to keep singing with you.
+Art: assets/quests/narin/
+
+06 | วิเวียน / Vivian | 36
+คืนที่ห้าของ Blue Note / Five Nights at Blue Note
+Goal: 5 release(s), Jazz, minimum 0/40; ; collection
+Reward: $4500 + 150 fans; client commission fee x1.8
+INTRO TH: คลับของฉันไม่ได้มองหาเพลงฮิตคืนเดียว ฉันมองหาคนที่ทำให้แจ๊ซมีชีวิตทุกคืน
+INTRO EN: My club isn't looking for a one-night hit. I want someone who makes jazz live every night.
+HINT TH: เผยแพร่ Jazz ให้ครบห้าเพลง ผลงานเก่าของคุณนับด้วย
+HINT EN: Release five Jazz songs. Your earlier work counts too.
+SUCCESS TH: ห้าคืน ห้าเพลง และไม่มีคืนไหนที่ฉันอยากให้จบเร็ว
+SUCCESS EN: Five nights. Five songs. Not once did I want the night to end.
+SCENE TH: วิเวียนวางบัตรสมาชิกสีทองบนโต๊ะ พร้อมเชิญคุณไปฟังเพลงของตัวเองที่คลับ
+SCENE EN: Vivian places a gold membership card on the desk and invites you to hear your own music at her club.
+RETURN TH: โต๊ะเดิมรอคุณอยู่ และงบเพลงชุดใหม่ก็เช่นกัน
+RETURN EN: Your usual table is waiting. So is the budget for our next set.
+Art: assets/quests/vivian/
+
+07 | เร็กซ์ / Rex | 26
+ชนะฉันด้วยบีต / Beat Me with a Beat
+Goal: 1 release(s), HipHop, minimum 35/40; ; commission
+Reward: $5000 + 170 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: เพลงฉันได้ 34 ถ้าคุณทำ HipHop ถึง 35 ฉันจะยอมฟังคำว่าโปรดิวเซอร์จากปากคุณ
+INTRO EN: My track scored 34. Hit 35 with HipHop and I'll take you seriously as a producer.
+HINT TH: ไม่ต้องเดาใจกรรมการ คะแนน 35 คือคุณชนะ
+HINT EN: No guessing what the judges want. A score of 35 means you win.
+SUCCESS TH: โอเค คุณชนะ… ยังมีที่ให้คนแพ้ทำงานไหม?
+SUCCESS EN: All right. You win... Got a job for the loser?
+SCENE TH: เร็กซ์ปิดเพลงของตัวเอง แล้วเลื่อนใบสมัครเข้าหาคุณแทนใบประกาศท้า
+SCENE EN: Rex switches off his own track and slides over an application instead of another challenge.
+RETURN TH: ผมยังไม่เลิกแข่งนะ แต่คราวนี้แข่งให้ทีมเรา
+RETURN EN: I'm not done competing. This time, I'm competing for our team.
+Art: assets/quests/rex/
+
+08 | ไค / Kai | 24
+เสียงของฉัน ไม่ใช่เงาของใคร / My Voice, My Rules
+Goal: 2 release(s), HipHop, minimum 28/40; hook; commission
+Reward: $5500 + 190 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: ทุกคนบอกให้ฉันเหมือนคนที่ดังอยู่แล้ว ฉันอยากได้บีตที่ไม่ต้องยืมชื่อใคร
+INTRO EN: Everyone wants me to sound like whoever's famous. I need a beat that doesn't borrow a name.
+HINT TH: HipHop สองเพลง ฮุกต้องกลับมาให้คนจำได้
+HINT EN: Two HipHop songs. Bring the hook back so people remember it.
+SUCCESS TH: บีตนี้ไม่ได้ทำให้ฉันเหมือนใคร มันทำให้ฉันเป็นตัวเอง
+SUCCESS EN: This beat doesn't make me sound like someone else. It makes me sound like me.
+SCENE TH: ไคลองร้องฮุกชื่อสตูดิโอแล้วหัวเราะ เธอขออัดเทคใหม่ด้วยความมั่นใจ
+SCENE EN: Kai raps your studio name into the hook, laughs, and asks for another take with new confidence.
+RETURN TH: ถ้าต้องการคนกล้าลองอะไรใหม่ ๆ เรียกฉันได้เลย
+RETURN EN: If you need someone willing to try something new, call me.
+Art: assets/quests/kai/
+
+09 | เซลีน / Selene | 29
+กลับมาใต้สปอตไลต์ / Back in the Spotlight
+Goal: 1 release(s), R&B, minimum 32/40; rise; commission
+Reward: $6000 + 210 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: ฉันหายไปจากเวทีนานจนเริ่มกลัวไฟสปอตไลต์ ช่วยให้เพลงพาฉันกลับไปที
+INTRO EN: I've been away so long that the spotlight scares me. Help me find my way back through a song.
+HINT TH: เริ่มเบาหน่อย แล้วให้ฮุกเติบโตจนฉันกล้าร้องเต็มเสียง
+HINT EN: Start softly. Let the hook grow until I dare to sing at full strength.
+SUCCESS TH: ฉันคิดถึงเสียงปรบมือ แต่คิดถึงความรู้สึกนี้มากกว่า
+SUCCESS EN: I missed the applause. But I missed this feeling more.
+SCENE TH: ไฟเวทีส่องชุดสีม่วง เซลีนหยุดฟังเสียงปรบมือก่อนหันมาขอบคุณทีมหลังเวที
+SCENE EN: The lights catch Selene's purple dress. She listens to the applause, then turns to thank the crew.
+RETURN TH: ฉันพร้อมขึ้นเวทีอีกครั้ง ถ้าคุณพร้อมทำเพลงกับฉัน
+RETURN EN: I'm ready for the stage again, if you're ready to make music with me.
+Art: assets/quests/selene/
+
+10 | ดร.บี๊ป / Dr. Beep | 41
+หัวใจที่เครื่องจักรไม่มี / A Machine with a Heart
+Goal: 1 release(s), EDM, minimum 29/40; improvise; commission
+Reward: $6500 + 230 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: ผมสร้างเสียงได้ทุกชนิด แต่ยังสร้างความรู้สึกที่อยากฟังซ้ำไม่ได้
+INTRO EN: I can build any sound. I haven't built the feeling that makes someone play it again.
+HINT TH: อัดโน้ตจริงผ่าน Improvise อย่างน้อยหนึ่งไลน์นะ
+HINT EN: Record at least one real line through Improvise.
+SUCCESS TH: ระบบตรวจพบสิ่งผิดปกติ… ผมอยากฟังอีกครั้ง
+SUCCESS EN: Anomaly detected... I want to hear it again.
+SCENE TH: จอของดร.บี๊ปเปลี่ยนจากกราฟคลื่นเป็นหัวใจพิกเซล ก่อนกลับไปกระพริบตามเพลง
+SCENE EN: Dr. Beep's screen changes from a waveform to a pixel heart, then blinks along with the music.
+RETURN TH: ผมขอพื้นที่วางซินธ์ในสตูดิโอคุณได้ไหม
+RETURN EN: Could I have a little space for a synth in your studio?
+Art: assets/quests/beep/
+
+11 | กัปตันออร์บิต / Captain Orbit | 45
+ข้อความจากดาวที่เงียบ / A Signal from Silence
+Goal: 1 release(s), Lofi, minimum 27/40; ; commission
+Reward: $7000 + 250 fans; client commission fee x1.5
+INTRO TH: ผมเปิดวิทยุฟังเสียงซ่าเวลาคิดถึงบ้าน ช่วยใส่ทำนองลงในความเงียบนี้ที
+INTRO EN: I listen to radio static when I miss home. Put a melody into that silence for me.
+HINT TH: Lofi ที่เดินทางได้ไกลโดยไม่ต้องรีบ และคะแนนอย่างน้อย 27
+HINT EN: Lofi that travels far without rushing, with at least 27 points.
+SUCCESS TH: ถ้าอวกาศมีเสียง ผมอยากให้มันเป็นเพลงนี้
+SUCCESS EN: If space had a sound, I'd want it to be this song.
+SCENE TH: ออร์บิตส่งเพลงผ่านวิทยุจำลอง แล้ววางแผนที่ดาวที่เขียนชื่อสตูดิโอไว้ข้างดวงจันทร์
+SCENE EN: Orbit transmits the song through a model radio and pins up a star map with your studio beside the moon.
+RETURN TH: สถานีออร์บิตรับสัญญาณชัดเจน พร้อมสำหรับภารกิจถัดไป
+RETURN EN: Orbit Station reads you loud and clear. Ready for the next mission.
+Art: assets/quests/orbit/
+
+12 | มิสเตอร์ครัมบ์ / Mr. Crumb | 38
+ครัวนี้ต้องมีโซโล / This Kitchen Needs a Solo
+Goal: 1 release(s), Rock, minimum 30/40; melody_improvise; commission
+Reward: $7500 + 270 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: ผมเคยฝันจะเป็นมือกีตาร์ แต่ร้านต้องเปิดทุกวัน คืนนี้ขอให้ครัวได้เล่นโซโลบ้าง
+INTRO EN: I dreamed of being a guitarist, but the restaurant opens every day. Tonight, let the kitchen play a solo.
+HINT TH: Rock 30 คะแนน และโซโล Melody ที่คุณเล่นเองผ่าน Improvise
+HINT EN: Thirty-point Rock, with a Melody solo you play yourself through Improvise.
+SUCCESS TH: คืนนี้อาหารอาจเผ็ด แต่โซโลเผ็ดกว่า!
+SUCCESS EN: Dinner's hot tonight. That solo's hotter!
+SCENE TH: ครัมบ์แขวนผ้ากันเปื้อนชั่วครู่แล้วหยิบกีตาร์ พนักงานทั้งร้านช่วยกันเคาะจังหวะ
+SCENE EN: Crumb hangs up his apron and grabs a guitar. The whole kitchen joins the rhythm.
+RETURN TH: ร้านปิดวันจันทร์ ถ้าจะซ้อมวง โทรหาผมวันนั้น
+RETURN EN: We're closed on Mondays. Call me then if the band needs practice.
+Art: assets/quests/crumb/
+
+13 | มิ้นต์ / Mint | 25
+สามสิบวินาทีที่คนจำ / Thirty Seconds to Remember
+Goal: 1 release(s), Pop, minimum 28/40; hook; commission
+Reward: $8000 + 290 fans; client commission fee x1.4
+INTRO TH: โฆษณามีเวลาแค่แป๊บเดียว ฉันอยากได้ท่อนที่คนยังฮัมหลังข่าวจบ
+INTRO EN: An ad has barely a moment. I need something people still hum after the news.
+HINT TH: ทำฮุกให้จำได้และกลับมาอีกครั้ง คะแนนต้องถึง 28
+HINT EN: Make the hook memorable and bring it back. Reach 28 points.
+SUCCESS TH: เพลงจบไปแล้ว แต่สายโทรศัพท์ยังไม่หยุดเลย
+SUCCESS EN: The song's over. The phone hasn't stopped ringing.
+SCENE TH: เสียงดีเจประกาศเครดิตสตูดิโอ มิ้นต์ยกหูฟังให้คุณฟังสายจากผู้ฟัง
+SCENE EN: The DJ reads your studio credit. Mint hands you the headphones so you can hear a listener call in.
+RETURN TH: มีคิวโฆษณาใหม่เข้ามา ฉันเก็บคิวดี ๆ ไว้ให้คุณ
+RETURN EN: New ad slots just came in. I've saved the good ones for you.
+Art: assets/quests/mint/
+
+14 | อากิ / Aki | 28
+พื้นเต้นยังรอเรา / The Floor Is Waiting
+Goal: 2 release(s), EDM, minimum 30/40; dance_pair; commission
+Reward: $8500 + 310 fans; client commission fee x1.4
+INTRO TH: ทีมเต้นของเรามีทั้งสาย EDM กับ HipHop ช่วยทำให้พวกเขาได้เวทีเดียวกันที
+INTRO EN: Our crew has EDM dancers and HipHop dancers. Help them share the same floor.
+HINT TH: ต้องมีทั้ง EDM และ HipHop อย่างละเพลง คะแนน 30 ขึ้นไป
+HINT EN: We need one EDM track and one HipHop track, each scoring at least 30.
+SUCCESS TH: พอฮุกมา ทุกคนหยุดนับจังหวะแล้วเริ่มเต้นจริง ๆ
+SUCCESS EN: When the hook hit, everyone stopped counting and started dancing.
+SCENE TH: นักเต้นสองกลุ่มรวมวงกัน อากิชี้ไปที่เครดิตสตูดิโอบนจอหลังเวที
+SCENE EN: The two crews merge into one circle. Aki points to your studio credit on the screen.
+RETURN TH: เวทีครั้งหน้าจะใหญ่ขึ้น คุณช่วยดูเสียงให้เราอีกนะ
+RETURN EN: The next floor will be bigger. Help us make it sound right again.
+Art: assets/quests/aki/
+
+15 | ภาคิน / Phakin | 34
+ฉากที่พูดไม่ได้ / The Scene Without Words
+Goal: 1 release(s), Classical, minimum 32/40; rise; commission
+Reward: $9000 + 330 fans; client commission fee x1.6
+INTRO TH: ฉากนี้ไม่มีบทพูด แต่ผมอยากให้คนดูเข้าใจว่าตัวละครเลือกจะเดินต่อ
+INTRO EN: There is no dialogue in this scene. I want the audience to understand that the character chooses to go on.
+HINT TH: เริ่มสงบแล้วเพิ่มพลังในฮุก คะแนนอย่างน้อย 32
+HINT EN: Start quietly, then build into the hook. Reach at least 32 points.
+SUCCESS TH: ผมตัดบทพูดฉากนั้นออกแล้ว เพลงเล่ามันได้ดีกว่า
+SUCCESS EN: I cut the dialogue from that scene. Your music tells it better.
+SCENE TH: ภาคินฉายหนังสั้นในห้องอัด เครดิตท้ายเรื่องขึ้นชื่อสตูดิโอท่ามกลางความเงียบที่อบอุ่น
+SCENE EN: Phakin screens his short film in the studio. Your credit appears in a warm, thoughtful silence.
+RETURN TH: หนังเรื่องใหม่ยังไม่มีเสียงแรก ผมอยากเริ่มกับคุณ
+RETURN EN: My next film hasn't found its first sound. I'd like to start with you.
+Art: assets/quests/phakin/
+
+16 | โรส / Rose | 30
+เพลงที่วงทิ้งไว้ / The Song We Left Behind
+Goal: 1 release(s), Rock, minimum 33/40; ; commission
+Reward: $9500 + 350 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: วงเก่าทิ้งเพลงนี้ไว้ครึ่งเดียว ฉันไม่รู้ว่าควรจบมันหรือเริ่มใหม่
+INTRO EN: My old band left this song unfinished. I don't know whether to finish it or start again.
+HINT TH: ไม่ต้องลบอดีต แค่ทำ Rock ที่ไปถึง 33 คะแนนด้วยกัน
+HINT EN: We don't have to erase the past. Let's make a Rock track that reaches 33.
+SUCCESS TH: เพลงนี้เคยเป็นเหตุผลที่ฉันเลิก วันนี้มันทำให้ฉันกลับมา
+SUCCESS EN: This song used to be why I quit. Today, it brought me back.
+SCENE TH: โรสเก็บรูปวงเก่าเข้ากล่อง เปิดสมุดหน้าใหม่ และเขียนชื่อสตูดิโอไว้ที่มุมกระดาษ
+SCENE EN: Rose puts her old band photo away, opens a fresh page, and writes your studio's name in the corner.
+RETURN TH: คราวนี้ฉันจะไม่เดินออกจากห้องซ้อมโดยไม่บอกใคร
+RETURN EN: This time, I won't walk out of rehearsal without telling anyone.
+Art: assets/quests/rose/
+
+17 | อิงฟ้า / Ingfah | 24
+ก่อนประกาศชื่อผู้ชนะ / Before They Call My Name
+Goal: 1 release(s), Pop, minimum 30/40; ; commission
+Reward: $10000 + 370 fans; unlock artist contract ($4,000 + $800/week)
+INTRO TH: ฉันซ้อมร้องในห้องทุกคืน แต่ยังไม่เคยได้ยินชื่อตัวเองบนเวทีเลย
+INTRO EN: I rehearse in my room every night. I've never heard my name called on a stage.
+HINT TH: เพลงประกวดนี้ใช้เกณฑ์ 30 คะแนน ไม่มีการสุ่มผลค่ะ
+HINT EN: This competition uses a 30-point threshold. The result isn't random.
+SUCCESS TH: ตอนเขาเรียกชื่อฉัน ฉันอยากให้คุณอยู่ตรงนั้นด้วย
+SUCCESS EN: When they called my name, I wished you were standing beside me.
+SCENE TH: พิธีกรประกาศผู้ชนะ Rising Star อิงฟาชูถ้วยแล้วชี้ไปที่ชื่อทีมโปรดิวเซอร์
+SCENE EN: The host announces the Rising Star winner. Ingfah lifts the trophy and points to her production team.
+RETURN TH: ฉันอยากให้เพลงถัดไปเป็นเพลงของทีมเราอีกค่ะ
+RETURN EN: I'd like the next song to be another song from our team.
+Art: assets/quests/ingfah/
+
+18 | ลีโอ / Leo | 33
+เพลงเดียวต่อหน้าทั้งเมือง / One Song, One City
+Goal: 1 release(s), Pop, minimum 34/40; rise; commission
+Complete first: ingfah
+Reward: $10500 + 390 fans; client commission fee x1.7
+INTRO TH: เวทีเมืองไม่ได้ต้องการแค่เสียงดัง เราต้องการเพลงที่พาคนทั้งงานไปด้วยกัน
+INTRO EN: A city stage needs more than volume. It needs a song that carries everyone together.
+HINT TH: ผ่าน Rising Star ก่อน แล้วส่งเพลง 34 คะแนนที่ฮุกพุ่งชัดเจน
+HINT EN: Finish Rising Star, then deliver a 34-point song with a clear lift into the hook.
+SUCCESS TH: คุณไม่ได้แค่ผ่านเวทีนี้ คุณทำให้คนจำเวทีนี้ได้
+SUCCESS EN: You didn't just make it through this show. You made it worth remembering.
+SCENE TH: ลีโอยกไม้บาตองให้วงหยุดและหันให้ผู้ชมปรบมือแก่ทีมสตูดิโอ
+SCENE EN: Leo lowers his baton and turns the audience's applause toward the studio team.
+RETURN TH: ผมมีงานระดับเมืองอีกหลายงาน อยากให้คุณมาช่วยฟัง
+RETURN EN: There are more city stages ahead. I'd like your ears on them.
+Art: assets/quests/leo/
+
+19 | มาดามเวกา / Madame Vega | 44
+พิสูจน์ว่าคุณไม่ได้ฟลุค / Prove It Wasn't Luck
+Goal: 3 release(s), any primary genre, minimum 34/40; distinct; collection
+Reward: $11000 + 410 fans; client commission fee x2
+INTRO TH: ฉันไม่ได้ซื้อโชคของโปรดิวเซอร์ ฉันลงทุนกับคนที่ทำได้ซ้ำในหลายแนว
+INTRO EN: I don't buy a producer's luck. I invest in someone who can deliver across genres.
+HINT TH: สามเพลง สามแนวหลักต่างกัน ทุกเพลงอย่างน้อย 34 คะแนน
+HINT EN: Three songs, three different primary genres, each scoring at least 34.
+SUCCESS TH: เพลงเดียวอาจเป็นโชค แต่สามเพลงแบบนี้คือฝีมือ
+SUCCESS EN: One song could be luck. Three like these are craft.
+SCENE TH: เวกาวางข้อเสนอฉบับใหม่ลงบนโต๊ะ ตัวเลขค่าจ้างเพิ่มเป็นสองเท่าโดยไม่ต้องต่อรอง
+SCENE EN: Vega places a new offer on the desk. The fee has doubled before you even negotiate.
+RETURN TH: คราวนี้เราไม่ต้องเริ่มจากการพิสูจน์ตัวเองแล้ว
+RETURN EN: This time, we don't have to begin by proving ourselves.
+Art: assets/quests/vega/
+
+20 | ออเรเลียน / Aurelian | 52
+เพลงที่เป็นชื่อของคุณ / A Song That Bears Your Name
+Goal: 1 release(s), any primary genre, minimum 37/40; improvise; commission
+Complete at least 15 quests first.
+Reward: $11500 + 430 fans; client commission fee x2
+INTRO TH: ผมฟังเรื่องของคนที่เดินผ่านห้องนี้มาแล้ว ตอนนี้อยากฟังเสียงของคุณเอง
+INTRO EN: I've heard the stories of the people who came through this room. Now I want to hear your own voice.
+HINT TH: จบเรื่องราวสิบห้าคน แล้วทำเพลง 37 คะแนนที่มีไลน์เล่นเอง
+HINT EN: Finish fifteen stories, then create a 37-point song with a line you performed yourself.
+SUCCESS TH: ตอนนี้ผมไม่ต้องถามแล้วว่าใครทำเพลงนี้ ผมจำเสียงของคุณได้
+SUCCESS EN: Now I don't have to ask who made this. I recognize your sound.
+SCENE TH: Alice เปิดประตูให้เหล่าเพื่อนเก่ามาฟังเพลง ออเรเลียนถอดหมวกให้เครดิตโปรดิวเซอร์คนใหม่
+SCENE EN: Alice opens the door to familiar faces. Aurelian salutes the studio's producer as the final song plays.
+RETURN TH: ตำนานไม่ใช่เพลงสุดท้าย เป็นเหตุผลให้คุณทำเพลงต่อไป
+RETURN EN: A legacy isn't your last song. It's a reason to make the next one.
+Art: assets/quests/aurelian/
+
+RULES
+Collection quests count past releases; commission quests require a song from that character's linked brief.
+Remixes and tied primary genres do not count. Dialogue and ending replay do not award duplicate rewards.
+Exact arrangement thresholds are displayed by the Quest menu. See docs/story-quests.txt for implementation and verification.

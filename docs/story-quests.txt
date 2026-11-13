@@ -1,0 +1,37 @@
+Story Encounters — implementation notes
+
+20 bilingual quests are defined in data/quests/story_quests.json.
+Open Quest on the title page to browse every story. In a career, guests from assets/quests walk into the office on their own.
+A guest appears when your Reputation reaches their gate (25, 45, 60, 75, then 90, four stories each) or by chance below that gate. Story prerequisites still apply. One guest at a time; they walk and idle near you. Talk to them to accept or send them away.
+The career Quest menu lists only stories you have accepted. It does not list guests who have not arrived.
+Commission quests create a real offer on the existing commissions board. Accept that offer, produce and release its song, then return to Quest to claim.
+Collection quests count existing releases too. Remixes and tied primary genres do not count.
+Rex requires HipHop 35/40 (score, not 35 songs); Vivian requires five Jazz songs.
+Some quests require recorded Improvise notes, repeated hooks, energy rise, or a gentle arrangement; the exact thresholds are in each bilingual hint.
+New briefs have a seven-game-day cooldown and cannot be issued while an earlier brief remains outstanding.
+Passing a client, VIP, or legend story makes that person a regular client. Their later commissions are more likely to come back, and the reward multiplier still applies.
+Passing an artist story unlocks them as a teammate you can romance. Signing still costs $4,000 for four weeks at $800/week, and the four-month workplace wait does not apply to them.
+Completion, ending replay state, choices, song evidence, recruits and cooldowns persist inside Game.life, independently per save slot.
+Rewards are marked claimed before emitting gameplay signals to prevent repeated claims.
+Story contest trophies are deterministic story awards, separate from the normal contest cycle.
+
+Art reference: assets/npc portrait-v2-2x2.png; assets/sprites/alice; npc-01-male-buzz; super-04.
+New art: assets/quests/<id>/portrait-2x2.png, idle.png, walk.png and play.png.
+Portrait cells are row-major: neutral, talking, blink, talking/blink.
+Each animation is a separate 3x3 sheet with nine row-major frames, matching male, Alice and NPC sheets. Talk uses the idle body with portrait expressions.
+Runtime uses nearest-neighbour sampling and virtual 160x160 frames anchored at (80,137), matching the original office cast.
+All named characters are adults. Narin and Selene wear stage dresses; Kai wears a tank top and hip-hop cargo trousers.
+Dr. Beep, Captain Orbit and Mr. Crumb are the three eccentric male characters.
+Images generated with the built-in image generation tool from existing local references. Original source assets were not overwritten.
+
+Design reading:
+https://www.gdcvault.com/play/1028897/10-Key-Quest-Design-LessonsStartup
+Applied: concise objectives, distinct character motivations, visible consequences and rewards.
+https://docs.godotengine.org/en/4.4/tutorials/io/saving_games.html
+Applied: serializable quest state in the project's existing per-slot save system.
+
+Checks:
+Godot --headless --path . tests/story_quests_test.tscn
+Godot --path . --audio-driver Dummy tests/story_quests_ui_test.tscn
+UI test writes screenshots under D:/Temp/quest-*.webp when a display driver is active.
+

@@ -64,6 +64,9 @@ func _build() -> void:
 	var alice_button = UIKit.button("Alice", func(): panel_requested.emit("alice"))
 	alice_button.name = "AliceButton"
 	first.add_child(alice_button)
+	var quests_button = UIKit.button("Quest", func(): panel_requested.emit("quests"))
+	quests_button.name = "OpenQuests"
+	first.add_child(quests_button)
 	action_buttons["alice"] = alice_button
 	first.add_child(UIKit.button("EN / TH", func(): Locale.set_language("en" if Locale.language == "th" else "th")))
 	for speed in [0, 1, 2, 4]:
