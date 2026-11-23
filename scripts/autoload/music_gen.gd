@@ -1,10 +1,4 @@
 extends Node
-## Song pipeline after release:
-##   1. assigned cast portrait cover       -> user://covers/<id>.png
-##   2. audio: built-in SongSynth (free/offline) -> user://songs/<id>.wav
-##      (+ optional Hugging Face MusicGen track if configured)
-##   3. signed Cloudinary upload into <root>/<firebase uid>/covers|songs (the player's storage)
-
 var _cover_cache = {}
 var active_jobs := 0
 
