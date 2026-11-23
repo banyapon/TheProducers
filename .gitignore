@@ -1,21 +1,56 @@
-# Godot 4+ specific ignores
-.godot/
-.nomedia
+# The Producers — public repo holds only the Godot project and its Aseprite sources.
 
-# Godot-specific ignores
+# ---- Godot 4 ----
+.godot/
 .import/
+.nomedia
 export.cfg
 export_credentials.cfg
-
-# Imported translations (automatically generated from CSV files)
 *.translation
-
-# Mono-specific ignores
 .mono/
 data_*/
 mono_crash.*.json
-sources/
 
-# Keep only the root README.md among Markdown files.
+# ---- Secrets: never commit ----
+config/secrets.cfg
+.env
+.env.*
+*.pem
+*.key
+
+# ---- Build output and release media ----
+# PC/ and WebGL/ builds are committed; their large files go through Git LFS (.gitattributes).
+builds/
+releases/
+*.zip
+*.avi
+
+# ---- Aseprite sources: keep only .aseprite files ----
+sources/*
+!sources/sprites/
+!sources/media/
+sources/sprites/*
+!sources/sprites/*.aseprite
+sources/media/*
+!sources/media/*.aseprite
+*.aseprite-backup
+
+# ---- Not part of the Godot / Aseprite project ----
+server/
+docs/
+config/SETUP.txt
+tools/**/*.py
+__pycache__/
+*.pyc
+.agents/
+.claude/
+.qa/
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- Markdown: keep only the root README ----
 *.[mM][dD]
 !/README.md

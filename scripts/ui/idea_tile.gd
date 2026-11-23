@@ -6,10 +6,14 @@ var disabled := false
 signal selected(block: int)
 
 func _ready() -> void:
-	mouse_default_cursor_shape = CURSOR_ARROW if disabled else CURSOR_DRAG
+	mouse_default_cursor_shape = CURSOR_ARROW if disabled else CURSOR_POINTING_HAND
+	focus_mode = FOCUS_ALL
 
 func _gui_input(event: InputEvent) -> void:
 	if disabled: return
+	if event.is_action_pressed("ui_accept"):
+		selected.emit(block_id)
+		accept_event()
 	# Rebuilding on mouse-down destroys the drag source before the movement threshold.
 	if event is InputEventMouseButton and not event.pressed and event.button_index == MOUSE_BUTTON_LEFT and not get_viewport().gui_is_dragging():
 		selected.emit(block_id)

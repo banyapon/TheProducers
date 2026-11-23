@@ -2,7 +2,7 @@ extends Node
 ## Loads API keys from user://secrets.cfg or res://config/secrets.cfg (gitignored).
 ## Nothing secret is hard-coded in scripts.
 
-const PATHS := ["user://secrets.cfg", "res://config/secrets.cfg"]
+const PATHS := ["user://secrets.cfg", "res://config/secrets.cfg", "res://config/public.cfg"]
 
 var firebase_api_key := ""
 var firebase_project_id := ""

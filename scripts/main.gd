@@ -94,6 +94,7 @@ func _ready() -> void:
 	Game.project_reset.connect(hud.toast)
 	Game.walk_in_client.connect(_on_walk_in_client)
 	office.quest_visitor_clicked.connect(func(id: String): _enqueue(_flow_quest_visit.bind(id)))
+	office.quest_entrance_requested.connect(func(id: String): _enqueue(_flow_quest_visit.bind(id)))
 	StoryQuests.visitor_arrived.connect(func(id: String):
 		office.spawn_quest_visitor(id)
 		hud.toast(StoryQuests.ui("arrived") % StoryQuests.text(StoryQuests.definition(id)["npc"]["name"])))
@@ -276,6 +277,15 @@ func _flow_quest_visit(id: String) -> void:
 	var q = StoryQuests.definition(id)
 	if q.is_empty() or StoryQuests.pending_visitor() != id or StoryQuests.status(id) != "available":
 		return
+	Game.push_pause()
+	await office.follow_quest_entrance(id)
+	if Game.running and StoryQuests.pending_visitor() == id:
+		await _quest_visit_dialogue(id, q)
+	await office.finish_quest_camera()
+	Game.pop_pause()
+
+
+func _quest_visit_dialogue(id: String, q: Dictionary) -> void:
 	dialog.open(PLAYER, _quest_portrait(q))
 	await dialog.say("right", StoryQuests.text(q["dialogue"]["intro"]))
 	await dialog.say("right", StoryQuests.objective(q))

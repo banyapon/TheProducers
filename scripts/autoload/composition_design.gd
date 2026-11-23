@@ -30,6 +30,28 @@ static func brief(job: Dictionary) -> Dictionary:
 static func band_fit(value: float, limits: Array, tolerance: float) -> float:
 	return clampf(1.0 - maxf(float(limits[0]) - value, value - float(limits[1])) / tolerance, 0.0, 1.0)
 
+## Compare musical content across sections, ignoring clip IDs and placement order.
+## More notes or tiny volume changes alone do not earn development points.
+static func development(m: Dictionary) -> float:
+	var bars: Array = [[], [], [], [], [], [], [], []]
+	for p in m["placed"]:
+		var block: Dictionary = m["deck"][p["block"]]
+		bars[int(p["col"])].append(JSON.stringify([int(p["row"]), block["genre"],
+			int(block.get("style", 0)), int(block.get("transpose", 0)),
+			block.get("recorded_notes", block.get("notes", []))]))
+	var sections: Dictionary = {}
+	for columns in [[0, 1], [2, 3, 4], [5, 6, 7]]:
+		var patterns: Array = []
+		var complete := true
+		for col in columns:
+			if bars[col].is_empty(): complete = false
+			bars[col].sort()
+			var pattern = JSON.stringify(bars[col])
+			if not patterns.has(pattern): patterns.append(pattern)
+		patterns.sort()
+		if complete: sections[JSON.stringify(patterns)] = true
+	return clampf((sections.size() - 1) / 2.0, 0.0, 1.0)
+
 static func analyze(m: Dictionary) -> Dictionary:
 	var b: Dictionary = m.get("brief", {"kind": "debut", "bpm": [95,140], "density": [0.3,0.75], "rise": 0.125, "artist_genre": m.get("genre", "Pop")})
 	var energy = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
@@ -45,7 +67,7 @@ static func analyze(m: Dictionary) -> Dictionary:
 		if block["genre"] in b.get("artist_genres", [b["artist_genre"]]): matching += 1
 		if posmod(int(block.get("transpose", 0)), 12) in [0, 7] or p["row"] == 3: coherent += 1
 		if p["row"] == 0:
-			signatures[col] = "%s:%s:%s" % [block["genre"], block.get("style",0), block.get("transpose",0)]
+			signatures[col] = JSON.stringify([block["genre"], block.get("style",0), block.get("transpose",0), block.get("recorded_notes", block.get("notes", []))])
 	var count = m["placed"].size()
 	var density = float(count) / 32.0
 	var intro = (energy[0] + energy[1]) / 2.0
@@ -65,11 +87,15 @@ static func analyze(m: Dictionary) -> Dictionary:
 		for previous in range(col):
 			if signatures.get(previous, "") == signatures[col]: repeat = 1.0
 	var hook_score = repeat * 0.7 + (0.3 if signatures.has(5) or signatures.has(6) or signatures.has(7) else 0.0)
+	# A motif can repeat, but copying it unchanged into every bar is not a fully developed hook.
+	if signatures.size() == 8 and signatures.values().all(func(value): return value == signatures[0]):
+		hook_score *= 0.8
+	var developed = development(m)
 	var artist = (matching / maxi(1,count) * 0.7 + coherent / maxi(1,count) * 0.3)
-	var parts = [roundi(40 * (tempo * 0.55 + texture * 0.45)), roundi(25 * structure), roundi(20 * hook_score), roundi(15 * artist)]
+	var parts = [roundi(40 * (tempo * 0.4 + texture * 0.4 + developed * 0.2)), roundi(25 * structure), roundi(20 * hook_score), roundi(15 * artist)]
 	if count == 0: parts = [0,0,0,0]
 	var total = parts[0] + parts[1] + parts[2] + parts[3]
-	return {"score": total, "idea": roundi(total * 0.3), "stats": parts, "genre_fit": artist, "energy": energy, "density": density, "rise": hook - verse, "tempo_fit": tempo, "repeat": repeat}
+	return {"score": total, "idea": roundi(total * 0.3), "stats": parts, "genre_fit": artist, "energy": energy, "density": density, "rise": hook - verse, "tempo_fit": tempo, "repeat": repeat, "development": developed}
 
 static func advice(m: Dictionary) -> String:
 	var a = analyze(m)
@@ -78,6 +104,7 @@ static func advice(m: Dictionary) -> String:
 	if a["density"] > float(m["brief"]["density"][1]): return Locale.text("arr_advice_dense")
 	if m["brief"]["kind"] != "cafe" and a["rise"] < 0.1: return Locale.text("arr_advice_rise")
 	if a["repeat"] == 0: return Locale.text("arr_advice_hook")
+	if a["development"] < 1.0: return Locale.text("arr_advice_development")
 	return Locale.text("arr_advice_good")
 
 static func report(result: Dictionary) -> String:

@@ -66,6 +66,9 @@ func _process(delta: float) -> void:
 
 func _update_frame() -> void:
 	var expression = (2 if _clock >= _blink_at else 0) + (1 if talking and int(_clock * 8.0) % 2 == 0 else 0)
+	# Quest sheets contain separately framed drawings, not registered animation
+	# frames. Cycling the entire bust makes the head and shoulders visibly jump.
+	if art_id.begins_with("quest-"): expression = 0
 	if expression != _frame:
 		_frame = expression
 		texture = Art.portrait(art_id, expression)

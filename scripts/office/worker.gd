@@ -24,6 +24,8 @@ var gathering = false
 var gather_room = Vector2i.ZERO
 var is_visitor = false
 var quest_id := ""
+var quest_entrance_pending := false
+var cinematic_walk := false
 var _path: Array = []  ## [{pos: Vector2, floor: int}]
 var _timer = 0.0
 var _bubble_timer = 0.0
@@ -99,6 +101,14 @@ func hit_test(p: Vector2) -> bool:
 func _process(delta: float) -> void:
 	if office == null: return
 	_update_name_scale()
+	if quest_entrance_pending:
+		body.speed_scale = 0.0
+		return
+	if cinematic_walk:
+		body.speed_scale = 3.0
+		_update_visual(delta * 3.0)
+		if state == State.WALK: _walk(delta * 3.0)
+		return
 	var can_gather = gathering and Game.idea_meeting.get("phase", "") == "gathering" and Game._pause_requests <= 1
 	body.speed_scale = 2.0 if can_gather else 0.0 if Game.is_paused() or not Game.running else clampf(Game.speed, 0.0, 4.0)
 	if (Game.is_paused() and not can_gather) or not Game.running: return
