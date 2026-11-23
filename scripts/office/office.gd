@@ -6,6 +6,7 @@ extends Node2D
 signal room_clicked(floor_index: int, column: int, room_type: String)
 signal worker_clicked(artist_id: String)
 signal quest_visitor_clicked(quest_id: String)
+signal quest_entrance_requested(quest_id: String)
 signal zoom_changed(value: float)
 
 const ROOM_W := 640.0
@@ -29,6 +30,9 @@ var decoration: Node2D
 var room_labels: Array[Label] = []
 var vip_actor: Worker
 var quest_visitor: Worker
+var quest_camera_active := false
+var _quest_camera_position := Vector2.ZERO
+var _quest_camera_zoom := Vector2.ONE
 var vip_chat_time := 0.0
 var workers = {}  ## artist_id -> Worker
 var _font: Font
@@ -330,17 +334,53 @@ func spawn_quest_visitor(quest_id: String) -> void:
 	w.configure_art(str(npc["art_id"]))
 	w.is_visitor = true
 	w.quest_id = quest_id
+	w.quest_entrance_pending = true
 	w.place(0, building_width() + 220.0)
 	var host: Worker = principals.get("producer")
 	var x = host.position.x + 84.0 if is_instance_valid(host) else random_x_in_room(0)
 	w.go_to(0, clampf(x, shaft_x() + 36.0, building_width() - 36.0))
 	quest_visitor = w
+	quest_entrance_requested.emit.call_deferred(quest_id)
+
+
+func follow_quest_entrance(id: String) -> void:
+	if not is_instance_valid(quest_visitor) or quest_visitor.quest_id != id: return
+	quest_camera_active = true
+	_quest_camera_position = camera.position
+	_quest_camera_zoom = camera.zoom
+	_cancel_wheel_zoom()
+	_pressed = false
+	var guest = quest_visitor
+	guest.quest_entrance_pending = false
+	guest.cinematic_walk = true
+	var elapsed := 0.0
+	while is_instance_valid(guest) and guest.quest_id == id and Game.running:
+		var delta = get_process_delta_time()
+		elapsed += delta
+		camera.position = camera.position.lerp(guest.position + Vector2(0, -100), 1.0 - exp(-delta * 5.0))
+		camera.zoom = camera.zoom.lerp(Vector2.ONE * 1.35, 1.0 - exp(-delta * 4.0))
+		if (guest.state != Worker.State.WALK and elapsed >= 1.0) or elapsed >= 15.0: break
+		await get_tree().process_frame
+	if is_instance_valid(guest): guest.cinematic_walk = false
+
+
+func finish_quest_camera() -> void:
+	if not quest_camera_active: return
+	var tween = create_tween().set_parallel(true)
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(camera, "position", _quest_camera_position, 0.5)
+	tween.tween_property(camera, "zoom", _quest_camera_zoom, 0.5)
+	await tween.finished
+	quest_camera_active = false
+	zoom_changed.emit(camera.zoom.x)
 
 
 func dismiss_quest_visitor() -> void:
 	if not is_instance_valid(quest_visitor): return
 	var w = quest_visitor
 	quest_visitor = null
+	w.quest_entrance_pending = false
+	w.cinematic_walk = false
 	w.quest_id = ""
 	w.leave()
 
@@ -453,6 +493,7 @@ func _click(pos: Vector2) -> void:
 
 
 func _zoom(factor: float) -> void:
+	if quest_camera_active: return
 	_cancel_wheel_zoom()
 	var steps = [0.25,0.5,1.0,2.0,3.0,4.0]
 	var value = camera.zoom.x

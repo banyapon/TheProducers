@@ -6,6 +6,9 @@ signal visitor_arrived(id: String)
 signal visitor_left
 const DEFINITIONS := "res://data/quests/story_quests.json"
 const REPUTATION_GATES := [25, 45, 60, 75, 90]
+const VISIT_CHANCE := 0.20
+const VISIT_GAP_MIN := 7
+const VISIT_GAP_MAX := 14
 var definitions: Array = []
 var registry: Dictionary = {}
 
@@ -32,7 +35,17 @@ func state_data() -> Dictionary:
 	if not state.has("visitor"): state["visitor"] = ""
 	if not state.has("visitor_day"): state["visitor_day"] = -1
 	if not state.has("next_visit_day"): state["next_visit_day"] = 0
+	# Migrate old saves that scheduled guaranteed guests every two or three days.
+	if int(state.get("visit_schedule_version", 0)) < 2:
+		state["visit_schedule_version"] = 2
+		state["last_visit_roll_day"] = -1
+		_schedule_next_visit(state)
 	return state
+
+func _schedule_next_visit(data: Dictionary) -> void:
+	var rng = RandomNumberGenerator.new()
+	rng.seed = hash("story-gap:%s:%d:%d" % [Game.save_slot, Game.day, completed_count()])
+	data["next_visit_day"] = Game.day + rng.randi_range(VISIT_GAP_MIN, VISIT_GAP_MAX)
 
 func state(id: String) -> Dictionary:
 	return Game.life.get("story_quests", {}).get("states", {}).get(id, {})
@@ -66,7 +79,7 @@ func accepted_ids() -> Array:
 			ids.append(str(q["id"]))
 	return ids
 
-## One guest at a time. Reputation opens the next story; otherwise a story can still arrive by chance.
+## One daily roll after a saved quiet period. Reputation never guarantees an arrival.
 func consider_visit() -> void:
 	if not Game.running or DemoCareer.active() or Game.tutorial_step >= 0: return
 	if StudioCity.fire_active(): return
@@ -75,13 +88,18 @@ func consider_visit() -> void:
 	if current != "" and Game.day - int(data.get("visitor_day", Game.day)) >= 3:
 		data["cooldowns"]["visit_" + current] = Game.day + 4
 		data["visitor"] = ""
-		data["next_visit_day"] = Game.day + 2
+		_schedule_next_visit(data)
 		visitor_left.emit()
 		changed.emit()
+		Game.save_game()
 		return
 	if current != "" or Game.day < int(data.get("next_visit_day", 0)): return
+	if Game.day <= int(data.get("last_visit_roll_day", -1)): return
+	data["last_visit_roll_day"] = Game.day
 	var id = _pick_visitor()
-	if id == "": return
+	if id == "":
+		Game.save_game()
+		return
 	data["visitor"] = id
 	data["visitor_day"] = Game.day
 	visitor_arrived.emit(id)
@@ -95,7 +113,7 @@ func decline_visit() -> void:
 	if id == "": return
 	data["cooldowns"]["visit_" + id] = Game.day + 5
 	data["visitor"] = ""
-	data["next_visit_day"] = Game.day + 3
+	_schedule_next_visit(data)
 	visitor_left.emit()
 	changed.emit()
 	Game.save_game()
@@ -110,14 +128,12 @@ func _pick_visitor() -> String:
 		if Game.day < int(data["cooldowns"].get("visit_" + id, 0)): continue
 		if Game.reputation >= reputation_need(q): ready.append(q)
 		else: surprise.append(q)
-	if not ready.is_empty():
-		ready.sort_custom(func(a: Dictionary, b: Dictionary): return int(a["order"]) < int(b["order"]))
-		return str(ready[0]["id"])
-	if surprise.is_empty(): return ""
 	var rng = RandomNumberGenerator.new()
-	rng.seed = hash("story-visit:%s:%d:%d:%d" % [Game.save_slot, Game.day, Game.reputation, completed_count()])
-	if rng.randf() > 0.35: return ""
-	return str(surprise[rng.randi() % surprise.size()]["id"])
+	rng.seed = hash("story-visit:%s:%d" % [Game.save_slot, Game.day])
+	if rng.randf() >= VISIT_CHANCE: return ""
+	var pool: Array = ready if not ready.is_empty() else surprise
+	if pool.is_empty(): return ""
+	return str(pool[rng.randi_range(0, pool.size() - 1)]["id"])
 
 func status(id: String) -> String:
 	var saved = str(state(id).get("status", ""))
@@ -218,7 +234,7 @@ func accept(id: String, choice: String = "together") -> bool:
 	data["states"][id] = {"status":"active", "day":Game.day, "choice":choice, "notified":false, "ending_seen":false}
 	if str(data.get("visitor", "")) == id:
 		data["visitor"] = ""
-		data["next_visit_day"] = Game.day + 2
+		_schedule_next_visit(data)
 		visitor_left.emit()
 	Game.save_game()
 	changed.emit()

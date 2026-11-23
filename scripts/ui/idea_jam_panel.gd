@@ -32,6 +32,7 @@ var solo_lane := -1
 var muted_lanes: Array = []
 var listening_label: Label
 var audition_lane := 0
+const LANE_COLORS := [Color("7dd3fc"), Color("c4b5fd"), Color("fbbf24"), Color("fb7185")]
 var _pending_audio := false
 var _audio_boundary := 0.0
 var improvise: ImprovisePanel
@@ -228,7 +229,7 @@ func refresh() -> void:
 	# Explicit Locale calls own the mixed-language editor; do not retranslate controls.
 	body_root.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
 	var body = UIKit.centered_window(body_root, 1740, 650 if review_open else 990)
-	body.add_theme_constant_override("separation", 8)
+	body.add_theme_constant_override("separation", 6)
 	var head = HBoxContainer.new()
 	body.add_child(head)
 	var title = UIKit.label(Locale.text("composer_title"), 36)
@@ -269,7 +270,7 @@ func refresh() -> void:
 	body.add_child(hero)
 	var tools_column = VBoxContainer.new()
 	tools_column.size_flags_horizontal = SIZE_EXPAND_FILL
-	tools_column.add_theme_constant_override("separation", 12)
+	tools_column.add_theme_constant_override("separation", 6)
 	hero.add_child(tools_column)
 	var art = TextureRect.new()
 	art.name = "ComposerIllustration"
@@ -288,13 +289,22 @@ func refresh() -> void:
 	var shift_hint = UIKit.label(ComposerFlow.feedback(meeting), 28)
 	shift_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	guide.add_child(shift_hint)
-	if job.has("demo_index"): guide.add_child(UIKit.label(Locale.text("flow_lesson_%d" % int(job["demo_index"])), 26))
+	if job.has("demo_index") and not advanced: guide.add_child(UIKit.label(Locale.text("flow_lesson_%d" % int(job["demo_index"])), 26))
 	if meeting["phase"] == "gathering":
 		guide.add_child(UIKit.label(Locale.text("jam_gather")))
 		body.add_child(UIKit.button(Locale.english("cancel"), Game.cancel_idea_meeting))
 		return
 	var palette = HBoxContainer.new()
 	tools_column.add_child(palette)
+	var tap_hint = UIKit.label(("1 เลือกเสียง → 2 จิ้มช่องที่มี + → 3 ฟังเพลง" if Locale.language == "th" else "1 Choose a sound → 2 Tap a + slot → 3 Listen"), 28)
+	tap_hint.name = "ComposerTapHint"
+	tap_hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	tap_hint.add_theme_color_override("font_color", Color("a7f3d0"))
+	tools_column.add_child(tap_hint)
+	if selected >= 0:
+		tap_hint.text = ("เลือกเสียงแล้ว • จิ้ม + เพื่อวาง / จิ้มเสียงเดิมเพื่อแทนที่" if Locale.language == "th" else "Sound selected • Tap + to place / tap a clip to replace")
+		if not meeting.get("freeform", false):
+			tap_hint.text = "เลือกเสียงแล้ว • จิ้มช่อง + ที่ไฮไลต์เพื่อวาง" if Locale.language == "th" else "Sound selected • Tap a highlighted + slot to place"
 	var genre = OptionButton.new()
 	genre.name = "ComposerGenre"
 	genre.disabled = int(meeting["brief"].get("lesson", 2)) < 2
@@ -314,7 +324,15 @@ func refresh() -> void:
 		label.mouse_filter = MOUSE_FILTER_IGNORE
 		tile.add_child(label)
 		tile.selected.connect(func(id: int): selected = id; inspected = -1; audition_clip(id); refresh())
-		if selected == tile.block_id: tile.modulate = Color("ffd166")
+		var tile_style = StyleBoxFlat.new()
+		tile_style.bg_color = Color("234453") if selected != tile.block_id else Color("23604b")
+		tile_style.border_color = Color("a7f3d0") if selected == tile.block_id else Color("63869a")
+		tile_style.set_border_width_all(3 if selected == tile.block_id else 1)
+		tile_style.set_corner_radius_all(10)
+		tile_style.content_margin_left = 12
+		tile_style.content_margin_right = 12
+		tile.add_theme_stylebox_override("panel", tile_style)
+		if selected == tile.block_id: label.text = "✓ " + tile.caption
 		palette.add_child(tile)
 	palette.add_child(UIKit.button(Locale.english("flow_advanced" if not advanced else "flow_basic"), func(): advanced = not advanced; refresh()))
 	var editing = HBoxContainer.new()
@@ -322,6 +340,10 @@ func refresh() -> void:
 	editing.add_child(UIKit.button(Locale.english("arr_undo"), undo))
 	editing.add_child(UIKit.button(Locale.english("arr_redo"), redo))
 	editing.add_child(UIKit.button(Locale.english("arr_deselect"), func(): selected = -1; inspected = -1; refresh()))
+	if inspected >= 0 and not advanced:
+		var remove_button = UIKit.button(Locale.text("arr_delete"), _remove_clip.bind(inspected))
+		remove_button.name = "ComposerDeleteClip"
+		editing.add_child(remove_button)
 	editing.add_child(UIKit.button(Locale.english("flow_before"), func(): listen_comparison(true)))
 	editing.add_child(UIKit.button(Locale.english("flow_after"), func(): listen_comparison(false)))
 	editing.add_child(UIKit.button(Locale.english("flow_preview"), play_section.bind(-1)))
@@ -368,6 +390,7 @@ func refresh() -> void:
 		label.tooltip_text = Locale.text("flow_audition_lane")
 		label.toggle_mode = true
 		label.set_pressed_no_signal(audition_lane == lane)
+		label.add_theme_color_override("font_color", LANE_COLORS[lane])
 		var lane_tools = VBoxContainer.new()
 		lane_tools.custom_minimum_size.x = 280
 		row.add_child(lane_tools)
@@ -406,6 +429,18 @@ func refresh() -> void:
 				if selected >= 0: place(selected, cell.row, cell.col)
 				elif cell.occupied >= 0: inspected = cell.occupied; refresh())
 			cell.self_modulate = [Color("b0d6d0"), Color("bcc9e2"), Color("f0d29c")][0 if column < 2 else (1 if column < 5 else 2)]
+			cell.mouse_default_cursor_shape = CURSOR_POINTING_HAND
+			var can_tap = selected >= 0 and IdeaRules.can_place(meeting, selected, lane, column)
+			var slot_style = StyleBoxFlat.new()
+			slot_style.bg_color = LANE_COLORS[lane].darkened(0.78 if cell.occupied < 0 else 0.55)
+			slot_style.border_color = Color("a7f3d0") if can_tap else LANE_COLORS[lane].darkened(0.35)
+			slot_style.set_border_width_all(3 if can_tap or cell.occupied == inspected and inspected >= 0 else 1)
+			slot_style.set_corner_radius_all(8)
+			cell.add_theme_stylebox_override("normal", slot_style)
+			cell.modulate = Color.WHITE
+			cell.self_modulate = Color.WHITE
+			if cell.occupied < 0: cell.text = ("+ " if can_tap else "") + str(column + 1)
+			cell.tooltip_text = tap_hint.text if cell.occupied < 0 else ("จิ้มเพื่อแก้ไขเสียง" if Locale.language == "th" else "Tap to edit this clip")
 			row.add_child(cell)
 			cells.append(cell)
 	var footer = HBoxContainer.new()

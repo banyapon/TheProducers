@@ -22,6 +22,7 @@
   "arr_advice_dense": "Alice: This brief needs more space. Try removing a layer instead of adding one.",
   "arr_advice_rise": "Alice: The Verse and Hook have similar energy. Try saving a layer for the Hook.",
   "arr_advice_hook": "Alice: Bring a melody back in the Hook so listeners have something to remember.",
+  "arr_advice_development": "Alice: Vary patterns or instrumentation between Opening, Build and Hook while keeping a recognizable melody. You do not need to add more layers.",
   "arr_advice_good": "Alice: The main shape fits. Listen through the transitions before submitting.",
   "arr_report": "Brief fit: %d/40\nStructure: %d/25\nHook: %d/20\nArtist fit: %d/15\nCommission suitability: %d/100",
   "demo_entry": "Tutorial: learn through 3 songs",
