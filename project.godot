@@ -34,14 +34,19 @@ MusicGen="*res://scripts/autoload/music_gen.gd"
 Audio="*res://scripts/autoload/audio.gd"
 StoryQuests="*res://scripts/autoload/story_quests.gd"
 
+[audio]
+
+; Composer transport needs stream playback for seeking, pausing and loop regions.
+general/default_playback_type.web=0
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/window_width_override=1600
 window/size/window_height_override=900
-window/size/mode.pc_release=3
 window/stretch/mode="canvas_items"
+window/size/mode.pc_release=3
 
 [gui]
 

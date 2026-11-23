@@ -15,6 +15,7 @@ var _last_track := ""
 var _cache: Dictionary = {}
 var _quitting := false
 var workshop_quiet := false
+var composer_open := false
 
 func quit_game() -> void:
 	if _quitting: return
@@ -53,12 +54,13 @@ func _ready() -> void:
 			AudioServer.set_bus_send(AudioServer.bus_count - 1, "Master")
 	for player in [bgm, ambient, effects, clicks, preview]: add_child(player)
 	bgm.bus = "BGM"
-	preview.bus = "BGM"
+	preview.bus = "Composer"
 	for player in [ambient, effects, clicks]: player.bus = "SFX"
 	var config = ConfigFile.new()
 	config.load("user://audio.cfg")
 	for bus in levels: set_level(bus, float(config.get_value("audio", bus, levels[bus])), false)
-	for file in DirAccess.get_files_at("res://assets/bgm"):
+	# Exported audio is remapped; DirAccess sees .remap files instead of tracks.
+	for file in ResourceLoader.list_directory("res://assets/bgm"):
 		if file.ends_with(".mp3") and file != "title.mp3": playlist.append("res://assets/bgm/" + file)
 	bgm.finished.connect(_next_bgm)
 	preview.finished.connect(stop_preview)
@@ -120,7 +122,7 @@ func _process(delta: float) -> void:
 		stop_preview()
 		ambient.stop()
 		_next_bgm()
-	var quiet = Game.running and Game.idea_meeting.get("phase", "") in ["ready", "playing"]
+	var quiet = composer_open and Game.running and Game.idea_meeting.get("phase", "") in ["ready", "playing"]
 	if quiet and not workshop_quiet:
 		stop_preview()
 		effects.stop()

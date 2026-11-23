@@ -173,7 +173,15 @@ func _ready() -> void:
 	Locale.language_changed.connect(_refresh_if_open.unbind(1))
 	super()
 
+func open() -> void:
+	Audio.composer_open = true
+	super()
+
+func _exit_tree() -> void:
+	Audio.composer_open = false
+
 func close() -> void:
+	Audio.composer_open = false
 	if is_instance_valid(improvise):
 		improvise.stop()
 		improvise.queue_free()

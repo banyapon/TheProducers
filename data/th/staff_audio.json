@@ -47,6 +47,7 @@
   "stop_music": "หยุดเพลง",
   "volume_master": "ระดับเสียงรวม",
   "volume_bgm": "เพลงประกอบ",
+  "volume_composer": "เสียงแต่งเพลง",
   "volume_sfx": "เอฟเฟกต์ / บรรยากาศ",
   "monthly_feedback_title": "เดือน %d: รายงานจาก Alice",
   "feedback_preview": "ชื่อเสียง %+d | ความน่าเชื่อถือ %+d | ใช้เงิน %s",

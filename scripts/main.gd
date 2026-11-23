@@ -706,7 +706,6 @@ func _return_to_title() -> void:
 	Game.save_game()
 	Game.running = false
 	# Recreate the scene to cancel pending dialog coroutines and modal pause ownership.
-	FirebaseAuth.sign_out()
 	Game._pause_requests = 0
 	get_tree().reload_current_scene()
 

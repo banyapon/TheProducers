@@ -5,6 +5,7 @@ extends Node
 signal signed_in(user: Dictionary)
 signal signed_out
 signal auth_error(message: String)
+signal refresh_finished(ok: bool)
 
 const ACCOUNT_URL := "https://identitytoolkit.googleapis.com/v1/accounts:%s?key=%s"
 const REFRESH_URL := "https://securetoken.googleapis.com/v1/token?key=%s"
@@ -33,6 +34,11 @@ var _refresh_token = ""
 var _expires_at = 0.0
 var google_busy := false
 var _google_cancelled := false
+var startup_restore_attempted := false
+var _refreshing := false
+var _session_generation := 0
+# Overridable for isolated session tests; production uses the normal user folder.
+var session_path := SESSION_PATH
 
 func has_google() -> bool:
 	if OS.has_feature("web"): return Secrets.has_firebase() and not GoogleWeb.client_id().is_empty()
@@ -86,20 +92,22 @@ func sign_in_anonymous() -> bool:
 
 func has_saved_session() -> bool:
 	var cfg = ConfigFile.new()
-	return cfg.load(SESSION_PATH) == OK and str(cfg.get_value("auth", "refresh_token", "")) != ""
+	return cfg.load(session_path) == OK and str(cfg.get_value("auth", "refresh_token", "")) != ""
 
 
 func saved_session_label() -> String:
 	var cfg = ConfigFile.new()
-	if cfg.load(SESSION_PATH) != OK:
+	if cfg.load(session_path) != OK:
 		return ""
 	var mail = str(cfg.get_value("auth", "email", ""))
 	return mail if mail != "" else "Guest-%s" % str(cfg.get_value("auth", "uid", "")).left(6)
 
 
 func restore_session() -> bool:
+	if is_signed_in():
+		return not (await get_id_token()).is_empty()
 	var cfg = ConfigFile.new()
-	if cfg.load(SESSION_PATH) != OK:
+	if cfg.load(session_path) != OK:
 		return false
 	_refresh_token = cfg.get_value("auth", "refresh_token", "")
 	email = cfg.get_value("auth", "email", "")
@@ -115,17 +123,25 @@ func get_id_token() -> String:
 	if uid == "":
 		return ""
 	if Time.get_unix_time_from_system() > _expires_at - 60.0:
-		await _refresh()
+		if not await _refresh(): return ""
 	return _id_token
 
 
-func sign_out() -> void:
+## Stop using the account for offline/demo play without forgetting it on disk.
+func suspend_session() -> void:
+	_session_generation += 1
 	uid = ""
 	email = ""
+	is_anonymous = false
 	_id_token = ""
 	_refresh_token = ""
-	if FileAccess.file_exists(SESSION_PATH):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SESSION_PATH))
+	_expires_at = 0.0
+
+func sign_out() -> void:
+	suspend_session()
+	startup_restore_attempted = true
+	if FileAccess.file_exists(session_path):
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(session_path))
 	signed_out.emit()
 
 
@@ -133,8 +149,11 @@ func _account_call(endpoint: String, body: Dictionary) -> bool:
 	if not Secrets.has_firebase():
 		auth_error.emit(Locale.text("legacy_094"))
 		return false
-	var res: Dictionary = await Http.post(self, ACCOUNT_URL % [endpoint, Secrets.firebase_api_key],
+	_session_generation += 1
+	var generation = _session_generation
+	var res: Dictionary = await _post(ACCOUNT_URL % [endpoint, Secrets.firebase_api_key],
 		PackedStringArray(["Content-Type: application/json"]), JSON.stringify(body).to_utf8_buffer(), 20.0)
+	if generation != _session_generation: return false
 	var data = Http.json_of(res)
 	if res["code"] != 200:
 		auth_error.emit(_error_text(res, data))
@@ -151,13 +170,27 @@ func _account_call(endpoint: String, body: Dictionary) -> bool:
 
 
 func _refresh() -> bool:
+	if _refreshing:
+		return await refresh_finished
+	_refreshing = true
+	var ok = await _refresh_once()
+	_refreshing = false
+	refresh_finished.emit(ok)
+	return ok
+
+func _refresh_once() -> bool:
 	if _refresh_token == "" or not Secrets.has_firebase():
 		return false
+	var generation = _session_generation
 	var body = "grant_type=refresh_token&refresh_token=%s" % _refresh_token.uri_encode()
-	var res: Dictionary = await Http.post(self, REFRESH_URL % Secrets.firebase_api_key,
+	var res: Dictionary = await _post(REFRESH_URL % Secrets.firebase_api_key,
 		PackedStringArray(["Content-Type: application/x-www-form-urlencoded"]), body.to_utf8_buffer(), 20.0)
+	if generation != _session_generation: return false
 	var data = Http.json_of(res)
 	if res["code"] != 200:
+		var reason = str(data.get("error", {}).get("message", "")).split(" ")[0]
+		if reason in ["TOKEN_EXPIRED", "INVALID_REFRESH_TOKEN", "USER_DISABLED", "USER_NOT_FOUND"]:
+			sign_out()
 		auth_error.emit(_error_text(res, data))
 		return false
 	uid = data.get("user_id", "")
@@ -174,7 +207,11 @@ func _save_session() -> void:
 	cfg.set_value("auth", "uid", uid)
 	cfg.set_value("auth", "email", email)
 	cfg.set_value("auth", "anonymous", is_anonymous)
-	cfg.save(SESSION_PATH)
+	var error = cfg.save(session_path)
+	if error != OK: push_warning("Could not persist authentication session: " + error_string(error))
+
+func _post(url: String, headers: PackedStringArray, body: PackedByteArray, timeout: float) -> Dictionary:
+	return await Http.post(self, url, headers, body, timeout)
 
 
 func _user_dict() -> Dictionary:

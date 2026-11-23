@@ -47,6 +47,7 @@
   "stop_music": "STOP",
   "volume_master": "Volume / Master",
   "volume_bgm": "BGM",
+  "volume_composer": "Composer",
   "volume_sfx": "SFX / Ambient",
   "monthly_feedback_title": "MONTH %d: ALICE FEEDBACK",
   "feedback_preview": "Fame %+d | Reputation %+d | Cost %s",

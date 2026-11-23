@@ -2,7 +2,7 @@ class_name AudioOptions
 extends RefCounted
 
 static func add_controls(body: Container) -> void:
-	for bus in ["Master", "BGM", "SFX"]:
+	for bus in ["Master", "BGM", "SFX", "Composer"]:
 		var row = HBoxContainer.new()
 		body.add_child(row)
 		var title = UIKit.label(Locale.text("volume_" + bus.to_lower()), 32)

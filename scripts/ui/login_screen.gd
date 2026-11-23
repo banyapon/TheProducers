@@ -30,6 +30,13 @@ func _ready() -> void:
 		if not is_instance_valid(_quest_catalogue) or not _quest_catalogue.visible: _render())
 	resized.connect(_layout_title)
 	open()
+	_restore_on_startup.call_deferred()
+
+func _restore_on_startup() -> void:
+	if FirebaseAuth.startup_restore_attempted: return
+	FirebaseAuth.startup_restore_attempted = true
+	if visible and not _busy and Secrets.has_firebase() and FirebaseAuth.has_saved_session():
+		_restore()
 
 func _set_status(message: String) -> void:
 	if not is_instance_valid(status_label): return
@@ -131,7 +138,7 @@ func _authenticate(signup: bool) -> void:
 
 func _restore() -> void:
 	var cfg = ConfigFile.new()
-	cfg.load(FirebaseAuth.SESSION_PATH)
+	cfg.load(FirebaseAuth.session_path)
 	_identity = str(cfg.get_value("auth", "email", "")).to_lower()
 	_pending = FirebaseAuth.restore_session
 	if not _identity.is_empty() and not Locale.has_consent(_identity): _request_consent()
@@ -433,7 +440,7 @@ func _play_tab(body: VBoxContainer) -> void:
 	if not FirebaseAuth.has_saved_session(): _style_title_primary(offline)
 	body.add_child(offline)
 	var tutorial = UIKit.button(Locale.text("demo_entry"), func():
-		FirebaseAuth.sign_out()
+		FirebaseAuth.suspend_session()
 		hide()
 		login_completed.emit("demo_career"))
 	tutorial.tooltip_text = Locale.text("tutorial_intro")
@@ -477,7 +484,7 @@ func _style_title_link(button: Button) -> void:
 
 func _offline_pressed() -> void:
 	if _busy: return
-	FirebaseAuth.sign_out()
+	FirebaseAuth.suspend_session()
 	hide()
 	_password = ""
 	login_completed.emit("")
@@ -487,7 +494,7 @@ func _open_playtest() -> void:
 	panel.can_launch = true
 	add_child(panel)
 	panel.launch.connect(func(slot: String):
-		FirebaseAuth.sign_out()
+		FirebaseAuth.suspend_session()
 		hide()
 		login_completed.emit(slot))
 	panel.closed.connect(panel.queue_free)
