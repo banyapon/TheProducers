@@ -17,7 +17,7 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/stretch_mode=0
 boot_splash/use_filter=false
-boot_splash/image="res://gameoff.png"
+boot_splash/image="res://assets/ui/gameoff.png"
 config/icon="uid://cgf8ml8yy7hfw"
 
 [autoload]
@@ -45,7 +45,7 @@ window/stretch/mode="canvas_items"
 
 [gui]
 
-theme/custom="res://ui_theme.tres"
+theme/custom="res://assets/ui/ui_theme.tres"
 
 [rendering]
 

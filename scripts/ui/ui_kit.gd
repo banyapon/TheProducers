@@ -3,7 +3,7 @@ extends RefCounted
 const DEFAULT_FONT_SIZE := 36
 
 static func readable_font() -> Font:
-	return preload("res://fonts/2005_iannnnnAMD.ttf")
+	return preload("res://assets/fonts/2005_iannnnnAMD.ttf")
 
 static func label(value: String, font_size: int = 28) -> Label:
 	var node = Label.new()

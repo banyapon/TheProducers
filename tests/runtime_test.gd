@@ -18,7 +18,7 @@ func _ready() -> void:
 	var main = load("res://scenes/main.tscn").instantiate()
 	add_child(main)
 	await get_tree().process_frame
-	check(UIKit.readable_font().resource_path == "res://fonts/2005_iannnnnAMD.ttf","the shared UI font is the requested iannnnnAMD file")
+	check(UIKit.readable_font().resource_path == "res://assets/fonts/2005_iannnnnAMD.ttf","the shared UI font is the requested iannnnnAMD file")
 	check(ThemeDB.get_project_theme().default_font.resource_path == UIKit.readable_font().resource_path,"default theme uses the same font")
 	for codepoint in [0x0e33, 0x0e4d, 0x0e32, 0x0e48, 0x0e49]:
 		check(UIKit.readable_font().has_char(codepoint), "selected font contains Thai vowel/tone glyph U+%04X" % codepoint)
