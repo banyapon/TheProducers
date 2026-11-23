@@ -19,27 +19,27 @@ config/secrets.cfg
 *.key
 
 # ---- Build output and release media ----
-# PC/ and WebGL/ builds are committed; their large files go through Git LFS (.gitattributes).
-builds/
+# builds/windows and builds/web are committed; their large files go through Git LFS (.gitattributes).
 releases/
 *.zip
 *.avi
 
-# ---- Aseprite sources: keep only .aseprite files ----
-sources/*
-!sources/sprites/
-!sources/media/
-sources/sprites/*
-!sources/sprites/*.aseprite
-sources/media/*
-!sources/media/*.aseprite
+# ---- Aseprite: keep .aseprite sources, Lua scripts and reports ----
+aseprite/sources/*
+!aseprite/sources/sprites/
+!aseprite/sources/media/
+aseprite/sources/sprites/*
+!aseprite/sources/sprites/*.aseprite
+aseprite/sources/media/*
+!aseprite/sources/media/*.aseprite
+aseprite/**/*.py
 *.aseprite-backup
 
 # ---- Not part of the Godot / Aseprite project ----
 server/
 docs/
 config/SETUP.txt
-tools/**/*.py
+tools/
 __pycache__/
 *.pyc
 .agents/

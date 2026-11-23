@@ -1,4 +1,4 @@
-PC/*.exe filter=lfs diff=lfs merge=lfs -text
-PC/*.pck filter=lfs diff=lfs merge=lfs -text
-WebGL/*.pck filter=lfs diff=lfs merge=lfs -text
-WebGL/*.wasm filter=lfs diff=lfs merge=lfs -text
+builds/windows/*.exe filter=lfs diff=lfs merge=lfs -text
+builds/windows/*.pck filter=lfs diff=lfs merge=lfs -text
+builds/web/*.pck filter=lfs diff=lfs merge=lfs -text
+builds/web/*.wasm filter=lfs diff=lfs merge=lfs -text
